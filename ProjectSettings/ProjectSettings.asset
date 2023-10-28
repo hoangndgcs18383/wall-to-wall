@@ -155,7 +155,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.Seol.WallToWall
+    Android: com.DefaultCompany.wall2wall
     iPhone: com.Seol.WallToWall
   buildNumber:
     Standalone: 0
@@ -258,7 +258,7 @@ PlayerSettings:
   AndroidEnableTango: 0
   androidEnableBanner: 0
   androidUseLowAccuracyLocation: 0
-  androidUseCustomKeystore: 1
+  androidUseCustomKeystore: 0
   m_AndroidBanners:
   - width: 320
     height: 180
@@ -843,11 +843,11 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: UNITY_POST_PROCESSING_STACK_V2
+    Android: UNITY_POST_PROCESSING_STACK_V2;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ENABLE_VOXELBUSTERS_ESSENTIAL_KIT
     Nintendo Switch: UNITY_POST_PROCESSING_STACK_V2
     PS4: UNITY_POST_PROCESSING_STACK_V2
-    Standalone: UNITY_POST_PROCESSING_STACK_V2;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1
-    WebGL: UNITY_POST_PROCESSING_STACK_V2
+    Standalone: UNITY_POST_PROCESSING_STACK_V2;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ENABLE_VOXELBUSTERS_ESSENTIAL_KIT
+    WebGL: UNITY_POST_PROCESSING_STACK_V2;ENABLE_VOXELBUSTERS_ESSENTIAL_KIT
     XboxOne: UNITY_POST_PROCESSING_STACK_V2
     iPhone: UNITY_POST_PROCESSING_STACK_V2
     tvOS: UNITY_POST_PROCESSING_STACK_V2

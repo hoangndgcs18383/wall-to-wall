@@ -69,24 +69,31 @@ public class TriangleManager : MonoBehaviour
             int randomY = Random.Range(-6, 7);
             if (LeftOrRight == "Left")
             {
-                GameObject tempObj = Instantiate(TriangleObj, new Vector2(LeftWall.transform.position.x + offsetLeft, randomY * 1.5f), LeftWall.transform.rotation);
-                SetScale(tempObj);
-                tempObj.transform.SetParent(LeftWall.transform);
+                PoolManager.Instance.CreateOrGetPool(TriangleObj, 3, (obj) =>
+                {
+                    obj.SetActive(true);
+                    obj.transform.position = new Vector2(LeftWall.transform.position.x + offsetLeft, randomY * 1.5f);
+                    obj.transform.rotation = LeftWall.transform.rotation;
+                    SetScale(obj);
+                    obj.transform.SetParent(LeftWall.transform);
+                });
             }
             else if (LeftOrRight == "Right")
             {
-                GameObject tempObj = Instantiate(TriangleObj, new Vector2(RightWall.transform.position.x + offsetRight, randomY * 1.5f), RightWall.transform.rotation);
-                SetScale(tempObj);
-                tempObj.transform.SetParent(RightWall.transform);
+                PoolManager.Instance.CreateOrGetPool(TriangleObj, 3, (obj) =>
+                {
+                    obj.SetActive(true);
+                    obj.transform.position = new Vector2(RightWall.transform.position.x + offsetRight, randomY * 1.5f);
+                    obj.transform.rotation = RightWall.transform.rotation;
+                    SetScale(obj);
+                    obj.transform.SetParent(RightWall.transform);
+                });
             }
 
             yield return new WaitForSeconds(0.01f);
         }
-
-
+        
         IncreaseNumberOfTriangles();
-
-
         yield break;
     }
 
@@ -107,7 +114,7 @@ public class TriangleManager : MonoBehaviour
         {
             foreach (Transform child in LeftWall.transform)
             {
-                GameObject.Destroy(child.gameObject);
+                PoolManager.Instance.ReturnPool(TriangleObj, child.gameObject);
             }
         }
 
@@ -115,7 +122,7 @@ public class TriangleManager : MonoBehaviour
         {
             foreach (Transform child in RightWall.transform)
             {
-                GameObject.Destroy(child.gameObject);
+                PoolManager.Instance.ReturnPool(TriangleObj, child.gameObject);
             }
         }
     }
@@ -124,7 +131,7 @@ public class TriangleManager : MonoBehaviour
     void IncreaseNumberOfTriangles()
     {
         if (NumberOfTriangles >= NumberOfTriangles_Max) return;
-        NumberOfTriangles = GameObject.Find("GameManager").GetComponent<GameManager>().score / TriangleCountUpScore + 1;
+        NumberOfTriangles = GameManager.Instance.score / TriangleCountUpScore + 1;
     }
 
 
