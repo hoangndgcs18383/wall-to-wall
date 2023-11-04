@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Player : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class Player : MonoBehaviour
     public GameObject JumpEffectObj;
     public CameraShake cameraShake;
 
+    private Vector3 _startPos;
 
     GameManager GameManagerScript;
     Rigidbody2D rb;
@@ -28,12 +31,16 @@ public class Player : MonoBehaviour
 
     public int Gravity;
 
+    private Material _material;
 
     void Start()
     {
+        _startPos = transform.position;
+        cameraShake = Camera.main.GetComponent<CameraShake>();
         source = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         GameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _material = GetComponent<SpriteRenderer>().material;
 
         hueValue = Random.Range(0, 10) / 10.0f;
 
@@ -44,36 +51,32 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        rb.gravityScale = Gravity;
+        if (rb.gravityScale != Gravity && !rb)
+        {
+            rb.gravityScale = Gravity;
+        }
 
         if (isDead) return;
+        if (!GameManagerScript.isStarted) return;
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (isFirstTouch)
+            PoolManager.Instance.CreateOrGetPool(JumpEffectObj, 3, (obj) =>
             {
-                isFirstTouch = false;
-                StartPlayer();
+                obj.transform.position = transform.position;
+                obj.SetActive(true);
+                StartCoroutine(ReturnPool(JumpEffectObj, obj));
+            });
+
+            source.PlayOneShot(jumpClip, 1);
+
+            if (rb.velocity.x > 0)
+            {
+                rb.velocity = new Vector2(JumpSpeed_X, JumpSpeed_Y);
             }
             else
             {
-                PoolManager.Instance.CreateOrGetPool(JumpEffectObj, 3, (obj) =>
-                {
-                    obj.transform.position = transform.position;
-                    obj.SetActive(true);
-                    StartCoroutine(ReturnPool(JumpEffectObj, obj));
-                });
-                
-                source.PlayOneShot(jumpClip, 1);
-
-                if (rb.velocity.x > 0)
-                {
-                    rb.velocity = new Vector2(JumpSpeed_X, JumpSpeed_Y);
-                }
-                else
-                {
-                    rb.velocity = new Vector2(-JumpSpeed_X, JumpSpeed_Y);
-                }
+                rb.velocity = new Vector2(-JumpSpeed_X, JumpSpeed_Y);
             }
         }
     }
@@ -100,7 +103,7 @@ public class Player : MonoBehaviour
             {
                 obj.transform.position = other.contacts[0].point;
                 obj.SetActive(true);
-                StartCoroutine(ReturnPool(WallBounceEffectObj, obj));
+                StartCoroutine(ReturnPool(WallBounceEffectObj, obj, isAutoDisable: true));
             });
 
             SetBackgroundColor();
@@ -110,12 +113,12 @@ public class Player : MonoBehaviour
         {
             source.PlayOneShot(deadClip, 1);
             isDead = true;
-            
+
             PoolManager.Instance.CreateOrGetPool(DeadEffectObj, 3, (obj) =>
             {
                 obj.transform.position = transform.position;
                 obj.SetActive(true);
-                StartCoroutine(ReturnPool(DeadEffectObj, obj));
+                StartCoroutine(ReturnPool(DeadEffectObj, obj, isAutoDisable: true));
             });
 
             GameManagerScript.Gameover();
@@ -126,9 +129,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator ReturnPool(GameObject prefab, GameObject obj)
+    private IEnumerator ReturnPool(GameObject prefab, GameObject obj, float delay = 0.5f, bool isAutoDisable = false,
+        Action<GameObject> callback = null)
     {
-        yield return  PoolManager.Instance.ReturnPool(prefab, obj, 0.5f);
+        yield return PoolManager.Instance.ReturnPool(prefab, obj, delay, isAutoDisable, callback);
     }
 
     public void StartPlayer()
@@ -145,16 +149,38 @@ public class Player : MonoBehaviour
         rb.isKinematic = true;
     }
 
+    public void ResetPlayer()
+    {
+        transform.position = _startPos;
+        isDead = false;
+        StopPlayer();
+    }
+
 
     void SetBackgroundColor()
     {
-        hueValue += 0.1f;
+        /*hueValue += 0.1f;
         if (hueValue >= 1)
         {
             hueValue = 0;
         }
 
         // Camera.main.backgroundColor = Color.HSVToRGB(hueValue, 0.5f, 0.3f);
-        Camera.main.backgroundColor = Color.HSVToRGB(hueValue, 0.6f, 0.8f);
+        Camera.main.backgroundColor = Color.HSVToRGB(hueValue, 0.6f, 0.8f);*/
+    }
+    
+    public IEnumerator IEDeadAnimation()
+    {
+        _material.EnableKeyword("ROUNDWAVEUV_ON");
+        
+        while (_material.GetFloat("_RoundWaveStrength") < 1)
+        {
+            _material.SetFloat("_RoundWaveStrength", _material.GetFloat("_RoundWaveStrength") + 0.01f);
+            yield return new WaitForSecondsRealtime(0.01f);
+        }
+        
+        gameObject.SetActive(false);
+        _material.DisableKeyword("ROUNDWAVEUV_ON");
+        yield return new WaitForSecondsRealtime(0.1f);
     }
 }

@@ -1,52 +1,33 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using Sirenix.OdinInspector;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    
+
     [HideInInspector] public int score = 0;
 
     public TMP_Text RankText;
 
     public SpriteRenderer player;
-    
-    public TextMeshProUGUI CurrentScoreText;
-    public TextMeshProUGUI BestScoreText;
-    public TextMeshProUGUI BestText;
-    public GameObject TouchToStartText;
-
-    public GameObject GameOverPanel;
-    public GameObject GameOverEffectPanel;
 
     [HideInInspector] public bool isStarted = false;
-
-
     static int PlayCount;
+
+    public Player Player;
 
 
     void Awake()
     {
         Instance = this;
         Application.targetFrameRate = 60;
-
         Time.timeScale = 1.0f;
-        BestScoreText.text = PlayerPrefs.GetInt("BestScore", 0).ToString();
-    }
-
-
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0) && isStarted == false)
-        {
-            gameStart();
-        }
+        InGameManager.Instance.UpdateBestScore(PlayerPrefs.GetInt("BestScore", 0).ToString());
+        //background.gameObject.SetActive(true);
     }
 
     [Button]
@@ -55,16 +36,25 @@ public class GameManager : MonoBehaviour
         RankManager.Instance.CheatRank();
     }
 
-    private void gameStart()
+    public void GameStart()
     {
+        if (IsStarted) return;
         isStarted = true;
-        TouchToStartText.SetActive(false);
+        Player.StartPlayer();
+
         RankManager.Instance.AddListenerRankChanged(RankChanged);
         RankManager.Instance.Initialize();
-        
+
         SkinManager.Instance.AddListenerSkinColorChanged(SkinColorChanged);
         SkinManager.Instance.Initialize();
+
+        TriangleManager.Instance.StartGame();
+
+        //background.gameObject.SetActive(false);
+        //InGameManager.Instance.InGamePanelStart();
     }
+
+    private bool IsStarted => isStarted;
 
     private void RankChanged()
     {
@@ -72,12 +62,13 @@ public class GameManager : MonoBehaviour
 
         foreach (var rank in RankManager.Instance.GetRankList)
         {
+            if (rank.Value == -1) continue;
             sb.AppendLine($"{rank.Key} : {rank.Value}");
         }
 
         RankText.SetText(sb);
     }
-    
+
     private void SkinColorChanged(Color color)
     {
         player.color = color;
@@ -87,12 +78,12 @@ public class GameManager : MonoBehaviour
     public void addScore()
     {
         score++;
-        CurrentScoreText.text = score.ToString();
+        InGameManager.Instance.UpdateCurrentScore(score.ToString());
 
         if (score > PlayerPrefs.GetInt("BestScore", 0))
         {
             PlayerPrefs.SetInt("BestScore", score);
-            BestScoreText.text = PlayerPrefs.GetInt("BestScore", 0).ToString();
+            InGameManager.Instance.UpdateBestScore(PlayerPrefs.GetInt("BestScore", 0).ToString());
         }
 
         SkinManager.Instance.SetSkinColor(score);
@@ -107,22 +98,37 @@ public class GameManager : MonoBehaviour
 
     IEnumerator GameoverCoroutine()
     {
-        CurrentScoreText.color = Color.white;
+        /*CurrentScoreText.color = Color.white;
         BestScoreText.color = Color.white;
-        BestText.color = Color.white;
+        BestText.color = Color.white;*/
 
-        GameOverEffectPanel.SetActive(true);
+        InGameManager.Instance.ShowOrHideInGamePanelEffect(true);
         Time.timeScale = 0.1f;
+        yield return Player.IEDeadAnimation();
+        InGameManager.Instance.GameOverPanelShow();
         yield return new WaitForSecondsRealtime(0.5f);
-        GameOverPanel.SetActive(true);
-        yield break;
+        InGameManager.Instance.GameOverPanelSetData(new TotalScoreUIData(score.ToString(),
+            PlayerPrefs.GetInt("BestScore", 0).ToString()));
+        InGameManager.Instance.ShowOrHideInGamePanelEffect(false);
+        Time.timeScale = 1f;
+        InGameManager.Instance.UpdateBestScore("0");
     }
 
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        RankManager.Instance.SetRank(score);
+        isStarted = false;
+
+        InGameManager.Instance.Reload();
+        SceneManager.LoadSceneAsync("InGame");
         RankManager.Instance.RemoveListenerRankChanged(RankChanged);
         SkinManager.Instance.RemoveListenerSkinColorChanged(SkinColorChanged);
+        InGameManager.Instance.UpdateBestScore("0");
+    }
+
+    private void OnDestroy()
+    {
+        PoolManager.Instance.ClearPool();
     }
 }

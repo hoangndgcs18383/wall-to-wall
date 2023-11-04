@@ -10,8 +10,7 @@
   <string name="GAME_SERVICES_NEEDS_EMAIL_SCOPE">true</string>
   <string name="GAME_SERVICES_SHOW_ERROR_DIALOGS">true</string>
   <string name="GAME_SERVICES_NEEDS_POPUPS_AT_TOP">true</string>
-  <string name="ADDRESS_BOOK_PERMISSON_REASON">
-  </string>
+  <string name="ADDRESS_BOOK_PERMISSON_REASON">$productName uses contacts.</string>
   <string name="ACCESS_DENIED">Permission not allowed by the user</string>
   <string name="NOTIFICATION_SERVICES_CONTENT_TITLE_KEY">content_title</string>
   <string name="NOTIFICATION_SERVICES_CONTENT_TEXT_KEY">content_text</string>

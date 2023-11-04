@@ -56,16 +56,17 @@ public class PoolManager
         }
     }
     
-    public IEnumerator ReturnPool(GameObject prefab, GameObject obj, float delay)
+    public IEnumerator ReturnPool(GameObject prefab, GameObject obj, float delay, bool isAutoDisable = false , Action<GameObject> callback = null)
     {
         yield return new WaitForSeconds(delay);
-        ReturnPool(prefab, obj);
+        ReturnPool(prefab, obj, isAutoDisable, callback);
     }
 
-    public void ReturnPool(GameObject prefab, GameObject obj)
+    public void ReturnPool(GameObject prefab, GameObject obj, bool isAutoDisable = false , Action<GameObject> callback = null)
     {
         int key = prefab.GetInstanceID();
-        obj.SetActive(false);
+        callback?.Invoke(obj);
+        if(isAutoDisable) obj.SetActive(false);
         _poolList[key].Enqueue(obj);
     }
     

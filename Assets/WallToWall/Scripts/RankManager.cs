@@ -52,12 +52,15 @@ public class RankManager
             GetRankList.Add(key, PlayerPrefs.GetInt(key, -1));
         }
 
-
-        int bestScore = PlayerPrefs.GetInt("BestScore", 0);
-
-        if (bestScore >= 1)
+        SortRank();
+        OnRankChanged?.Invoke();
+    }
+    
+    public void SetRank(int currentRank)
+    {
+        if (currentRank >= 1)
         {
-            SoftRankHasEmptySlot(bestScore);
+            SoftRankHasEmptySlot(currentRank);
         }
     }
 
@@ -72,14 +75,16 @@ public class RankManager
                 return true;
             });
 
+            if (firstOrDefault.Key != null)
+            {
+                PlayerPrefs.SetInt(firstOrDefault.Key, bestScore);
+                return true;
+            }
+            
             if (!SoftRankHasSlot(bestScore))
             {
                 PlayerPrefs.SetInt(firstOrDefault.Key, bestScore);
             }
-            
-            //sort
-            SortRank();
-            Debug.Log(GetRankList.ToJson());
         }
 
         return false;
@@ -104,7 +109,6 @@ public class RankManager
     private void SortRank()
     {
         GetRankList = GetRankList.OrderByDescending(r => r.Value).ToDictionary(r => r.Key, r => r.Value);
-        OnRankChanged?.Invoke();
     }
     
     public void AddListenerRankChanged(Action action)
