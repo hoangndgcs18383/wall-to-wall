@@ -55,7 +55,7 @@ public class TriangleManager : MonoBehaviour
             StartCoroutine(CreateTriangles("Left"));
             StartCoroutine(CreateTriangles("Right"));
         }
-        
+
         _triangleRList.Clear();
         _triangleLList.Clear();
         _triangleStart.Clear();
@@ -195,26 +195,26 @@ public class TriangleManager : MonoBehaviour
     }
 
     private int _currentBackgroundIndex = 0;
-    private bool _isBackgroundChanged = false;
+
+    //private bool _isBackgroundChanged = false;
+    private int _currentScore = 0;
 
     void IncreaseNumberOfTriangles()
     {
-        int score = GameManager.Instance.score;
-        if (score == 5)
+        _currentScore = GameManager.Instance.score;
+
+        if (_currentScore % 5 == 0)
         {
             _currentBackgroundIndex++;
             StartCoroutine(IEChangeBackgroundColor());
+            if (backgroundSprites.Count <= _currentBackgroundIndex)
+            {
+                _currentBackgroundIndex = 0;
+            }
         }
-
-        if (score == 10)
-        {
-            _currentBackgroundIndex--;
-            StartCoroutine(IEChangeBackgroundColor());
-        }
-
 
         if (NumberOfTriangles >= NumberOfTriangles_Max) return;
-        NumberOfTriangles = score / TriangleCountUpScore + 1;
+        NumberOfTriangles = _currentScore / TriangleCountUpScore + 1;
     }
 
 

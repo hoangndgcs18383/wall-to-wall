@@ -195,6 +195,7 @@ MonoBehaviour:
   backgroundSprites:
   - {fileID: 21300000, guid: 8fe969b368f658043ac18090df6900d3, type: 3}
   - {fileID: 21300000, guid: 8a035cdd82af0d64cb4fe2d7bfb42960, type: 3}
+  - {fileID: 21300000, guid: b20d4f39bd08d824b93a213fe07c9698, type: 3}
   background: {fileID: 645115157}
   scale: 2
   NumberOfTriangles_Start: 3

@@ -2764,6 +2764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3423e9bfdf2664a44b522805f0394907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyword: FADE_ON
 --- !u!1 &5665487996729280298
 GameObject:
   m_ObjectHideFlags: 0
@@ -3354,11 +3355,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8871910696273743996, guid: b84121ae4f7edd34981dd20ccef892e5,
-        type: 3}
-      propertyPath: m_RaycastTarget
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b84121ae4f7edd34981dd20ccef892e5, type: 3}

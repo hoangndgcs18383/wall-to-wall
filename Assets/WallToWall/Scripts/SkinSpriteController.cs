@@ -9,16 +9,15 @@ public class SkinSpriteController : MonoBehaviour, IPointerExitHandler, IPointer
     void Start()
     {
         _material = GetComponent<Image>().material;
-        _material.DisableKeyword("DOODLE_ON");
     }
     
     public void OnPointerExit(PointerEventData eventData)
     {
-        _material.DisableKeyword("DOODLE_ON");
+        _material.SetFloat("_HandDrawnAmount", 0);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        _material.EnableKeyword("DOODLE_ON");
+        _material.SetFloat("_HandDrawnAmount", 10);
     }
 }
