@@ -1612,6 +1612,7 @@ GameObject:
   - component: {fileID: 1864328882}
   - component: {fileID: 1864328887}
   - component: {fileID: 1864328881}
+  - component: {fileID: 1864328888}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1952,6 +1953,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1864328888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864328880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99abec9c9bbf1074d8727ec8f803e5c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyword: ROUNDWAVEUV_ON
 --- !u!1 &1904210508
 GameObject:
   m_ObjectHideFlags: 0
