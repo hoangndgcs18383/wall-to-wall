@@ -33,7 +33,7 @@ public class LoadingManager : MonoBehaviour
     {
         Instance = this;
     }
-    
+
     public void Transition(TransitionType transitionType, Image image, Action onStart = null, Action onComplete = null)
     {
         switch (transitionType)
@@ -46,11 +46,10 @@ public class LoadingManager : MonoBehaviour
                 break;
         }
     }
-    
+
     private void FadeTransition(Image image, Action onStart, Action onComplete)
     {
         onStart?.Invoke();
-        image.material = new Material(backgroundMaterial);
         image.material.EnableKeyword("FADE_ON");
         image.material.SetFloat("_FadeAmount", startValue);
         DOVirtual.Float(startValue, endValue, transitionDuration,
