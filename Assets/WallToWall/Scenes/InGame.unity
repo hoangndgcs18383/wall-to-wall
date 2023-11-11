@@ -198,8 +198,8 @@ MonoBehaviour:
   background: {fileID: 645115157}
   scale: 2
   NumberOfTriangles_Start: 3
-  NumberOfTriangles_Max: 3
-  TriangleCountUpScore: 1
+  NumberOfTriangles_Max: 15
+  TriangleCountUpScore: 5
 --- !u!114 &287904194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1641,8 +1641,8 @@ MonoBehaviour:
   isDead: 0
   jumpClip: {fileID: 8300000, guid: 7d1f4e91c786d4899b7fb7668a96839c, type: 3}
   deadClip: {fileID: 8300000, guid: c3179dc4e41384ce6a8f41a5d4b414a0, type: 3}
-  JumpSpeed_X: 6
-  JumpSpeed_Y: 14
+  JumpSpeed_X: 10
+  JumpSpeed_Y: 17
   Gravity: 3
 --- !u!58 &1864328882
 CircleCollider2D:

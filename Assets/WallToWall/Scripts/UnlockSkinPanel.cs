@@ -16,7 +16,7 @@ public class UnlockSkinPanel : MonoBehaviour
     [SerializeField] private TMP_Text tapToCloseTxt;
 
     private Sequence _showAnim;
-
+    
     private void Start()
     {
         tapToClose.onClick.AddListener(Hide);
@@ -24,6 +24,7 @@ public class UnlockSkinPanel : MonoBehaviour
 
     private void OnShow(int skinIndex)
     {
+        Save(skinIndex);
         skinImage.sprite = skinsUnlock[skinIndex];
 
         skinImage.transform.localScale = Vector3.zero;
@@ -53,6 +54,16 @@ public class UnlockSkinPanel : MonoBehaviour
         });
     }
 
+    public bool IsUnlock(int skinIndex)
+    {
+        return PlayerPrefs.GetInt($"Skin_{skinIndex}", 0) == 1;
+    }
+    
+    private void Save(int skinIndex)
+    {
+        PlayerPrefs.SetInt($"Skin_{skinIndex}", 1);
+    }
+    
     private void OnHide()
     {
         unlockTagTf.gameObject.SetActive(false);
@@ -61,10 +72,10 @@ public class UnlockSkinPanel : MonoBehaviour
     }
 
     [Button]
-    public void Show()
+    public void Show(int skinIndex)
     {
         gameObject.SetActive(true);
-        OnShow(1);
+        OnShow(skinIndex);
     }
 
     public void Hide()

@@ -6,14 +6,13 @@ using Random = UnityEngine.Random;
 
 public class TriangleManager : MonoBehaviour
 {
-
     public static TriangleManager Instance;
-    
+
     public bool inManualAtStart;
     public float offset = 3f;
-    
+
     public GameObject TriangleObj;
-    
+
     public GameObject LeftWall;
     public GameObject RightWall;
 
@@ -26,18 +25,12 @@ public class TriangleManager : MonoBehaviour
 
     int NumberOfTriangles;
 
-    [Space]
-    [Range(0.5f, 2.0f)]
-    public float scale = 1;
+    [Space] [Range(0.5f, 2.0f)] public float scale = 1;
 
 
-    [Space]
-    [Range(0, 15)]
-    public int NumberOfTriangles_Start;
-    [Range(1, 15)]
-    public int NumberOfTriangles_Max;
-    [Range(1, 10)]
-    public int TriangleCountUpScore;
+    [Space] [Range(0, 15)] public int NumberOfTriangles_Start;
+    [Range(1, 15)] public int NumberOfTriangles_Max;
+    [Range(1, 10)] public int TriangleCountUpScore;
 
 
     private void Awake()
@@ -48,7 +41,7 @@ public class TriangleManager : MonoBehaviour
     void Start()
     {
         NumberOfTriangles = NumberOfTriangles_Start;
-        
+
         offsetLeft = (LeftWall.transform.localScale.x / 2f);
         offsetRight = -(RightWall.transform.localScale.x / 2f);
 
@@ -63,6 +56,9 @@ public class TriangleManager : MonoBehaviour
             StartCoroutine(CreateTriangles("Right"));
         }
         
+        _triangleRList.Clear();
+        _triangleLList.Clear();
+        _triangleStart.Clear();
     }
 
     public void WallTouched(string LeftOrRight)
@@ -77,7 +73,7 @@ public class TriangleManager : MonoBehaviour
         StartCoroutine(CreateTriangles("Left"));
         StartCoroutine(CreateTriangles("Right"));
     }
-    
+
     IEnumerator CreateTrianglesStart(string LeftOrRight)
     {
         yield return new WaitForSeconds(0.1f);
@@ -93,55 +89,62 @@ public class TriangleManager : MonoBehaviour
             CreatePoolTriangle(RightWall, TriangleObj, 3, 0f);
             CreatePoolTriangle(RightWall, TriangleObj, 3, -offset);
         }
+
         yield return new WaitForSeconds(0.01f);
     }
 
-    private void CreatePoolTriangle(GameObject wall,GameObject prefab, int i, float y)
+    private void CreatePoolTriangle(GameObject wall, GameObject prefab, int i, float y)
     {
-        PoolManager.Instance.CreateOrGetPool(prefab, 3, (obj) =>
+        PoolManager.Instance.CreateOrGetPool(prefab, i, (obj) =>
         {
             obj.transform.SetParent(wall.transform);
             obj.transform.position = new Vector2(wall.transform.position.x + offsetRight, y);
             obj.transform.rotation = wall.transform.rotation;
             SetScale(obj);
             obj.SetActive(true);
+            _triangleStart.Add(obj);
         });
     }
-    
+
+    private List<GameObject> _triangleRList = new List<GameObject>();
+    private List<GameObject> _triangleLList = new List<GameObject>();
+    private List<GameObject> _triangleStart = new List<GameObject>();
+
     IEnumerator CreateTriangles(string LeftOrRight)
     {
-
         yield return new WaitForSeconds(0.1f);
 
-        for (int i = 0; i < NumberOfTriangles; i++)  // Multiple triangles may appear in the same place.
+        for (int i = 0; i < NumberOfTriangles; i++) // Multiple triangles may appear in the same place.
         {
             int randomY = Random.Range(-6, 7);
             if (LeftOrRight == "Left")
             {
-                PoolManager.Instance.CreateOrGetPool(TriangleObj, 3, (obj) =>
+                PoolManager.Instance.CreateOrGetPool(TriangleObj, 5, (obj) =>
                 {
                     obj.transform.SetParent(LeftWall.transform);
                     obj.transform.position = new Vector2(LeftWall.transform.position.x + offsetLeft, randomY * 1.5f);
                     obj.transform.rotation = LeftWall.transform.rotation;
                     SetScale(obj);
                     obj.SetActive(true);
+                    _triangleLList.Add(obj);
                 });
             }
             else if (LeftOrRight == "Right")
             {
-                PoolManager.Instance.CreateOrGetPool(TriangleObj, 3, (obj) =>
+                PoolManager.Instance.CreateOrGetPool(TriangleObj, 5, (obj) =>
                 {
                     obj.transform.SetParent(RightWall.transform);
                     obj.transform.position = new Vector2(RightWall.transform.position.x + offsetRight, randomY * 1.5f);
                     obj.transform.rotation = RightWall.transform.rotation;
                     SetScale(obj);
                     obj.SetActive(true);
+                    _triangleRList.Add(obj);
                 });
             }
 
             yield return new WaitForSeconds(0.01f);
         }
-        
+
         IncreaseNumberOfTriangles();
         yield break;
     }
@@ -155,40 +158,40 @@ public class TriangleManager : MonoBehaviour
     }
 
 
-
-
-
     void DeleteTriangles(string LeftOrRight)
     {
         if (LeftOrRight == "Left")
         {
-            foreach (Transform child in LeftWall.transform)
+            for (int i = 0; i < _triangleLList.Count; i++)
             {
-                if(!child.gameObject.activeSelf) continue;
-                PoolManager.Instance.ReturnPool(TriangleObj, child.gameObject, callback: (go) =>
+                PoolManager.Instance.ReturnPool(TriangleObj, _triangleLList[i], callback: (go) =>
                 {
                     go.GetComponent<Triangle>().TurnOff();
+                    _triangleLList.RemoveAt(i);
                 });
             }
         }
 
         if (LeftOrRight == "Right")
         {
-            foreach (Transform child in RightWall.transform)
+            for (int i = 0; i < _triangleRList.Count; i++)
             {
-                if(!child.gameObject.activeSelf) continue;
-                PoolManager.Instance.ReturnPool(TriangleObj, child.gameObject, callback: (go) =>
+                PoolManager.Instance.ReturnPool(TriangleObj, _triangleRList[i], callback: (go) =>
                 {
                     go.GetComponent<Triangle>().TurnOff();
+                    _triangleRList.RemoveAt(i);
                 });
             }
         }
     }
-    
+
     private void ClearAllTriangles()
     {
-        DeleteTriangles("Left");
-        DeleteTriangles("Right");
+        for (int i = 0; i < _triangleStart.Count; i++)
+        {
+            PoolManager.Instance.ReturnPool(TriangleObj, _triangleStart[i],
+                callback: (go) => { go.GetComponent<Triangle>().TurnOff(); });
+        }
     }
 
     private int _currentBackgroundIndex = 0;
@@ -202,32 +205,31 @@ public class TriangleManager : MonoBehaviour
             _currentBackgroundIndex++;
             StartCoroutine(IEChangeBackgroundColor());
         }
-        
+
         if (score == 10)
         {
             _currentBackgroundIndex--;
             StartCoroutine(IEChangeBackgroundColor());
         }
-        
-        
+
+
         if (NumberOfTriangles >= NumberOfTriangles_Max) return;
         NumberOfTriangles = score / TriangleCountUpScore + 1;
     }
-    
-    
-    
+
+
     private IEnumerator IEChangeBackgroundColor()
     {
         background.material.EnableKeyword("DOODLE_ON");
-        
+
         while (background.material.GetFloat("_RoundWaveStrength") < 1)
         {
-            background.material.SetFloat("_RoundWaveStrength", background.material.GetFloat("_RoundWaveStrength") + 0.01f);
+            background.material.SetFloat("_RoundWaveStrength",
+                background.material.GetFloat("_RoundWaveStrength") + 0.01f);
             yield return new WaitForSeconds(0.01f);
         }
-        
+
         background.material.DisableKeyword("DOODLE_ON");
         background.sprite = backgroundSprites[_currentBackgroundIndex];
     }
-    
 }

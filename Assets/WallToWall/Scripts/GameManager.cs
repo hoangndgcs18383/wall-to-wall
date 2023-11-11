@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Text;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -26,8 +27,14 @@ public class GameManager : MonoBehaviour
         Instance = this;
         Application.targetFrameRate = 60;
         Time.timeScale = 1.0f;
-        InGameManager.Instance.UpdateBestScore(PlayerPrefs.GetInt("BestScore", 0).ToString());
         //background.gameObject.SetActive(true);
+    }
+
+
+    private void Start()
+    {
+        InGameManager.Instance.UpdateBestScore(PlayerPrefs.GetInt("BestScore", 0).ToString());
+        player.sprite = MainMenuManager.Instance.GetCurrentSkin();
     }
 
     [Button]
@@ -45,7 +52,7 @@ public class GameManager : MonoBehaviour
         RankManager.Instance.AddListenerRankChanged(RankChanged);
         RankManager.Instance.Initialize();
 
-        SkinManager.Instance.AddListenerSkinColorChanged(SkinColorChanged);
+        //SkinManager.Instance.AddListenerSkinColorChanged(SkinColorChanged);
         SkinManager.Instance.Initialize();
 
         TriangleManager.Instance.StartGame();
@@ -105,8 +112,8 @@ public class GameManager : MonoBehaviour
         InGameManager.Instance.ShowOrHideInGamePanelEffect(true);
         Time.timeScale = 0.1f;
         yield return Player.IEDeadAnimation();
-        InGameManager.Instance.GameOverPanelShow();
         yield return new WaitForSecondsRealtime(0.5f);
+        InGameManager.Instance.GameOverPanelShow();
         InGameManager.Instance.GameOverPanelSetData(new TotalScoreUIData(score.ToString(),
             PlayerPrefs.GetInt("BestScore", 0).ToString()));
         InGameManager.Instance.ShowOrHideInGamePanelEffect(false);

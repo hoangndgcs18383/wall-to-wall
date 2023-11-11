@@ -86,8 +86,9 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Wall"))
         {
-            source.PlayOneShot(jumpClip, 1);
-
+            int random = Random.Range(0, 2);
+            AudioManager.Instance.PlaySfx(random != 0 ? "JumpSFX_02" : "JumpSFX_01");
+            
             if (other.gameObject.name == "Left" || other.gameObject.name == "Right")
             {
                 GameManagerScript.addScore();
@@ -95,10 +96,7 @@ public class Player : MonoBehaviour
 
                 GameObject.Find("GameManager").GetComponent<TriangleManager>().WallTouched(other.gameObject.name);
             }
-
-            /*GameObject effectObj = Instantiate(WallBounceEffectObj, other.contacts[0].point, Quaternion.identity);
-            Destroy(effectObj, 0.5f);*/
-
+            
             PoolManager.Instance.CreateOrGetPool(WallBounceEffectObj, 3, (obj) =>
             {
                 obj.transform.position = other.contacts[0].point;
@@ -111,7 +109,7 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.CompareTag("Triangle") && isDead == false)
         {
-            source.PlayOneShot(deadClip, 1);
+            AudioManager.Instance.PlaySfx("DeadSFX");
             isDead = true;
 
             PoolManager.Instance.CreateOrGetPool(DeadEffectObj, 3, (obj) =>

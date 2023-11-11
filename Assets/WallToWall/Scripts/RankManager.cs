@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Zeff.Framework.Extensions;
 
 public class RankManager
 {

@@ -9,15 +9,13 @@ public class Triangle : MonoBehaviour
 
     private void OnEnable()
     {
-        transform.localPosition = new Vector3(-offsetX, transform.localPosition.y, 0);
         transform.DOLocalMoveX(offsetX, duration).SetEase(Ease.Linear);
     }
     
     public void TurnOff()
     {
-        transform.DOLocalMoveX(-offsetX, duration / 2).SetEase(Ease.Linear).OnComplete(() =>
+        transform.DOLocalMoveX(-offsetX, 0.1f).SetEase(Ease.Linear).OnComplete(() =>
         {
-            transform.localPosition = Vector3.zero;
             gameObject.SetActive(false);
         });
     }
