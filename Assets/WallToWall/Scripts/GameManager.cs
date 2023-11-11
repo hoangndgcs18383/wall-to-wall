@@ -119,6 +119,8 @@ public class GameManager : MonoBehaviour
         InGameManager.Instance.ShowOrHideInGamePanelEffect(false);
         Time.timeScale = 1f;
         InGameManager.Instance.UpdateBestScore("0");
+        InGameManager.Instance.UpdateCurrentScore("0");
+        
     }
 
 
