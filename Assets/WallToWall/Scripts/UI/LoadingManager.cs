@@ -26,8 +26,8 @@ public class LoadingManager : MonoBehaviour
 
     public static LoadingManager Instance;
 
-    private static readonly int PinchUvAmount = Shader.PropertyToID("_PinchUvAmount");
-    private static readonly int FadeAmount = Shader.PropertyToID("_FadeAmount");
+    //private static readonly int PinchUvAmount = Shader.PropertyToID("_PinchUvAmount");
+    //private static readonly int FadeAmount = Shader.PropertyToID("_FadeAmount");
 
     private void Awake()
     {
@@ -50,11 +50,11 @@ public class LoadingManager : MonoBehaviour
     private void FadeTransition(Image image, Action onStart, Action onComplete)
     {
         onStart?.Invoke();
-        image.material = Instantiate(backgroundMaterial);
+        image.material = new Material(backgroundMaterial);
         image.material.EnableKeyword("FADE_ON");
-        image.material.SetFloat(FadeAmount, startValue);
+        image.material.SetFloat("_FadeAmount", startValue);
         DOVirtual.Float(startValue, endValue, transitionDuration,
-            value => { image.material.SetFloat(FadeAmount, value); }).OnComplete(() =>
+            value => { image.material.SetFloat("_FadeAmount", value); }).OnComplete(() =>
         {
             image.material.DisableKeyword("FADE_ON");
             onComplete?.Invoke();
@@ -63,7 +63,7 @@ public class LoadingManager : MonoBehaviour
 
     private void RestTransition()
     {
-        backgroundMaterial.SetFloat(FadeAmount, startValue);
+        backgroundMaterial.SetFloat("_FadeAmount", startValue);
         backgroundMaterial.DisableKeyword("FADE_ON");
     }
 }
