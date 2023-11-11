@@ -4996,8 +4996,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinImage: {fileID: 9027359166713767056}
   skinsUnlock:
-  - {fileID: 21300000, guid: 0c2ec036c6b475d4d998dc72eeea152a, type: 3}
-  - {fileID: 21300000, guid: 1e34c8e5ac199dd4d984cc50aa31e99d, type: 3}
+  - Sprite: {fileID: 21300000, guid: 0c2ec036c6b475d4d998dc72eeea152a, type: 3}
+    UnlockPoint: -1
+  - Sprite: {fileID: 21300000, guid: 1e34c8e5ac199dd4d984cc50aa31e99d, type: 3}
+    UnlockPoint: 10
   unlockTagTf: {fileID: 1090270866659150898}
   newTagTf: {fileID: 8483752034163985550}
   effectTf: {fileID: 1525185875964190976}

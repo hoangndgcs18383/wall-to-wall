@@ -85,11 +85,13 @@ public class MainMenuManager : Singleton<MainMenuManager>
         currentPlayerSprite.sprite = skins[_currentSkinIndex];
         currentUnlockStarImage.sprite = unlockStarSprite;
         currentSkinText.SetText(skinName[_currentSkinIndex]);
-
+        
         for (int i = 0; i < skins.Count; i++)
         {
-            if (!unlockSkinPanel.IsUnlock(i))
+            Debug.Log(unlockSkinPanel.IsUnlock(i, PlayerPrefs.GetInt("BestScore", 0)));
+            if (unlockSkinPanel.IsUnlock(i, PlayerPrefs.GetInt("BestScore", 0)))
             {
+                //Debug.Log($"Unlock skin {i}");
                 unlockSkinPanel.Show(i);
             }
         }

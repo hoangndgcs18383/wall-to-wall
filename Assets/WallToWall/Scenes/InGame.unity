@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa8762c8038945c597cce7d891acd9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  multipleScoreChangeBackgrounds: 20
   inManualAtStart: 1
   offset: 5
   TriangleObj: {fileID: 1998591315668160, guid: e2f713d87442eb84c96a1cc4a3331ef1,

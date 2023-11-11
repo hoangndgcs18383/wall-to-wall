@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class TriangleManager : MonoBehaviour
 {
     public static TriangleManager Instance;
 
+    public int multipleScoreChangeBackgrounds = 20;
     public bool inManualAtStart;
     public float offset = 3f;
 
@@ -32,6 +31,7 @@ public class TriangleManager : MonoBehaviour
     [Range(1, 15)] public int NumberOfTriangles_Max;
     [Range(1, 10)] public int TriangleCountUpScore;
 
+    private Dictionary<int, Sprite> _backgroundSprites = new Dictionary<int, Sprite>();
 
     private void Awake()
     {
@@ -40,6 +40,14 @@ public class TriangleManager : MonoBehaviour
 
     void Start()
     {
+        _backgroundSprites.Clear();
+        
+        for (int i = 1; i < backgroundSprites.Count; i++)
+        {
+            _backgroundSprites.Add(i * multipleScoreChangeBackgrounds, backgroundSprites[i]);
+        }
+        
+        
         NumberOfTriangles = NumberOfTriangles_Start;
 
         offsetLeft = (LeftWall.transform.localScale.x / 2f);
@@ -203,7 +211,7 @@ public class TriangleManager : MonoBehaviour
     {
         _currentScore = GameManager.Instance.score;
 
-        if (_currentScore % 5 == 0)
+        if (_backgroundSprites.ContainsKey(_currentScore))
         {
             _currentBackgroundIndex++;
             StartCoroutine(IEChangeBackgroundColor());
@@ -220,16 +228,16 @@ public class TriangleManager : MonoBehaviour
 
     private IEnumerator IEChangeBackgroundColor()
     {
-        background.material.EnableKeyword("DOODLE_ON");
+        background.material.SetFloat("_RoundWaveStrength", 0);
 
         while (background.material.GetFloat("_RoundWaveStrength") < 1)
         {
             background.material.SetFloat("_RoundWaveStrength",
-                background.material.GetFloat("_RoundWaveStrength") + 0.01f);
+                background.material.GetFloat("_RoundWaveStrength") + 0.1f);
             yield return new WaitForSeconds(0.01f);
         }
 
-        background.material.DisableKeyword("DOODLE_ON");
+        background.material.SetFloat("_RoundWaveStrength", 0);
         background.sprite = backgroundSprites[_currentBackgroundIndex];
     }
 }

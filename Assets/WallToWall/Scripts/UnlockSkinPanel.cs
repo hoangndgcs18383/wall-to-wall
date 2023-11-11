@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Sirenix.OdinInspector;
@@ -5,10 +6,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[Serializable]
+public struct SkinData
+{
+    public Sprite Sprite;
+    public int UnlockPoint;
+}
+
 public class UnlockSkinPanel : MonoBehaviour
 {
     [SerializeField] private Image skinImage;
-    [SerializeField] private List<Sprite> skinsUnlock;
+    [SerializeField] private List<SkinData> skinsUnlock;
     [SerializeField] private RectTransform unlockTagTf;
     [SerializeField] private RectTransform newTagTf;
     [SerializeField] private RectTransform effectTf;
@@ -16,7 +24,7 @@ public class UnlockSkinPanel : MonoBehaviour
     [SerializeField] private TMP_Text tapToCloseTxt;
 
     private Sequence _showAnim;
-    
+
     private void Start()
     {
         tapToClose.onClick.AddListener(Hide);
@@ -25,7 +33,7 @@ public class UnlockSkinPanel : MonoBehaviour
     private void OnShow(int skinIndex)
     {
         Save(skinIndex);
-        skinImage.sprite = skinsUnlock[skinIndex];
+        skinImage.sprite = skinsUnlock[skinIndex].Sprite;
 
         skinImage.transform.localScale = Vector3.zero;
         effectTf.transform.localScale = Vector3.zero;
@@ -48,22 +56,20 @@ public class UnlockSkinPanel : MonoBehaviour
         }));
         _showAnim.Append(newTagTf.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack));
         _showAnim.Append(tapToCloseTxt.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack));
-        _showAnim.OnComplete(() =>
-        {
-            tapToCloseTxt.DOFade(0.5f, 0.5f).SetLoops(-1, LoopType.Yoyo);
-        });
+        _showAnim.OnComplete(() => { tapToCloseTxt.DOFade(0.5f, 0.5f).SetLoops(-1, LoopType.Yoyo); });
     }
 
-    public bool IsUnlock(int skinIndex)
+    public bool IsUnlock(int skinIndex, int point)
     {
-        return PlayerPrefs.GetInt($"Skin_{skinIndex}", 0) == 1;
+        if (skinsUnlock.Count <= skinIndex) return false;
+        return skinsUnlock[skinIndex].UnlockPoint <= point && PlayerPrefs.GetInt($"Skin_{skinIndex}", 0) == 0;
     }
-    
+
     private void Save(int skinIndex)
     {
         PlayerPrefs.SetInt($"Skin_{skinIndex}", 1);
     }
-    
+
     private void OnHide()
     {
         unlockTagTf.gameObject.SetActive(false);
