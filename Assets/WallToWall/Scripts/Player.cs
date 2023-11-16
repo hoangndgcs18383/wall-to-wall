@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Player : MonoBehaviour
 {
+    public PlayerConfig playerConfig;
     public GameObject WallBounceEffectObj;
     public GameObject DeadEffectObj;
     public GameObject JumpEffectObj;
     public CameraShake cameraShake;
+    public SpriteRenderer background;
 
     private Vector3 _startPos;
 
@@ -20,16 +23,10 @@ public class Player : MonoBehaviour
     bool isFirstTouch = true;
 
 
-    float hueValue;
-
-    AudioSource source;
-    [Space] public AudioClip jumpClip;
-    public AudioClip deadClip;
-
-    [Space] public int JumpSpeed_X;
+    /*[Space] public int JumpSpeed_X;
     public int JumpSpeed_Y;
 
-    public int Gravity;
+    public int Gravity;*/
 
     private Material _material;
 
@@ -37,23 +34,19 @@ public class Player : MonoBehaviour
     {
         _startPos = transform.position;
         cameraShake = Camera.main.GetComponent<CameraShake>();
-        source = GetComponent<AudioSource>();
+
         rb = GetComponent<Rigidbody2D>();
         GameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
         _material = GetComponent<SpriteRenderer>().material;
-
-        hueValue = Random.Range(0, 10) / 10.0f;
-
-        SetBackgroundColor();
         StopPlayer();
     }
 
 
     void Update()
     {
-        if (rb.gravityScale != Gravity && !rb)
+        if (rb.gravityScale != playerConfig.gravity && !rb)
         {
-            rb.gravityScale = Gravity;
+            rb.gravityScale = playerConfig.gravity;
         }
 
         if (isDead) return;
@@ -68,15 +61,13 @@ public class Player : MonoBehaviour
                 StartCoroutine(ReturnPool(JumpEffectObj, obj));
             });
 
-            source.PlayOneShot(jumpClip, 1);
-
             if (rb.velocity.x > 0)
             {
-                rb.velocity = new Vector2(JumpSpeed_X, JumpSpeed_Y);
+                rb.velocity = new Vector2(playerConfig.jumpSpeedX, playerConfig.jumpSpeedY);
             }
             else
             {
-                rb.velocity = new Vector2(-JumpSpeed_X, JumpSpeed_Y);
+                rb.velocity = new Vector2(-playerConfig.jumpSpeedX, playerConfig.jumpSpeedY);
             }
         }
     }
@@ -88,7 +79,7 @@ public class Player : MonoBehaviour
         {
             int random = Random.Range(0, 2);
             AudioManager.Instance.PlaySfx(random != 0 ? "JumpSFX_02" : "JumpSFX_01");
-            
+
             if (other.gameObject.name == "Left" || other.gameObject.name == "Right")
             {
                 GameManagerScript.addScore();
@@ -96,7 +87,7 @@ public class Player : MonoBehaviour
 
                 GameObject.Find("GameManager").GetComponent<TriangleManager>().WallTouched(other.gameObject.name);
             }
-            
+
             PoolManager.Instance.CreateOrGetPool(WallBounceEffectObj, 3, (obj) =>
             {
                 obj.transform.position = other.contacts[0].point;
@@ -157,6 +148,13 @@ public class Player : MonoBehaviour
 
     void SetBackgroundColor()
     {
+        background.material.SetColor("_InnerOutlineColor",
+            Color.HSVToRGB(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
+        float random = Random.value;
+        background.material.SetFloat("_InnerOutlineAlpha", random);
+
+        //_material.SetColor("_InnerOutlineColor", );
+
         /*hueValue += 0.1f;
         if (hueValue >= 1)
         {
@@ -166,17 +164,17 @@ public class Player : MonoBehaviour
         // Camera.main.backgroundColor = Color.HSVToRGB(hueValue, 0.5f, 0.3f);
         Camera.main.backgroundColor = Color.HSVToRGB(hueValue, 0.6f, 0.8f);*/
     }
-    
+
     public IEnumerator IEDeadAnimation()
     {
         _material.EnableKeyword("ROUNDWAVEUV_ON");
-        
+
         while (_material.GetFloat("_RoundWaveStrength") < 1)
         {
             _material.SetFloat("_RoundWaveStrength", _material.GetFloat("_RoundWaveStrength") + 0.01f);
             yield return new WaitForSecondsRealtime(0.01f);
         }
-        
+
         gameObject.SetActive(false);
         _material.DisableKeyword("ROUNDWAVEUV_ON");
         yield return new WaitForSecondsRealtime(0.1f);

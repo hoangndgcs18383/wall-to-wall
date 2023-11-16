@@ -10,7 +10,7 @@ public class FlashScreen : MonoBehaviour
 
     private void Start()
     {
-        logoTf.rectTransform.DOAnchorPosY(25f, 2f).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
+        logoTf.rectTransform.DOAnchorPosY(50f, 2f).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
         touchToStartButton.onClick.AddListener(OnClickStart);
     }
 

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Backgrounds
+  m_EditorClassIdentifier: 
+  m_GroupName: Backgrounds
+  m_Data:
+    m_SerializedData: []
+  m_GUID: ced5f446f757abd4482dcc5a45528860
+  m_SerializeEntries:
+  - m_GUID: 8fe969b368f658043ac18090df6900d3
+    m_Address: BG_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8a035cdd82af0d64cb4fe2d7bfb42960
+    m_Address: BG_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b20d4f39bd08d824b93a213fe07c9698
+    m_Address: BG_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fcce419788982d94c98f35985f39c3ea
+    m_Address: BG_FIRST
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 3e151b449164f10478fb72504ce7cde1, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 17c3a71e01302924582f78af89db506d, type: 2}
+    - {fileID: 11400000, guid: a8402409a48312b46bbfc6373b407b8b, type: 2}

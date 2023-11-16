@@ -17,4 +17,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/AllIn1SpriteShader/Demo/Demo.unity
     guid: aa7236836849adb4285d82814f472ea5
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 7044cc26b2b5ef54daf7d5401109d4e4,
+      type: 2}

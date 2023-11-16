@@ -1,0 +1,12 @@
+// This file is auto-generated. DO NOT EDIT
+public static class {0}
+{
+	public static string {1}(string key)
+	{
+		switch (key)
+		{
+{2}
+		}
+		return null;
+	}
+}

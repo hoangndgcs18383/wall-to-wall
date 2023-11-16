@@ -88,7 +88,6 @@ public class MainMenuManager : Singleton<MainMenuManager>
         
         for (int i = 0; i < skins.Count; i++)
         {
-            Debug.Log(unlockSkinPanel.IsUnlock(i, PlayerPrefs.GetInt("BestScore", 0)));
             if (unlockSkinPanel.IsUnlock(i, PlayerPrefs.GetInt("BestScore", 0)))
             {
                 //Debug.Log($"Unlock skin {i}");

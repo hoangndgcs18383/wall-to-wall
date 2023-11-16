@@ -5,7 +5,7 @@ public class Triangle : MonoBehaviour
 {
     public float duration = 0.5f;
     
-    private float offsetX = 2f;
+    private float offsetX = 1f;
 
     private void OnEnable()
     {

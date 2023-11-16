@@ -1,36 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class TriangleManager : MonoBehaviour
 {
     public static TriangleManager Instance;
-
-    public int multipleScoreChangeBackgrounds = 20;
-    public bool inManualAtStart;
-    public float offset = 3f;
-
+    public PlayerConfig triangleConfig;
     public GameObject TriangleObj;
-
     public GameObject LeftWall;
     public GameObject RightWall;
-
-    public List<Sprite> backgroundSprites;
     public SpriteRenderer background;
-
-    float offsetLeft;
-    float offsetRight = -0.7f;
-
-
-    int NumberOfTriangles;
-
-    [Space] [Range(0.5f, 2.0f)] public float scale = 1;
-
-
-    [Space] [Range(0, 15)] public int NumberOfTriangles_Start;
-    [Range(1, 15)] public int NumberOfTriangles_Max;
-    [Range(1, 10)] public int TriangleCountUpScore;
-
+    private int NumberOfTriangles;
     private Dictionary<int, Sprite> _backgroundSprites = new Dictionary<int, Sprite>();
 
     private void Awake()
@@ -41,19 +22,26 @@ public class TriangleManager : MonoBehaviour
     void Start()
     {
         _backgroundSprites.Clear();
-        
-        for (int i = 1; i < backgroundSprites.Count; i++)
+
+        for (int i = 0; i < triangleConfig.backgroundKeys.Count; i++)
         {
-            _backgroundSprites.Add(i * multipleScoreChangeBackgrounds, backgroundSprites[i]);
+            if (AddressablesManager.TryLoadAssetSync(BackgroundAddress.GetAddress(triangleConfig.backgroundKeys[i]),
+                    out Sprite sprite))
+            {   
+                _backgroundSprites.Add(i * triangleConfig.multipleScoreChangeBackgrounds, sprite);
+                Debug.Log($"Add background {i * triangleConfig.multipleScoreChangeBackgrounds}");
+            };
         }
-        
-        
-        NumberOfTriangles = NumberOfTriangles_Start;
 
-        offsetLeft = (LeftWall.transform.localScale.x / 2f);
-        offsetRight = -(RightWall.transform.localScale.x / 2f);
+        background.sprite = _backgroundSprites[0];
+        background.GetComponent<BackgroundScreenSize>().Validate();
 
-        if (inManualAtStart)
+        NumberOfTriangles = triangleConfig.numberOfTrianglesStart;
+
+        triangleConfig.offsetLeft = (LeftWall.transform.localScale.x / 2f);
+        triangleConfig.offsetRight = -(RightWall.transform.localScale.x / 2f);
+
+        if (triangleConfig.inManualAtStart)
         {
             StartCoroutine(CreateTrianglesStart("Left"));
             StartCoroutine(CreateTrianglesStart("Right"));
@@ -87,15 +75,15 @@ public class TriangleManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         if (LeftOrRight == "Left")
         {
-            CreatePoolTriangle(LeftWall, TriangleObj, 3, offset);
+            CreatePoolTriangle(LeftWall, TriangleObj, 3, triangleConfig.offsetAtStart);
             CreatePoolTriangle(LeftWall, TriangleObj, 3, 0f);
-            CreatePoolTriangle(LeftWall, TriangleObj, 3, -offset);
+            CreatePoolTriangle(LeftWall, TriangleObj, 3, -triangleConfig.offsetAtStart);
         }
         else if (LeftOrRight == "Right")
         {
-            CreatePoolTriangle(RightWall, TriangleObj, 3, offset);
+            CreatePoolTriangle(RightWall, TriangleObj, 3, triangleConfig.offsetAtStart);
             CreatePoolTriangle(RightWall, TriangleObj, 3, 0f);
-            CreatePoolTriangle(RightWall, TriangleObj, 3, -offset);
+            CreatePoolTriangle(RightWall, TriangleObj, 3, -triangleConfig.offsetAtStart);
         }
 
         yield return new WaitForSeconds(0.01f);
@@ -106,9 +94,8 @@ public class TriangleManager : MonoBehaviour
         PoolManager.Instance.CreateOrGetPool(prefab, i, (obj) =>
         {
             obj.transform.SetParent(wall.transform);
-            obj.transform.position = new Vector2(wall.transform.position.x + offsetRight, y);
+            obj.transform.position = new Vector2(wall.transform.position.x + triangleConfig.offsetRight, y);
             obj.transform.rotation = wall.transform.rotation;
-            SetScale(obj);
             obj.SetActive(true);
             _triangleStart.Add(obj);
         });
@@ -130,9 +117,9 @@ public class TriangleManager : MonoBehaviour
                 PoolManager.Instance.CreateOrGetPool(TriangleObj, 5, (obj) =>
                 {
                     obj.transform.SetParent(LeftWall.transform);
-                    obj.transform.position = new Vector2(LeftWall.transform.position.x + offsetLeft, randomY * 1.5f);
+                    obj.transform.position = new Vector2(LeftWall.transform.position.x + triangleConfig.offsetLeft,
+                        randomY * 1.5f);
                     obj.transform.rotation = LeftWall.transform.rotation;
-                    SetScale(obj);
                     obj.SetActive(true);
                     _triangleLList.Add(obj);
                 });
@@ -142,9 +129,9 @@ public class TriangleManager : MonoBehaviour
                 PoolManager.Instance.CreateOrGetPool(TriangleObj, 5, (obj) =>
                 {
                     obj.transform.SetParent(RightWall.transform);
-                    obj.transform.position = new Vector2(RightWall.transform.position.x + offsetRight, randomY * 1.5f);
+                    obj.transform.position = new Vector2(RightWall.transform.position.x + triangleConfig.offsetRight,
+                        randomY * 1.5f);
                     obj.transform.rotation = RightWall.transform.rotation;
-                    SetScale(obj);
                     obj.SetActive(true);
                     _triangleRList.Add(obj);
                 });
@@ -155,14 +142,6 @@ public class TriangleManager : MonoBehaviour
 
         IncreaseNumberOfTriangles();
         yield break;
-    }
-
-    void SetScale(GameObject go)
-    {
-        return;
-        go.transform.GetChild(0).transform.localScale = new Vector2(scale, scale);
-        go.transform.GetChild(1).transform.localScale = new Vector2(scale, scale);
-        go.transform.GetChild(2).transform.localScale = new Vector2(scale, scale);
     }
 
 
@@ -211,18 +190,18 @@ public class TriangleManager : MonoBehaviour
     {
         _currentScore = GameManager.Instance.score;
 
-        if (_backgroundSprites.ContainsKey(_currentScore))
+        if (_backgroundSprites.ContainsKey(_currentScore) && _currentScore != 0)
         {
             _currentBackgroundIndex++;
             StartCoroutine(IEChangeBackgroundColor());
-            if (backgroundSprites.Count <= _currentBackgroundIndex)
+            if (triangleConfig.backgroundKeys.Count <= _currentBackgroundIndex)
             {
                 _currentBackgroundIndex = 0;
             }
         }
 
-        if (NumberOfTriangles >= NumberOfTriangles_Max) return;
-        NumberOfTriangles = _currentScore / TriangleCountUpScore + 1;
+        if (NumberOfTriangles >= triangleConfig.numberOfTrianglesMax) return;
+        NumberOfTriangles = _currentScore / triangleConfig.triangleCountUpScore + 1;
     }
 
 
@@ -238,6 +217,6 @@ public class TriangleManager : MonoBehaviour
         }
 
         background.material.SetFloat("_RoundWaveStrength", 0);
-        background.sprite = backgroundSprites[_currentBackgroundIndex];
+        background.sprite = _backgroundSprites[_currentBackgroundIndex];
     }
 }

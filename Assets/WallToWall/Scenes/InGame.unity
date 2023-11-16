@@ -186,22 +186,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa8762c8038945c597cce7d891acd9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multipleScoreChangeBackgrounds: 20
-  inManualAtStart: 1
-  offset: 5
+  triangleConfig: {fileID: 11400000, guid: 9101fa62ba1daae4789a7eb2ca778c76, type: 2}
   TriangleObj: {fileID: 1998591315668160, guid: e2f713d87442eb84c96a1cc4a3331ef1,
     type: 3}
   LeftWall: {fileID: 876933262}
   RightWall: {fileID: 491455306}
-  backgroundSprites:
-  - {fileID: 21300000, guid: 8fe969b368f658043ac18090df6900d3, type: 3}
-  - {fileID: 21300000, guid: 8a035cdd82af0d64cb4fe2d7bfb42960, type: 3}
-  - {fileID: 21300000, guid: b20d4f39bd08d824b93a213fe07c9698, type: 3}
   background: {fileID: 645115157}
-  scale: 2
-  NumberOfTriangles_Start: 3
-  NumberOfTriangles_Max: 15
-  TriangleCountUpScore: 5
 --- !u!114 &287904194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,7 +630,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -101
-  m_Sprite: {fileID: 21300000, guid: 8fe969b368f658043ac18090df6900d3, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -648,7 +638,7 @@ SpriteRenderer:
   m_Size: {x: 19.2, y: 10.799999}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &645115158
@@ -663,13 +653,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ee6cdf6546697b45bb9bc042859977f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: 49
-  Wall_Left: {fileID: 1590244796}
-  Wall_Right: {fileID: 391832346}
-  Wall_Top: {fileID: 0}
-  Wall_Bottom: {fileID: 0}
-  removeWall: 0
-  wallThickness: 1
   background: {fileID: 645115157}
 --- !u!1 &794564171
 GameObject:
@@ -1634,6 +1617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3900a8e781644e2aa3f0a4148f12630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerConfig: {fileID: 11400000, guid: 9101fa62ba1daae4789a7eb2ca778c76, type: 2}
   WallBounceEffectObj: {fileID: 1243021560629224, guid: b6035c0c699fc49e091b29439ac2879b,
     type: 3}
   DeadEffectObj: {fileID: 1204438978744632, guid: 65a5451625ed1496c8722e9a83ed5dc3,
@@ -1641,12 +1625,8 @@ MonoBehaviour:
   JumpEffectObj: {fileID: 1516227400015612, guid: d9557e8da8bbb458dba616d37d2641ad,
     type: 3}
   cameraShake: {fileID: 0}
+  background: {fileID: 645115157}
   isDead: 0
-  jumpClip: {fileID: 8300000, guid: 7d1f4e91c786d4899b7fb7668a96839c, type: 3}
-  deadClip: {fileID: 8300000, guid: c3179dc4e41384ce6a8f41a5d4b414a0, type: 3}
-  JumpSpeed_X: 10
-  JumpSpeed_Y: 17
-  Gravity: 3
 --- !u!58 &1864328882
 CircleCollider2D:
   m_ObjectHideFlags: 0

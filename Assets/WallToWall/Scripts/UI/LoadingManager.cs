@@ -1,7 +1,12 @@
 using System;
+using System.Threading.Tasks;
 using DG.Tweening;
 using Sirenix.OdinInspector;
+using Unity.Services.Authentication;
+using Unity.Services.Core;
+using Unity.Services.RemoteConfig;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public enum TransitionType
@@ -23,8 +28,16 @@ public class LoadingManager : MonoBehaviour
 
     [TabGroup("Transition")] [SerializeField]
     private float endValue = 1f;
+    
+    [SerializeField] private Image background;
 
     public static LoadingManager Instance;
+
+    public struct userAttributes
+    {
+        public int TriangleCountUpScore;
+    }
+    public struct appAttributes {}
 
     //private static readonly int PinchUvAmount = Shader.PropertyToID("_PinchUvAmount");
     //private static readonly int FadeAmount = Shader.PropertyToID("_FadeAmount");
@@ -32,6 +45,37 @@ public class LoadingManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        
+        
+    }
+    
+    async void Start()
+    {
+        AddressablesManager.TryLoadAssetSync(BackgroundAddress.GetAddress("BG_FIRST"), out Sprite backgroundSprite);
+        background.sprite = backgroundSprite;
+        if (Utilities.CheckForInternetConnection())
+        {
+            await InitializeRemoteConfigAsync();
+        }
+        
+        RemoteConfigService.Instance.FetchCompleted += ApplyRemoteSettings;
+        RemoteConfigService.Instance.FetchConfigs(new userAttributes(), new appAttributes());
+    }
+
+    private void ApplyRemoteSettings(ConfigResponse obj)
+    {
+        Debug.Log("RemoteConfigService.Instance.appConfig fetched: " + RemoteConfigService.Instance.appConfig.config);
+    }
+
+    async Task InitializeRemoteConfigAsync()
+    {
+        await UnityServices.InitializeAsync();
+
+        // remote config requires authentication for managing environment information
+        if (!AuthenticationService.Instance.IsSignedIn)
+        {
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        }
     }
 
     public void Transition(TransitionType transitionType, Image image, Action onStart = null, Action onComplete = null)

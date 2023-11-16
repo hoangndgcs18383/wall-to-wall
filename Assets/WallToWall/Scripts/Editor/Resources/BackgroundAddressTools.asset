@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3180e30badd0e7242a382d11075a675a, type: 3}
+  m_Name: BackgroundAddressTools
+  m_EditorClassIdentifier: 
+  backgroundDataList:
+  - key: BG_1
+    backgroundTexture: {fileID: 2800000, guid: 8fe969b368f658043ac18090df6900d3, type: 3}
+  - key: BG_2
+    backgroundTexture: {fileID: 2800000, guid: 8a035cdd82af0d64cb4fe2d7bfb42960, type: 3}
+  - key: BG_3
+    backgroundTexture: {fileID: 2800000, guid: b20d4f39bd08d824b93a213fe07c9698, type: 3}
+  - key: BG_FIRST
+    backgroundTexture: {fileID: 2800000, guid: fcce419788982d94c98f35985f39c3ea, type: 3}
+  templatePath: WallToWall/Scripts/Editor/Template/BackgroundAddressTemplate.txt
+  generatePath: WallToWall/Scripts/Generated/BackgroundAddress.cs

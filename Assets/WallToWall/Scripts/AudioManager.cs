@@ -23,6 +23,10 @@ public class AudioManager : Singleton<AudioManager>
     void Awake()
     {
         _sfxClips.Clear();
+        
+        
+        //load audio clips online
+
         foreach (var audioData in sfxClips)
         {
             _sfxClips.Add(audioData.key, audioData.clip);
