@@ -24,6 +24,6 @@ MonoBehaviour:
   - BG_2
   offsetRight: -0.5
   offsetLeft: 0.5
-  numberOfTrianglesStart: 3
+  numberOfTrianglesStart: 1
   numberOfTrianglesMax: 4
-  triangleCountUpScore: 10
+  triangleCountUpScore: 2

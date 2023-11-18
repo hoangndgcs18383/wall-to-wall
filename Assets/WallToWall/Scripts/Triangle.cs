@@ -14,7 +14,7 @@ public class Triangle : MonoBehaviour
     
     public void TurnOff()
     {
-        transform.DOLocalMoveX(-offsetX, 0.1f).SetEase(Ease.Linear).OnComplete(() =>
+        transform.DOLocalMoveX(-offsetX, duration).SetEase(Ease.Linear).OnComplete(() =>
         {
             gameObject.SetActive(false);
         });

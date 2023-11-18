@@ -101,8 +101,8 @@ public class TriangleManager : MonoBehaviour
         });
     }
 
-    private List<GameObject> _triangleRList = new List<GameObject>();
-    private List<GameObject> _triangleLList = new List<GameObject>();
+    [SerializeField] private List<GameObject> _triangleRList = new List<GameObject>();
+    [SerializeField] private List<GameObject> _triangleLList = new List<GameObject>();
     private List<GameObject> _triangleStart = new List<GameObject>();
 
     IEnumerator CreateTriangles(string LeftOrRight)
@@ -112,28 +112,28 @@ public class TriangleManager : MonoBehaviour
         for (int i = 0; i < NumberOfTriangles; i++) // Multiple triangles may appear in the same place.
         {
             int randomY = Random.Range(-6, 7);
-            if (LeftOrRight == "Left")
+            if (LeftOrRight == "Right")
             {
-                PoolManager.Instance.CreateOrGetPool(TriangleObj, 5, (obj) =>
+                PoolManager.Instance.CreateOrGetPool(TriangleObj, 1, (obj) =>
                 {
                     obj.transform.SetParent(LeftWall.transform);
                     obj.transform.position = new Vector2(LeftWall.transform.position.x + triangleConfig.offsetLeft,
                         randomY * 1.5f);
                     obj.transform.rotation = LeftWall.transform.rotation;
                     obj.SetActive(true);
-                    _triangleLList.Add(obj);
+                    //_triangleLList.Add(obj);
                 });
             }
-            else if (LeftOrRight == "Right")
+            else if (LeftOrRight == "Left")
             {
-                PoolManager.Instance.CreateOrGetPool(TriangleObj, 5, (obj) =>
+                PoolManager.Instance.CreateOrGetPool(TriangleObj, 1, (obj) =>
                 {
                     obj.transform.SetParent(RightWall.transform);
                     obj.transform.position = new Vector2(RightWall.transform.position.x + triangleConfig.offsetRight,
                         randomY * 1.5f);
                     obj.transform.rotation = RightWall.transform.rotation;
                     obj.SetActive(true);
-                    _triangleRList.Add(obj);
+                    //_triangleRList.Add(obj);
                 });
             }
 
@@ -149,26 +149,33 @@ public class TriangleManager : MonoBehaviour
     {
         if (LeftOrRight == "Left")
         {
-            for (int i = 0; i < _triangleLList.Count; i++)
+            foreach (Transform child in RightWall.transform)
             {
-                PoolManager.Instance.ReturnPool(TriangleObj, _triangleLList[i], callback: (go) =>
+                if(!child.gameObject.activeSelf) continue; 
+                PoolManager.Instance.ReturnPool(TriangleObj, child.gameObject, callback: (go) =>
                 {
                     go.GetComponent<Triangle>().TurnOff();
-                    _triangleLList.RemoveAt(i);
                 });
             }
         }
-
-        if (LeftOrRight == "Right")
+        else if (LeftOrRight == "Right")
         {
-            for (int i = 0; i < _triangleRList.Count; i++)
+            foreach (Transform child in LeftWall.transform)
+            {
+                if(!child.gameObject.activeSelf) continue; 
+                PoolManager.Instance.ReturnPool(TriangleObj, child.gameObject, callback: (go) =>
+                {
+                    go.GetComponent<Triangle>().TurnOff();
+                });
+            }
+            /*for (int i = 0; i < _triangleRList.Count; i++)
             {
                 PoolManager.Instance.ReturnPool(TriangleObj, _triangleRList[i], callback: (go) =>
                 {
                     go.GetComponent<Triangle>().TurnOff();
-                    _triangleRList.RemoveAt(i);
                 });
-            }
+                _triangleRList.RemoveAt(i);
+            }*/
         }
     }
 

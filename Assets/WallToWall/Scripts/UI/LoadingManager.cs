@@ -51,8 +51,8 @@ public class LoadingManager : MonoBehaviour
     
     async void Start()
     {
-        AddressablesManager.TryLoadAssetSync(BackgroundAddress.GetAddress("BG_FIRST"), out Sprite backgroundSprite);
-        background.sprite = backgroundSprite;
+        /*AddressablesManager.TryLoadAssetSync(BackgroundAddress.GetAddress("BG_FIRST"), out Sprite backgroundSprite);
+        background.sprite = backgroundSprite;*/
         /*if (Utilities.CheckForInternetConnection())
         {
             await InitializeRemoteConfigAsync();
