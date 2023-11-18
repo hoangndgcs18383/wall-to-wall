@@ -53,13 +53,13 @@ public class LoadingManager : MonoBehaviour
     {
         AddressablesManager.TryLoadAssetSync(BackgroundAddress.GetAddress("BG_FIRST"), out Sprite backgroundSprite);
         background.sprite = backgroundSprite;
-        if (Utilities.CheckForInternetConnection())
+        /*if (Utilities.CheckForInternetConnection())
         {
             await InitializeRemoteConfigAsync();
         }
         
         RemoteConfigService.Instance.FetchCompleted += ApplyRemoteSettings;
-        RemoteConfigService.Instance.FetchConfigs(new userAttributes(), new appAttributes());
+        RemoteConfigService.Instance.FetchConfigs(new userAttributes(), new appAttributes());*/
     }
 
     private void ApplyRemoteSettings(ConfigResponse obj)

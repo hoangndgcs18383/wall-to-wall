@@ -148,6 +148,7 @@ public class Player : MonoBehaviour
 
     void SetBackgroundColor()
     {
+        return;
         background.material.SetColor("_InnerOutlineColor",
             Color.HSVToRGB(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
         float random = Random.value;
