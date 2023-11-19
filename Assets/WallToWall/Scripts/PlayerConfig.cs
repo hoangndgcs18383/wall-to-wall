@@ -32,4 +32,5 @@ public struct BackgroundData
 {
     public string key;
     public int score;
+    public Sprite sprite;
 }

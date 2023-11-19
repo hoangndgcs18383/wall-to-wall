@@ -12,7 +12,7 @@ public class TriangleManager : MonoBehaviour
     public GameObject RightWall;
     public SpriteRenderer background;
     private int NumberOfTriangles;
-    private Dictionary<int, Sprite> _backgroundSprites = new Dictionary<int, Sprite>();
+    //private Dictionary<int, Sprite> _backgroundSprites = new Dictionary<int, Sprite>();
 
     private void Awake()
     {
@@ -21,7 +21,7 @@ public class TriangleManager : MonoBehaviour
 
     void Start()
     {
-        _backgroundSprites.Clear();
+        /*_backgroundSprites.Clear();
 
         for (int i = 0; i < triangleConfig.backgroundKeys.Count; i++)
         {
@@ -31,9 +31,9 @@ public class TriangleManager : MonoBehaviour
                 _backgroundSprites.Add(i, sprite);
                 Debug.Log($"Add background {i * triangleConfig.multipleScoreChangeBackgrounds}");
             };
-        }
+        }*/
 
-        background.sprite = _backgroundSprites[0];
+        background.sprite = triangleConfig.backgroundKeys[0].sprite;
         background.GetComponent<BackgroundScreenSize>().Validate();
 
         NumberOfTriangles = triangleConfig.numberOfTrianglesStart;
@@ -240,6 +240,6 @@ public class TriangleManager : MonoBehaviour
         }
 
         background.material.SetFloat("_RoundWaveStrength", 0);
-        background.sprite = _backgroundSprites[_currentBackgroundIndex];
+        background.sprite = triangleConfig.backgroundKeys[_currentBackgroundIndex].sprite;
     }
 }
