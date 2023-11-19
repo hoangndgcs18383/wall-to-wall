@@ -79,9 +79,10 @@ public class MainMenu : BaseScreen
 
         SkinManager.Instance.Initialize(sprites);
         SkinManager.Instance.AddListenerSkinUnlocked(OnUnlockSkin);
-
+#if UNITY_ANDROID || UNITY_IOS
         AdsManager.Instance.Initialize();
-
+#endif
+        
         nextSkinButton.onClick.AddListener(NextSkin);
         previousButton.onClick.AddListener(PreviousSkin);
 
