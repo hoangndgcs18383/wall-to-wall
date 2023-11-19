@@ -21,10 +21,13 @@ MonoBehaviour:
   backgroundKeys:
   - key: BG_1
     score: 10
+    sprite: {fileID: 21300000, guid: 8fe969b368f658043ac18090df6900d3, type: 3}
   - key: BG_2
     score: 20
+    sprite: {fileID: 21300000, guid: 8a035cdd82af0d64cb4fe2d7bfb42960, type: 3}
   - key: BG_3
     score: 30
+    sprite: {fileID: 21300000, guid: b20d4f39bd08d824b93a213fe07c9698, type: 3}
   offsetRight: -0.5
   offsetLeft: 0.5
   numberOfTrianglesStart: 1
