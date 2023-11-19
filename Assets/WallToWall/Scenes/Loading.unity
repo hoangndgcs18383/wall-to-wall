@@ -261,6 +261,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
   - key: DeadSFX
     clip: {fileID: 8300000, guid: 4e1ff8faed12a475eba9be0e46072269, type: 3}
+  - key: TouchSFX
+    clip: {fileID: 8300000, guid: 0994c12e202f342459a4212e7287f7e8, type: 3}
   backgroundClips:
   - key: BGM_INGAME
     clip: {fileID: 8300000, guid: 559c232a43caebe41870ce54786f604e, type: 3}
@@ -289,56 +291,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1822386672179320064, guid: 4a87de8eaa8f8b44ebead3c66c3bf82c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1822386672179320064, guid: 4a87de8eaa8f8b44ebead3c66c3bf82c,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1822386672179320064, guid: 4a87de8eaa8f8b44ebead3c66c3bf82c,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1822386672179320064, guid: 4a87de8eaa8f8b44ebead3c66c3bf82c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1822386672179320064, guid: 4a87de8eaa8f8b44ebead3c66c3bf82c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4420450451250430506, guid: 4a87de8eaa8f8b44ebead3c66c3bf82c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4420450451250430506, guid: 4a87de8eaa8f8b44ebead3c66c3bf82c,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4420450451250430506, guid: 4a87de8eaa8f8b44ebead3c66c3bf82c,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4420450451250430506, guid: 4a87de8eaa8f8b44ebead3c66c3bf82c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4420450451250430506, guid: 4a87de8eaa8f8b44ebead3c66c3bf82c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6594903637380696586, guid: 4a87de8eaa8f8b44ebead3c66c3bf82c,
         type: 3}
       propertyPath: m_Pivot.x

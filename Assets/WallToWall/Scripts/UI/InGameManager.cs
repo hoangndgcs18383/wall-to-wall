@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class InGameManager : Singleton<InGameManager>
 {
-    [SerializeField] private CanvasGroup canvasGroup;
+    //[SerializeField] private CanvasGroup canvasGroup;
     
     #region References
     
-    [SerializeField] private InGamePanel inGamePanel;
+    //[SerializeField] private InGamePanel inGamePanel;
     [SerializeField] private GameOverPanel gameOverPanel;
 
     #endregion
@@ -20,16 +20,16 @@ public class InGameManager : Singleton<InGameManager>
 
     public void Show()
     {
-        canvasGroup.alpha = 1;
+        /*canvasGroup.alpha = 1;
         canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
+        canvasGroup.blocksRaycasts = true;*/
     }
     
     public void Hide()
     {
-        canvasGroup.alpha = 0;
+        /*canvasGroup.alpha = 0;
         canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
+        canvasGroup.blocksRaycasts = false;*/
     }
 
     private void Start()
@@ -51,21 +51,21 @@ public class InGameManager : Singleton<InGameManager>
 
     public void Reload()
     {
-        inGamePanel.Show();
+        //inGamePanel.Show();
         AudioManager.Instance.PlayBGM("BGM_INGAME", volume: 0.3f);
         Show();
     }
     
     public void ShowOrHideInGamePanelEffect(bool e)
     {
-        if(e) inGamePanel.ShowGameOverEffect();
-        else inGamePanel.HideGameOverEffect();
+        /*if(e) inGamePanel.ShowGameOverEffect();
+        else inGamePanel.HideGameOverEffect();*/
     }
     
     public void ShowOrHideInGamePanel(bool e)
     {
-        if(e) inGamePanel.Show();
-        else inGamePanel.Hide();
+        /*if(e) inGamePanel.Show();
+        else inGamePanel.Hide();*/
     }
 
     #endregion
@@ -74,13 +74,13 @@ public class InGameManager : Singleton<InGameManager>
     
     public void GameOverPanelShow()
     {
-        gameOverPanel.Show();
+        //gameOverPanel.Show();
         AudioManager.Instance.StopBGM();
     }
     
     public void GameOverPanelSetData(TotalScoreUIData data)
     {
-        gameOverPanel.SetData(data);
+        //gameOverPanel.SetData(data);
     }
     
     public void GameOverPanelHide()

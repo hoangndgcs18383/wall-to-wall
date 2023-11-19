@@ -20,11 +20,11 @@ public class FlashScreen : MonoBehaviour
         {
             StartOrEndTransition(true);
             AudioManager.Instance.StopBGM();
+            UIManager.Instance.ShowMainMenuScreen();
         }, () =>
         {
             StartOrEndTransition(false);
             AudioManager.Instance.PlayBGM("BGM_MENU", volume: 0.3f);
-            
         });
     }
     

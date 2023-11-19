@@ -192,6 +192,8 @@ MonoBehaviour:
   LeftWall: {fileID: 876933262}
   RightWall: {fileID: 491455306}
   background: {fileID: 645115157}
+  _triangleRList: []
+  _triangleLList: []
 --- !u!114 &287904194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1623,6 +1625,8 @@ MonoBehaviour:
   DeadEffectObj: {fileID: 1204438978744632, guid: 65a5451625ed1496c8722e9a83ed5dc3,
     type: 3}
   JumpEffectObj: {fileID: 1516227400015612, guid: d9557e8da8bbb458dba616d37d2641ad,
+    type: 3}
+  TouchEffectObj: {fileID: 4705655871136888962, guid: 0b3abe50c27f6a040a42ad953443c470,
     type: 3}
   cameraShake: {fileID: 0}
   background: {fileID: 645115157}

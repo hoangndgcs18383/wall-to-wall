@@ -15,15 +15,27 @@ MonoBehaviour:
   jumpSpeedX: 10
   jumpSpeedY: 17
   gravity: 3
-  multipleScoreChangeBackgrounds: 20
+  multipleScoreChangeBackgrounds: 5
   inManualAtStart: 1
   offsetAtStart: 3
   backgroundKeys:
-  - BG_1
-  - BG_3
-  - BG_2
+  - key: BG_1
+    score: 10
+  - key: BG_2
+    score: 20
+  - key: BG_3
+    score: 30
   offsetRight: -0.5
   offsetLeft: 0.5
   numberOfTrianglesStart: 1
   numberOfTrianglesMax: 4
   triangleCountUpScore: 2
+  skins:
+  - key: Skin_0
+    isUnlock: 0
+    sprite: {fileID: 21300000, guid: 0c2ec036c6b475d4d998dc72eeea152a, type: 3}
+    unlockPoint: 0
+  - key: Skin_1
+    isUnlock: 0
+    sprite: {fileID: 21300000, guid: 1e34c8e5ac199dd4d984cc50aa31e99d, type: 3}
+    unlockPoint: 10

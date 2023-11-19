@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
 
     public Player Player;
 
+    private InGamePanel inGamePanel;
+    private bool _isMoreThanBestScore;
 
     void Awake()
     {
@@ -33,8 +35,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        InGameManager.Instance.UpdateBestScore(PlayerPrefs.GetInt("BestScore", 0).ToString());
-        player.sprite = MainMenuManager.Instance.GetCurrentSkin();
+        //InGameManager.Instance.UpdateBestScore(PlayerPrefs.GetInt("BestScore", 0).ToString());
+        // player.sprite = MainMenuManager.Instance.GetCurrentSkin();
     }
 
     [Button]
@@ -50,10 +52,11 @@ public class GameManager : MonoBehaviour
         Player.StartPlayer();
 
         RankManager.Instance.AddListenerRankChanged(RankChanged);
-        RankManager.Instance.Initialize();
 
         //SkinManager.Instance.AddListenerSkinColorChanged(SkinColorChanged);
-        SkinManager.Instance.Initialize();
+        //SkinManager.Instance.Initialize();
+
+        inGamePanel = UIManager.Instance.GetScreen<InGamePanel>();
 
         TriangleManager.Instance.StartGame();
 
@@ -85,15 +88,15 @@ public class GameManager : MonoBehaviour
     public void addScore()
     {
         score++;
-        InGameManager.Instance.UpdateCurrentScore(score.ToString());
+        inGamePanel.UpdateScore(score.ToString());
 
         if (score > PlayerPrefs.GetInt("BestScore", 0))
         {
             PlayerPrefs.SetInt("BestScore", score);
-            InGameManager.Instance.UpdateBestScore(PlayerPrefs.GetInt("BestScore", 0).ToString());
+            _isMoreThanBestScore = true;
         }
 
-        SkinManager.Instance.SetSkinColor(score);
+        //SkinManager.Instance.SetSkinSprite(score);
     }
 
 
@@ -108,32 +111,37 @@ public class GameManager : MonoBehaviour
         /*CurrentScoreText.color = Color.white;
         BestScoreText.color = Color.white;
         BestText.color = Color.white;*/
-
-        InGameManager.Instance.ShowOrHideInGamePanelEffect(true);
+        inGamePanel.ShowGameOverEffect();
         Time.timeScale = 0.1f;
         yield return Player.IEDeadAnimation();
         yield return new WaitForSecondsRealtime(0.5f);
-        InGameManager.Instance.GameOverPanelShow();
-        InGameManager.Instance.GameOverPanelSetData(new TotalScoreUIData(score.ToString(),
-            PlayerPrefs.GetInt("BestScore", 0).ToString()));
-        InGameManager.Instance.ShowOrHideInGamePanelEffect(false);
+        RankManager.Instance.SetRank(score);
+        UIManager.Instance.ShowGameOverScreen(new TotalScoreUIData(score,
+            PlayerPrefs.GetInt("BestScore", 0), _isMoreThanBestScore));
+        inGamePanel.HideGameOverEffect();
         Time.timeScale = 1f;
-        InGameManager.Instance.UpdateBestScore("0");
-        InGameManager.Instance.UpdateCurrentScore("0");
-        
+        inGamePanel.UpdateScore("0");
     }
 
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+    }
 
     public void Restart()
     {
-        RankManager.Instance.SetRank(score);
+        //RankManager.Instance.SetRank(score);
         isStarted = false;
 
-        InGameManager.Instance.Reload();
+        AudioManager.Instance.PlayBGM("BGM_INGAME", volume: 0.3f);
+        inGamePanel.Show();
         SceneManager.LoadSceneAsync("InGame");
         RankManager.Instance.RemoveListenerRankChanged(RankChanged);
-        SkinManager.Instance.RemoveListenerSkinColorChanged(SkinColorChanged);
-        InGameManager.Instance.UpdateBestScore("0");
     }
 
     private void OnDestroy()

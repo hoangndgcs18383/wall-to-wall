@@ -25,10 +25,10 @@ public class TriangleManager : MonoBehaviour
 
         for (int i = 0; i < triangleConfig.backgroundKeys.Count; i++)
         {
-            if (AddressablesManager.TryLoadAssetSync(BackgroundAddress.GetAddress(triangleConfig.backgroundKeys[i]),
+            if (AddressablesManager.TryLoadAssetSync(BackgroundAddress.GetAddress(triangleConfig.backgroundKeys[i].key),
                     out Sprite sprite))
             {   
-                _backgroundSprites.Add(i * triangleConfig.multipleScoreChangeBackgrounds, sprite);
+                _backgroundSprites.Add(i, sprite);
                 Debug.Log($"Add background {i * triangleConfig.multipleScoreChangeBackgrounds}");
             };
         }
@@ -197,7 +197,23 @@ public class TriangleManager : MonoBehaviour
     {
         _currentScore = GameManager.Instance.score;
 
-        if (_backgroundSprites.ContainsKey(_currentScore) && _currentScore != 0)
+        if (triangleConfig.backgroundKeys[_currentBackgroundIndex].score <= _currentScore)
+        {
+            _currentBackgroundIndex++;
+            StartCoroutine(IEChangeBackgroundColor());
+            if (triangleConfig.backgroundKeys.Count <= _currentBackgroundIndex)
+            {
+                for (int i = 0; i < triangleConfig.backgroundKeys.Count; i++)
+                {
+                    var triangleConfigBackgroundKey = triangleConfig.backgroundKeys[i];
+                    triangleConfigBackgroundKey.score += triangleConfig.multipleScoreChangeBackgrounds;
+                    triangleConfig.backgroundKeys[i] = triangleConfigBackgroundKey;
+                }
+                _currentBackgroundIndex = 0;
+            }
+        }
+
+        /*if (_backgroundSprites.ContainsKey(_currentScore) && _currentScore != 0)
         {
             _currentBackgroundIndex++;
             StartCoroutine(IEChangeBackgroundColor());
@@ -205,7 +221,7 @@ public class TriangleManager : MonoBehaviour
             {
                 _currentBackgroundIndex = 0;
             }
-        }
+        }*/
 
         if (NumberOfTriangles >= triangleConfig.numberOfTrianglesMax) return;
         NumberOfTriangles = _currentScore / triangleConfig.triangleCountUpScore + 1;

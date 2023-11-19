@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public GameObject WallBounceEffectObj;
     public GameObject DeadEffectObj;
     public GameObject JumpEffectObj;
+    public GameObject TouchEffectObj;
     public CameraShake cameraShake;
     public SpriteRenderer background;
 
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
 
 
     [HideInInspector] public bool isDead = false;
+    private Camera _camera;
     bool isFirstTouch = true;
 
 
@@ -34,6 +36,7 @@ public class Player : MonoBehaviour
     {
         _startPos = transform.position;
         cameraShake = Camera.main.GetComponent<CameraShake>();
+        _camera = Camera.main;
 
         rb = GetComponent<Rigidbody2D>();
         GameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -60,6 +63,17 @@ public class Player : MonoBehaviour
                 obj.SetActive(true);
                 StartCoroutine(ReturnPool(JumpEffectObj, obj));
             });
+            
+            PoolManager.Instance.CreateOrGetPool(TouchEffectObj, 3, (obj) =>
+            {
+                var pos = _camera.ScreenToWorldPoint(Input.mousePosition);
+                pos.z = 0;
+                obj.transform.position = pos;
+                obj.SetActive(true);
+                StartCoroutine(ReturnPool(TouchEffectObj, obj, isAutoDisable: true));
+            });
+            
+            //AudioManager.Instance.PlaySfx("TouchSFX");
 
             if (rb.velocity.x > 0)
             {

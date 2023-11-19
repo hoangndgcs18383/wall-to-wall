@@ -8,8 +8,8 @@ using UnityEngine.UI;
 
 public class MainMenuManager : Singleton<MainMenuManager>
 {
-    [BoxGroup("Animation")] [SerializeField]
-    private float jumpDuration = 0.5f;
+    /*[BoxGroup("Animation")] [SerializeField]
+    private float jumpDuration = 5f;
 
     [BoxGroup("Animation")] [SerializeField]
     private Ease jumpEase = Ease.OutBack;
@@ -18,13 +18,13 @@ public class MainMenuManager : Singleton<MainMenuManager>
     private float jumpHeight = 0.5f;
 
     [BoxGroup("Animation")] [SerializeField]
-    private float scaleDuration = 0.5f;
+    private float scaleDuration = 2f;
 
     [BoxGroup("Animation")] [SerializeField]
     private Ease scaleEase = Ease.OutBack;
 
     [BoxGroup("Animation")] [SerializeField]
-    private float scaleWeight = 1.1f;
+    private float scaleWeight = 1.05f;
 
     [BoxGroup("Animation")] [SerializeField]
     private Vector3 rotateAngle = new Vector3(0, 0, 2);
@@ -36,31 +36,32 @@ public class MainMenuManager : Singleton<MainMenuManager>
     private Ease rotateEase = Ease.OutBack;
 
     [BoxGroup("Animation")] [SerializeField]
-    private RotateMode rotateMode = RotateMode.FastBeyond360;
+    private RotateMode rotateMode = RotateMode.FastBeyond360;*/
 
     [BoxGroup("References")] [SerializeField]
     private RatePanel ratePanel;
 
-    [SerializeField] private SettingPanel settingPanel;
-    [SerializeField] private UnlockSkinPanel unlockSkinPanel;
+    //[SerializeField] private SettingPanel settingPanel;
+    //[SerializeField] private UnlockSkinPanel unlockSkinPanel;
 
-    [BoxGroup("Buttons")] [SerializeField] private ButtonW2W rateButton;
-    [SerializeField] private ButtonW2W playButton;
-    [SerializeField] private ButtonW2W rankButton;
-    [SerializeField] private ButtonW2W settingButton;
+    /*[BoxGroup("Buttons")] [SerializeField] private ButtonW2W rateButton;
+    [BoxGroup("Buttons")] [SerializeField] private ButtonW2W playButton;
+    [BoxGroup("Buttons")] [SerializeField] private ButtonW2W rankButton;
+    [BoxGroup("Buttons")] [SerializeField] private ButtonW2W settingButton;*/
 
 
     [BoxGroup("Skins features")] public List<Sprite> skins = new List<Sprite>();
+
     [BoxGroup("Skins features")] public List<string> skinName = new List<string>();
-    [SerializeField] private RectTransform currentPlayer;
-    [SerializeField] private Image currentPlayerSprite;
+    /*[SerializeField] private RectTransform currentPlayer;*/
+    /*[SerializeField] private Image currentPlayerSprite;
     [SerializeField] private Image currentUnlockStarImage;
     [SerializeField] private Sprite unlockSkinSprite;
     [SerializeField] private Sprite lockStarSprite;
     [SerializeField] private Sprite unlockStarSprite;
     [SerializeField] private ButtonW2W nextSkinButton;
     [SerializeField] private ButtonW2W previousButton;
-    [SerializeField] private TMP_Text currentSkinText;
+    [SerializeField] private TMP_Text currentSkinText;*/
 
     [BoxGroup("GUI")] [SerializeField] private CanvasGroup canvasGroup;
     [BoxGroup("GUI")] [SerializeField] private Image background;
@@ -71,10 +72,10 @@ public class MainMenuManager : Singleton<MainMenuManager>
 
     #region Skins features
 
-    public void OnLoadSkin()
+    /*public void OnLoadSkin()
     {
         PlayerPrefs.SetInt("CurrentSkinIndex", _currentSkinIndex);
-        
+
         if (PlayerPrefs.GetInt("BestScore", 0) < 10 && _currentSkinIndex > 0)
         {
             currentPlayerSprite.sprite = unlockSkinSprite;
@@ -85,14 +86,14 @@ public class MainMenuManager : Singleton<MainMenuManager>
         currentPlayerSprite.sprite = skins[_currentSkinIndex];
         currentUnlockStarImage.sprite = unlockStarSprite;
         currentSkinText.SetText(skinName[_currentSkinIndex]);
-        
+
         for (int i = 0; i < skins.Count; i++)
         {
-            if (unlockSkinPanel.IsUnlock(i, PlayerPrefs.GetInt("BestScore", 0)))
+            /*if (unlockSkinPanel.IsUnlock(i, PlayerPrefs.GetInt("BestScore", 0)))
             {
                 //Debug.Log($"Unlock skin {i}");
-                unlockSkinPanel.Show(i);
-            }
+                //unlockSkinPanel.Show(i);
+            }#1#
         }
     }
 
@@ -131,14 +132,14 @@ public class MainMenuManager : Singleton<MainMenuManager>
             PreviousSkinIndex();
             currentPlayerSprite.DOFade(1, 0.5f);
         });
-    }
-    
+    }*/
+
     public Sprite GetCurrentSkin()
     {
         return skins[_currentSkinIndex];
     }
 
-    private void PreviousSkinIndex()
+    /*private void PreviousSkinIndex()
     {
         _currentSkinIndex--;
         if (_currentSkinIndex < 0)
@@ -147,7 +148,7 @@ public class MainMenuManager : Singleton<MainMenuManager>
         }
 
         OnLoadSkin();
-    }
+    }*/
 
     private void Start()
     {
@@ -159,8 +160,8 @@ public class MainMenuManager : Singleton<MainMenuManager>
     private void Initialize()
     {
         _currentSkinIndex = PlayerPrefs.GetInt("CurrentSkinIndex", 0);
-        OnLoadSkin();
-        hole.rectTransform.DOKill();
+
+        /*hole.rectTransform.DOKill();
         hole.rectTransform.localRotation = Quaternion.identity;
         hole.rectTransform.DORotate(new Vector3(0, 0, 360), 10f, rotateMode).SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Restart);
@@ -168,30 +169,24 @@ public class MainMenuManager : Singleton<MainMenuManager>
         currentPlayer.DOKill();
         currentPlayer.localPosition = Vector3.zero;
         currentPlayer.localScale = Vector3.one;
-        currentPlayer.localRotation = Quaternion.identity;
+        currentPlayer.localRotation = Quaternion.identity;*/
 
-        currentPlayer.DOLocalMoveY(jumpHeight, jumpDuration).SetEase(jumpEase).SetLoops(-1, LoopType.Yoyo);
+        /*currentPlayer.DOLocalMoveY(jumpHeight, jumpDuration).SetEase(jumpEase).SetLoops(-1, LoopType.Yoyo);
         currentPlayer.DOScale(scaleWeight, scaleDuration).SetEase(scaleEase).SetLoops(-1, LoopType.Yoyo);
-        currentPlayer.DORotate(rotateAngle, rotateDuration, rotateMode).SetEase(rotateEase).SetLoops(-1, LoopType.Yoyo);
+        currentPlayer.DORotate(rotateAngle, rotateDuration, rotateMode).SetEase(rotateEase).SetLoops(-1, LoopType.Yoyo);*/
+
+        /*rateButton.onClick.AddListener(ShowRatePanel);
+        settingButton.onClick.AddListener(ShowSettingPanel);
+        playButton.onClick.AddListener(ShowInGamePanel);*/
+        /*nextSkinButton.onClick.AddListener(NextSkin);
+        previousButton.onClick.AddListener(PreviousSkin);*/
     }
 
-    private void OnEnable()
+    public void CheckCurrenSkinActive()
     {
-        rateButton.onClick.AddListener(ShowRatePanel);
-        settingButton.onClick.AddListener(settingPanel.Show);
-        playButton.onClick.AddListener(ShowInGamePanel);
-        nextSkinButton.onClick.AddListener(NextSkin);
-        previousButton.onClick.AddListener(PreviousSkin);
+        //OnLoadSkin();
     }
 
-    private void OnDisable()
-    {
-        rateButton.onClick.RemoveListener(ShowRatePanel);
-        settingButton.onClick.RemoveListener(settingPanel.Show);
-        playButton.onClick.RemoveListener(ShowInGamePanel);
-        nextSkinButton.onClick.RemoveListener(NextSkin);
-        previousButton.onClick.RemoveListener(PreviousSkin);
-    }
 
     [Button]
     public void Show()
@@ -221,16 +216,35 @@ public class MainMenuManager : Singleton<MainMenuManager>
         });
     }
 
-    private void ShowRatePanel()
+    /*private void ShowRatePanel()
     {
-        ratePanel.Show();
+        UIManager.Instance.ShowRateScreen();
+    }
+
+    private void ShowSettingPanel()
+    {
+        UIManager.Instance.ShowSettingScreen();
     }
 
     private void ShowInGamePanel()
     {
         SceneManager.LoadSceneAsync("InGame");
-        InGameManager.Instance.Reload();
-        AudioManager.Instance.StopBGM();
-        Hide();
-    }
+        //InGameManager.Instance.Reload();
+
+        LoadingManager.Instance.Transition(TransitionType.Fade, hole);
+        LoadingManager.Instance.Transition(TransitionType.Fade, background, () =>
+        {
+            canvasGroup.alpha = 0;
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
+            AudioManager.Instance.StopBGM();
+        }, () =>
+        {
+            hole.rectTransform.DOKill();
+            hole.gameObject.SetActive(false);
+            background.gameObject.SetActive(false);
+            UIManager.Instance.ShowInGameScreen();
+            AudioManager.Instance.PlayBGM("BGM_INGAME", volume: 0.3f);
+        });
+    }*/
 }

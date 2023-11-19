@@ -2,7 +2,7 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class SettingPanel : MonoBehaviour
+public class SettingPanel : BaseScreen
 {
     [SerializeField] private bool isHideInAwake;
 
@@ -27,25 +27,24 @@ public class SettingPanel : MonoBehaviour
         }
     }
 
-    public void Show()
+    public override void Initialize()
     {
-        gameObject.SetActive(true);
-        bool isSfxOn = PlayerPrefs.GetInt("Sound", 1) == 1;
-        bool isMsbOn = PlayerPrefs.GetInt("Music", 1) == 1;
-        soundItem.Initialize(isSfxOn, OnSound);
-        musicItem.Initialize(isMsbOn, OnMusic);
+        base.Initialize();
 
         btnClose.onClick.AddListener(Hide);
         btnFacebook.onClick.AddListener(OnClickFacebook);
     }
 
-    public void Hide()
+    
+    public override void Show(IUIData data = null)
     {
-        gameObject.SetActive(false);
-        btnClose.onClick.RemoveListener(Hide);
-        btnFacebook.onClick.RemoveListener(OnClickFacebook);
+        base.Show(data);
+        bool isSfxOn = PlayerPrefs.GetInt("Sound", 1) == 1;
+        bool isMsbOn = PlayerPrefs.GetInt("Music", 1) == 1;
+        soundItem.Initialize(isSfxOn, OnSound);
+        musicItem.Initialize(isMsbOn, OnMusic);
     }
-
+    
     private void OnMusic(bool obj)
     {
         PlayerPrefs.SetInt("Music", obj ? 1 : 0);
@@ -60,7 +59,7 @@ public class SettingPanel : MonoBehaviour
 
     private void OnClickFacebook()
     {
-        Debug.Log("Facebook");
+        Application.OpenURL("https://www.facebook.com/ndhoang.2607/");
     }
 
     private void OnApplicationQuit()

@@ -1,49 +1,51 @@
-using System;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class InGamePanel : MonoBehaviour
+public class InGamePanel : BaseScreen
 {
+    [SerializeField] private TMP_Text currentScoreText;
     [SerializeField] private GameObject gameOverEffectPanel;
-    [SerializeField] private GameObject btnPause;
     [SerializeField] private ButtonW2W tapToStart;
+    [SerializeField] private ButtonW2W btnPause;
 
-    private void OnEnable()
+    public override void Initialize()
     {
+        base.Initialize();
         tapToStart.onClick.AddListener(StartGame);
-    }
-    
-    private void OnDisable()
-    {
-        tapToStart.onClick.RemoveListener(StartGame);
+        btnPause.onClick.AddListener(OnPauseGame);
     }
 
-    public void Show()
+    public override void Show(IUIData data = null)
     {
-        gameObject.SetActive(true);
+        base.Show(data);
         tapToStart.gameObject.SetActive(true);
     }
-    
-    public void Hide()
-    {
-        gameObject.SetActive(false);
-    }
-    
+
     public void ShowGameOverEffect()
     {
         gameOverEffectPanel.SetActive(true);
     }
-    
+
     public void HideGameOverEffect()
     {
         gameOverEffectPanel.SetActive(false);
     }
 
+    public void UpdateScore(string score)
+    {
+        currentScoreText.SetText(score);
+    }
+    
     public void StartGame()
     {
         GameManager.Instance.GameStart();
-        btnPause.SetActive(true);
+        btnPause.gameObject.SetActive(true);
         tapToStart.gameObject.SetActive(false);
         AudioManager.Instance.PlayBGM("BGM_INGAME", volume: 0.3f);
+    }
+
+    public void OnPauseGame()
+    {
+        UIManager.Instance.ShowPauseScreen();
     }
 }

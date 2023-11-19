@@ -16,6 +16,7 @@
     "com.unity.remote-config": "3.2.2",
     "com.unity.render-pipelines.universal": "12.1.8",
     "com.unity.services.ccd.management": "1.0.0-pre.2",
+    "com.unity.services.levelplay": "1.0.0",
     "com.unity.test-framework": "1.1.33",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.6.5",
@@ -53,5 +54,16 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  }
+  },
+  "scopedRegistries": [
+    {
+      "name": "npmjs",
+      "url": "https://registry.npmjs.org/",
+      "scopes": [
+        "com.voxelbusters.corelibrary",
+        "com.voxelbusters.corelibrary.nativeplugins",
+        "com.voxelbusters.parser"
+      ]
+    }
+  ]
 }

@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RatePanel : MonoBehaviour
+public class RatePanel : BaseScreen
 {
     public bool isHideInAwake;
 
@@ -19,8 +18,9 @@ public class RatePanel : MonoBehaviour
         }
     }
 
-    private void Start()
+    public override void Initialize()
     {
+        base.Initialize();
         _stars.Clear();
         for (int i = 0; i < 5; i++)
         {
@@ -30,20 +30,8 @@ public class RatePanel : MonoBehaviour
         }
     }
 
-    public void Show()
-    {
-        gameObject.SetActive(true);
-    }
-
-    public void Hide()
-    {
-        gameObject.SetActive(false);
-    }
-
     private void OnClick((int, float) obj)
     {
-        Debug.Log(obj);
-        Debug.Log("Rate Us");
     }
 
     private void OnRate((int r, float p) rate)

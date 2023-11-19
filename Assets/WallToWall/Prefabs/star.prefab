@@ -66,12 +66,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c6ee8a6cd3123cf45815ddd52766ee8a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4e70cebc1d25ea43b0ad92e79cfee88, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0.971
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bfc2a20493c2624448712b34af46939e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d7f89d1f5eb1da14c953eb2ec168542f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInteractable: 1
+  targetGraphic: {fileID: 3798361409771048647}
   onClick:
     m_PersistentCalls:
       m_Calls:

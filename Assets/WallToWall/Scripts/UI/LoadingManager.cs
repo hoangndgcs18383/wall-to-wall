@@ -45,12 +45,12 @@ public class LoadingManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        
-        
     }
     
     async void Start()
     {
+        Application.quitting += RestTransition;
+        
         /*AddressablesManager.TryLoadAssetSync(BackgroundAddress.GetAddress("BG_FIRST"), out Sprite backgroundSprite);
         background.sprite = backgroundSprite;*/
         /*if (Utilities.CheckForInternetConnection())
@@ -106,7 +106,7 @@ public class LoadingManager : MonoBehaviour
 
     private void RestTransition()
     {
+        backgroundMaterial.EnableKeyword("FADE_ON");    
         backgroundMaterial.SetFloat("_FadeAmount", startValue);
-        backgroundMaterial.DisableKeyword("FADE_ON");
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class PlayerConfig : ScriptableObject
     [BoxGroup("Triangle")] public bool inManualAtStart = true;
     [BoxGroup("Triangle")] public float offsetAtStart = 3f;
     //[BoxGroup("Triangle")] public List<Sprite> backgroundSprites;
-    [BoxGroup("Triangle")] public List<string> backgroundKeys;
+    [BoxGroup("Triangle")] public List<BackgroundData> backgroundKeys;
     [BoxGroup("Triangle")] public float offsetRight = -0.7f;
     [BoxGroup("Triangle")] public float offsetLeft = 0f;
     
@@ -22,4 +23,13 @@ public class PlayerConfig : ScriptableObject
 
     [BoxGroup("Triangle")] [Range(1, 15)] public int numberOfTrianglesMax = 15;
     [BoxGroup("Triangle")] [Range(1, 10)] public int triangleCountUpScore = 3;
+    
+    [BoxGroup("Skins features")] public List<SkinData> skins = new List<SkinData>();
+}
+
+[Serializable]
+public struct BackgroundData
+{
+    public string key;
+    public int score;
 }
