@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -33,7 +34,7 @@ public class TriangleManager : MonoBehaviour
             };
         }*/
 
-        background.sprite = triangleConfig.backgroundKeys[0].sprite;
+        background.sprite = triangleConfig.skins.FirstOrDefault(i => SkinManager.Instance.GetCurrentKey() == i.key).backgroundAllSprite;
         background.GetComponent<BackgroundScreenSize>().Validate();
 
         NumberOfTriangles = triangleConfig.numberOfTrianglesStart;
@@ -240,6 +241,6 @@ public class TriangleManager : MonoBehaviour
         }
 
         background.material.SetFloat("_RoundWaveStrength", 0);
-        background.sprite = triangleConfig.backgroundKeys[_currentBackgroundIndex].sprite;
+        background.sprite = triangleConfig.backgroundKeys[_currentBackgroundIndex].unlockSprite;
     }
 }

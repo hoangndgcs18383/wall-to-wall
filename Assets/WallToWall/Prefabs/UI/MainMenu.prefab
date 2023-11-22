@@ -204,15 +204,15 @@ MonoBehaviour:
   settingButton: {fileID: 77702573844207215}
   canvasGroup: {fileID: 8822628683494192056}
   background: {fileID: 4218654441430971215}
+  mainBackground: {fileID: 2748625558729941456}
   hole: {fileID: 4218654439575558259}
   playerConfig: {fileID: 11400000, guid: 9101fa62ba1daae4789a7eb2ca778c76, type: 2}
   currentPlayerSprite: {fileID: 1311255208308067577}
   currentUnlockStarImage: {fileID: 1311255209784210285}
-  unlockSkinSprite: {fileID: 21300000, guid: baa5175a00b2496408e247984cdca237, type: 3}
   lockStarSprite: {fileID: 21300000, guid: 1aeb93c8383af7f43b8802706510b3d2, type: 3}
   unlockStarSprite: {fileID: 21300000, guid: 779e2aa868cf5b24383a113e8c401736, type: 3}
-  nextSkinButton: {fileID: 7880624809208990781}
-  previousButton: {fileID: 4460963081686558229}
+  nextSkinButton: {fileID: 4460963081686558229}
+  previousButton: {fileID: 7880624809208990781}
   currentSkinText: {fileID: 2085374862046109640}
 --- !u!225 &8713949608867784932
 CanvasGroup:
@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 1311255208209505219}
   - component: {fileID: 7880624809208990781}
   m_Layer: 5
-  m_Name: btnRightSkin
+  m_Name: btnLeftSkin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -338,7 +338,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 635, y: 5}
+  m_AnchoredPosition: {x: 375, y: 5}
   m_SizeDelta: {x: 83, y: 118}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1311255208209505218
@@ -498,7 +498,7 @@ GameObject:
   - component: {fileID: 1311255208411593481}
   - component: {fileID: 4460963081686558229}
   m_Layer: 5
-  m_Name: btnLeftSkin
+  m_Name: btnRightSkin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -521,7 +521,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -635, y: 5}
+  m_AnchoredPosition: {x: -375, y: 5}
   m_SizeDelta: {x: 83, y: 119}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1311255208411593480
@@ -1091,7 +1091,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -332.9, y: -80}
+  m_AnchoredPosition: {x: -75, y: -80}
   m_SizeDelta: {x: 116, y: 98}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1311255209190681816
@@ -1761,7 +1761,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 517, y: 15}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &8822628683494192056
 CanvasGroup:

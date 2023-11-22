@@ -49,13 +49,16 @@ public class MainMenu : BaseScreen
 
     [BoxGroup("GUI")] [SerializeField] private CanvasGroup canvasGroup;
     [BoxGroup("GUI")] [SerializeField] private Image background;
+    [BoxGroup("GUI")] [SerializeField] private Image mainBackground;
     [BoxGroup("GUI")] [SerializeField] private Image hole;
 
     [BoxGroup("Config")] [SerializeField] private PlayerConfig playerConfig;
 
     [SerializeField] private Image currentPlayerSprite;
+
     [SerializeField] private Image currentUnlockStarImage;
-    [SerializeField] private Sprite unlockSkinSprite;
+
+    //[SerializeField] private Sprite unlockSkinSprite;
     [SerializeField] private Sprite lockStarSprite;
     [SerializeField] private Sprite unlockStarSprite;
     [SerializeField] private ButtonW2W nextSkinButton;
@@ -78,11 +81,11 @@ public class MainMenu : BaseScreen
         }
 
         SkinManager.Instance.Initialize(sprites);
-        SkinManager.Instance.AddListenerSkinUnlocked(OnUnlockSkin);
+        //SkinManager.Instance.AddListenerSkinUnlocked(OnUnlockSkin);
 #if UNITY_ANDROID || UNITY_IOS
-        AdsManager.Instance.Initialize();
+        //AdsManager.Instance.Initialize();
 #endif
-        
+
         nextSkinButton.onClick.AddListener(NextSkin);
         previousButton.onClick.AddListener(PreviousSkin);
 
@@ -121,18 +124,20 @@ public class MainMenu : BaseScreen
 
         Timing.CallDelayed(3f, () =>
         {
+            SkinManager.Instance.ClearCurrentSkinList();
             for (int i = 0; i < playerConfig.skins.Count; i++)
             {
                 SkinManager.Instance.CheckValidSkinUnlock(PlayerPrefs.GetInt("BestScore", 0), i);
             }
+
+            if (SkinManager.Instance.GetCurrentSkinList() != null &&
+                SkinManager.Instance.GetCurrentSkinList().Count > 0)
+            {
+                UIManager.Instance.ShowUnlockSkinScreen(SkinManager.Instance.GetCurrentSkinList());
+            }
         });
     }
-
-    private void OnUnlockSkin(SkinData skinData)
-    {
-        UIManager.Instance.ShowUnlockSkinScreen(skinData);
-    }
-
+    
     public override void Hide()
     {
         _allCanvasGroup.DOFade(0, 2f).OnComplete(base.Hide);
@@ -143,10 +148,12 @@ public class MainMenu : BaseScreen
         if (_isTransitioning) return;
         _isTransitioning = true;
 
+        //mainBackground.DOFade(0, 0.5f);
         currentPlayerSprite.DOFade(0, 0.5f).OnComplete(() =>
         {
             _isTransitioning = false;
             NextSkinIndex();
+            //mainBackground.DOFade(1, 0.5f);
             currentPlayerSprite.DOFade(1, 0.5f);
         });
     }
@@ -166,7 +173,7 @@ public class MainMenu : BaseScreen
     {
         if (_isTransitioning) return;
         _isTransitioning = true;
-
+        
         currentPlayerSprite.DOFade(0, 0.5f).OnComplete(() =>
         {
             _isTransitioning = false;
@@ -190,17 +197,23 @@ public class MainMenu : BaseScreen
     {
         PlayerPrefs.SetInt("CurrentSkinIndex", _currentSkinIndex);
 
-        if (PlayerPrefs.GetInt("BestScore", 0) < 10 && _currentSkinIndex > 0)
+        if (PlayerPrefs.GetInt("BestScore", 0) < playerConfig.skins[_currentSkinIndex].unlockPoint &&
+            _currentSkinIndex > 0)
         {
-            currentPlayerSprite.sprite = unlockSkinSprite;
+            currentPlayerSprite.sprite = playerConfig.skins[_currentSkinIndex].lockSprite;
             currentUnlockStarImage.sprite = lockStarSprite;
             currentSkinText.SetText(playerConfig.skins[_currentSkinIndex].key);
+            mainBackground.sprite = playerConfig.skins[_currentSkinIndex].backgroundMainSprite;
+            //background.sprite = playerConfig.skins[_currentSkinIndex].backgroundAllSprite;
             return;
         }
 
-        currentPlayerSprite.sprite = playerConfig.skins[_currentSkinIndex].sprite;
+        currentPlayerSprite.sprite = playerConfig.skins[_currentSkinIndex].unlockSprite;
         currentUnlockStarImage.sprite = unlockStarSprite;
         currentSkinText.SetText(playerConfig.skins[_currentSkinIndex].key);
+        mainBackground.sprite = playerConfig.skins[_currentSkinIndex].backgroundMainSprite;
+        //background.sprite = playerConfig.skins[_currentSkinIndex].backgroundAllSprite;
+        PlayerPrefs.SetInt("LastSkinIndex", _currentSkinIndex);
     }
 
     #region Button Events

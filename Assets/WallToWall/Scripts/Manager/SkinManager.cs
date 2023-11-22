@@ -35,12 +35,27 @@ public class SkinManager
             if (_skinList[$"Skin_{index}"].unlockPoint > point || IsSkinUnlocked(index)) return false;
 
             UnlockSkin(index);
+            AddCurrentSkinList(_skinList[$"Skin_{index}"]);
             OnSkinUnlocked?.Invoke(_skinList[$"Skin_{index}"]);
             return true;
         }
 
         return false;
     }
+    
+    private Dictionary<string, SkinData> _currentSkinList = new Dictionary<string, SkinData>();
+
+    public void AddCurrentSkinList(SkinData skinData)
+    {
+        _currentSkinList.Add(skinData.key, skinData);
+    }
+    
+    public void ClearCurrentSkinList()
+    {
+        _currentSkinList.Clear();
+    }
+    
+    public Dictionary<string, SkinData> GetCurrentSkinList() => _currentSkinList;
 
     public void UnlockSkin(int index)
     {
@@ -54,6 +69,38 @@ public class SkinManager
     public bool IsSkinUnlocked(int index)
     {
         return PlayerPrefs.GetInt($"SkinUnlocked_{index}", 0) == 1;
+    }
+
+    public Sprite GetCurrentSkinSprite()
+    {
+        int currentSkinIndex = PlayerPrefs.GetInt("CurrentSkinIndex", 0);
+        int lastIndex = PlayerPrefs.GetInt("LastSkinIndex", 0);
+
+        if (_skinList == null || _skinList.Count == 0) return null;
+        if (_skinList.ContainsKey($"Skin_{currentSkinIndex}"))
+        {
+            return IsSkinUnlocked(currentSkinIndex)
+                ? _skinList[$"Skin_{currentSkinIndex}"].unlockSprite
+                : _skinList[$"Skin_{lastIndex}"].unlockSprite;
+        }
+
+        return null;
+    }
+
+    public string GetCurrentKey()
+    {
+        int currentSkinIndex = PlayerPrefs.GetInt("CurrentSkinIndex", 0);
+        int lastIndex = PlayerPrefs.GetInt("LastSkinIndex", 0);
+
+        if (_skinList == null || _skinList.Count == 0) return null;
+        if (_skinList.ContainsKey($"Skin_{currentSkinIndex}"))
+        {
+            return IsSkinUnlocked(currentSkinIndex)
+                ? _skinList[$"Skin_{currentSkinIndex}"].key
+                : _skinList[$"Skin_{lastIndex}"].key;
+        }
+
+        return null;
     }
 
     public void AddListenerSkinColorChanged(Action<Color> action)

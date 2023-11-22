@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "PlayerConfig", menuName = "ScriptableObjects/PlayerConfig", order = 1)]
 public class PlayerConfig : ScriptableObject
@@ -12,18 +13,20 @@ public class PlayerConfig : ScriptableObject
 
     [BoxGroup("Triangle")] public int multipleScoreChangeBackgrounds = 20;
     [BoxGroup("Triangle")] public bool inManualAtStart = true;
+
     [BoxGroup("Triangle")] public float offsetAtStart = 3f;
+
     //[BoxGroup("Triangle")] public List<Sprite> backgroundSprites;
     [BoxGroup("Triangle")] public List<BackgroundData> backgroundKeys;
     [BoxGroup("Triangle")] public float offsetRight = -0.7f;
     [BoxGroup("Triangle")] public float offsetLeft = 0f;
-    
+
     [BoxGroup("Triangle")] [Space] [Range(0, 15)]
     public int numberOfTrianglesStart = 3;
 
     [BoxGroup("Triangle")] [Range(1, 15)] public int numberOfTrianglesMax = 15;
     [BoxGroup("Triangle")] [Range(1, 10)] public int triangleCountUpScore = 3;
-    
+
     [BoxGroup("Skins features")] public List<SkinData> skins = new List<SkinData>();
 }
 
@@ -32,5 +35,11 @@ public struct BackgroundData
 {
     public string key;
     public int score;
-    public Sprite sprite;
+    public Sprite unlockSprite;
+}
+
+[Serializable]
+public struct EffectData
+{
+    public GameObject deathEffect;
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -37,11 +38,14 @@ public class Player : MonoBehaviour
         _startPos = transform.position;
         cameraShake = Camera.main.GetComponent<CameraShake>();
         _camera = Camera.main;
-
         rb = GetComponent<Rigidbody2D>();
         GameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
         _material = GetComponent<SpriteRenderer>().material;
         StopPlayer();
+
+        var defaultEffect = DeadEffectObj;
+        DeadEffectObj = playerConfig.skins.FirstOrDefault(i => SkinManager.Instance.GetCurrentKey() == i.key).effectData.deathEffect;
+        Debug.Log(SkinManager.Instance.GetCurrentKey());
     }
 
 

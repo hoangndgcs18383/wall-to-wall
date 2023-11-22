@@ -101,9 +101,8 @@ public class GameOverPanel : BaseScreen
         Destroy(ss);
 
         new NativeShare().AddFile(filePath)
-            .SetSubject("Subject goes here").SetText("Hello world!")
-            .SetUrl("https://github.com/yasirkula/UnityNativeShare")
-            .SetCallback((result, shareTarget) =>   
+            .SetSubject("Say something to your friend!").SetText("I got " + currentScoreText.text + " points!")
+            .SetCallback((result, shareTarget) =>
                 Debug.Log("Share result: " + result + ", selected app: " + shareTarget))
             .Share();
     }

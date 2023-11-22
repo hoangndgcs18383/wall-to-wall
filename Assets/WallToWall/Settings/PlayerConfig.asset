@@ -20,14 +20,20 @@ MonoBehaviour:
   offsetAtStart: 3
   backgroundKeys:
   - key: BG_1
-    score: 10
-    sprite: {fileID: 21300000, guid: 8fe969b368f658043ac18090df6900d3, type: 3}
+    score: 15
+    unlockSprite: {fileID: 21300000, guid: 8fe969b368f658043ac18090df6900d3, type: 3}
   - key: BG_2
-    score: 20
-    sprite: {fileID: 21300000, guid: 8a035cdd82af0d64cb4fe2d7bfb42960, type: 3}
+    score: 25
+    unlockSprite: {fileID: 21300000, guid: 8a035cdd82af0d64cb4fe2d7bfb42960, type: 3}
   - key: BG_3
-    score: 30
-    sprite: {fileID: 21300000, guid: b20d4f39bd08d824b93a213fe07c9698, type: 3}
+    score: 35
+    unlockSprite: {fileID: 21300000, guid: b20d4f39bd08d824b93a213fe07c9698, type: 3}
+  - key: BG_4
+    score: 45
+    unlockSprite: {fileID: 21300000, guid: fcce419788982d94c98f35985f39c3ea, type: 3}
+  - key: BG_5
+    score: 55
+    unlockSprite: {fileID: 21300000, guid: f653f99794e412e4daf5c5799571809c, type: 3}
   offsetRight: -0.5
   offsetLeft: 0.5
   numberOfTrianglesStart: 1
@@ -36,9 +42,37 @@ MonoBehaviour:
   skins:
   - key: Skin_0
     isUnlock: 0
-    sprite: {fileID: 21300000, guid: 0c2ec036c6b475d4d998dc72eeea152a, type: 3}
+    unlockSprite: {fileID: 21300000, guid: 0c2ec036c6b475d4d998dc72eeea152a, type: 3}
+    lockSprite: {fileID: 21300000, guid: baa5175a00b2496408e247984cdca237, type: 3}
+    backgroundAllSprite: {fileID: 21300000, guid: 7b92598bf97d90149a6814ad4e1288d6,
+      type: 3}
+    backgroundMainSprite: {fileID: 21300000, guid: 8200b5678a3113346a2d85a3ed831855,
+      type: 3}
     unlockPoint: 0
+    effectData:
+      deathEffect: {fileID: 1204438978744632, guid: 65a5451625ed1496c8722e9a83ed5dc3,
+        type: 3}
   - key: Skin_1
     isUnlock: 0
-    sprite: {fileID: 21300000, guid: 1e34c8e5ac199dd4d984cc50aa31e99d, type: 3}
-    unlockPoint: 10
+    unlockSprite: {fileID: 21300000, guid: 1e34c8e5ac199dd4d984cc50aa31e99d, type: 3}
+    lockSprite: {fileID: 21300000, guid: baa5175a00b2496408e247984cdca237, type: 3}
+    backgroundAllSprite: {fileID: 21300000, guid: fcce419788982d94c98f35985f39c3ea,
+      type: 3}
+    backgroundMainSprite: {fileID: 21300000, guid: 9fbd7ba95ac0b03439e7f7957d5d6ace,
+      type: 3}
+    unlockPoint: 0
+    effectData:
+      deathEffect: {fileID: 1204438978744632, guid: 46558f3248d89494aa4f0e0cea478d32,
+        type: 3}
+  - key: Skin_2
+    isUnlock: 0
+    unlockSprite: {fileID: 21300000, guid: 892f81931b9aae94b81010a6287c2b69, type: 3}
+    lockSprite: {fileID: 21300000, guid: 4635dcaba9ddca04682d206adb8611d7, type: 3}
+    backgroundAllSprite: {fileID: 21300000, guid: f653f99794e412e4daf5c5799571809c,
+      type: 3}
+    backgroundMainSprite: {fileID: 21300000, guid: 406f53e2a59e93c42924c3a2201955b6,
+      type: 3}
+    unlockPoint: 0
+    effectData:
+      deathEffect: {fileID: 7282744016949600942, guid: c117c4e812df6ef479de14a423baed6d,
+        type: 3}

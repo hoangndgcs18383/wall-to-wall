@@ -43,9 +43,10 @@ public class UIManager : Singleton<UIManager>
         };
     }
 
-    private IEnumerator<float> ShowAndLoadScreen<T>(string screenName, CanvasType parent, IUIData data = null)
-        where T : IBaseScreen
+    private IEnumerator<float> ShowAndLoadScreen<T>(string screenName, CanvasType parent, IUIData data = null, Action<T> callback = null)
+        where T : class, IBaseScreen
     {
+        BaseScreen baseScreen = null;
         if (!screens.ContainsKey(screenName))
         {
             var screen = screenReferences.Find(x => x.key == screenName);
@@ -55,7 +56,7 @@ public class UIManager : Singleton<UIManager>
                 yield break;
             }
 
-            BaseScreen baseScreen = Instantiate(screen.screen, GetCanvas(parent), true);
+            baseScreen = Instantiate(screen.screen, GetCanvas(parent), true);
             baseScreen.RectTransform.anchoredPosition = Vector2.zero;
             baseScreen.RectTransform.sizeDelta = Vector2.zero;
             baseScreen.RectTransform.localScale = Vector3.one;
@@ -64,11 +65,16 @@ public class UIManager : Singleton<UIManager>
             screens.Add(screenName, baseScreen);
             screens[screenName].Initialize();
         }
+        else
+        {
+            baseScreen = (BaseScreen)screens[screenName];
+        }
 
         yield return Timing.WaitForOneFrame;
-        screens[screenName].Show(data);
+        baseScreen.Show(data);
 
         yield return Timing.WaitForOneFrame;
+        callback?.Invoke(baseScreen as T);
     }
     
     public T GetScreen<T>() where T : IBaseScreen
@@ -104,15 +110,15 @@ public class UIManager : Singleton<UIManager>
     [Button]
     public void ShowTestUnlockSkinScreen()
     {
-        ShowUnlockSkinScreen(new SkinData
-        {
-            sprite = testSprite
-        });
+        
     }
 
-    public void ShowUnlockSkinScreen(SkinData skinData)
+    public void ShowUnlockSkinScreen(Dictionary<string, SkinData> skinData)
     {
-        Timing.RunCoroutine(ShowAndLoadScreen<UnlockSkinPanel>("UnlockSkinPanel", CanvasType.Main, skinData));
+        Timing.RunCoroutine(ShowAndLoadScreen<UnlockSkinPanel>("UnlockSkinPanel", CanvasType.Main, null, screen =>
+        {
+            screen.SetData(skinData);
+        }));
     }
 
     public void ShowMainMenuScreen()
