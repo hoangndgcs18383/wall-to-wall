@@ -16,6 +16,8 @@ public class SkinManager
     private event Action<Color> OnSkinColorChanged;
     private event Action<SkinData> OnSkinUnlocked;
 
+    private string _currentSkinKey = PlayerPrefs.GetString("CurrentSkinKey", "Skin_0");
+
     public void Initialize(Dictionary<string, SkinData> sprites)
     {
         _skinList = sprites;
@@ -42,19 +44,19 @@ public class SkinManager
 
         return false;
     }
-    
+
     private Dictionary<string, SkinData> _currentSkinList = new Dictionary<string, SkinData>();
 
     public void AddCurrentSkinList(SkinData skinData)
     {
         _currentSkinList.Add(skinData.key, skinData);
     }
-    
+
     public void ClearCurrentSkinList()
     {
         _currentSkinList.Clear();
     }
-    
+
     public Dictionary<string, SkinData> GetCurrentSkinList() => _currentSkinList;
 
     public void UnlockSkin(int index)
@@ -101,6 +103,17 @@ public class SkinManager
         }
 
         return null;
+    }
+
+    public void SelectSkin(string key)
+    {
+        _currentSkinKey = key;
+        PlayerPrefs.SetString("CurrentSkinKey", key);
+    }
+
+    public SkinData GetCurrentSkin()
+    {
+        return _skinList[_currentSkinKey];
     }
 
     public void AddListenerSkinColorChanged(Action<Color> action)

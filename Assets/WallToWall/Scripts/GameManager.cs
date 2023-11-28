@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         //InGameManager.Instance.UpdateBestScore(PlayerPrefs.GetInt("BestScore", 0).ToString());
-        player.sprite = SkinManager.Instance.GetCurrentSkinSprite();
+        player.sprite = SkinManager.Instance.GetCurrentSkin().unlockSprite;
     }
 
     [Button]

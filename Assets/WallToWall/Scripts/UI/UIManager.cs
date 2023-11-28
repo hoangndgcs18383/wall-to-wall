@@ -25,8 +25,6 @@ public class UIManager : Singleton<UIManager>
     [TabGroup("Canvas")] [SerializeField] private RectTransform inGameCanvas;
 
     private Dictionary<string, IBaseScreen> screens;
-    
-    [SerializeField] private Sprite testSprite;
 
     private void Awake()
     {
@@ -43,7 +41,8 @@ public class UIManager : Singleton<UIManager>
         };
     }
 
-    private IEnumerator<float> ShowAndLoadScreen<T>(string screenName, CanvasType parent, IUIData data = null, Action<T> callback = null)
+    private IEnumerator<float> ShowAndLoadScreen<T>(string screenName, CanvasType parent, IUIData data = null,
+        Action<T> callback = null)
         where T : class, IBaseScreen
     {
         BaseScreen baseScreen = null;
@@ -60,7 +59,7 @@ public class UIManager : Singleton<UIManager>
             baseScreen.RectTransform.anchoredPosition = Vector2.zero;
             baseScreen.RectTransform.sizeDelta = Vector2.zero;
             baseScreen.RectTransform.localScale = Vector3.one;
-
+            baseScreen.RectTransform.SetAsLastSibling();
             yield return Timing.WaitForOneFrame;
             screens.Add(screenName, baseScreen);
             screens[screenName].Initialize();
@@ -76,12 +75,12 @@ public class UIManager : Singleton<UIManager>
         yield return Timing.WaitForOneFrame;
         callback?.Invoke(baseScreen as T);
     }
-    
+
     public T GetScreen<T>() where T : IBaseScreen
     {
         if (screens.ContainsKey(typeof(T).Name))
         {
-            return (T) screens[typeof(T).Name];
+            return (T)screens[typeof(T).Name];
         }
 
         return default;
@@ -106,19 +105,19 @@ public class UIManager : Singleton<UIManager>
     {
         Timing.RunCoroutine(ShowAndLoadScreen<SettingPanel>("SettingPanel", CanvasType.Main));
     }
-    
-    [Button]
-    public void ShowTestUnlockSkinScreen()
+
+    public void ShowInventoryScreen(Action onClose = null)
     {
-        
+        Timing.RunCoroutine(ShowAndLoadScreen<InventoryPanel>("InventoryPanel", CanvasType.Main, null, panel =>
+        {
+            panel.RegisterOnClose(onClose);
+        }));
     }
 
     public void ShowUnlockSkinScreen(Dictionary<string, SkinData> skinData)
     {
-        Timing.RunCoroutine(ShowAndLoadScreen<UnlockSkinPanel>("UnlockSkinPanel", CanvasType.Main, null, screen =>
-        {
-            screen.SetData(skinData);
-        }));
+        Timing.RunCoroutine(ShowAndLoadScreen<UnlockSkinPanel>("UnlockSkinPanel", CanvasType.Main, null,
+            screen => { screen.SetData(skinData); }));
     }
 
     public void ShowMainMenuScreen()
@@ -130,9 +129,15 @@ public class UIManager : Singleton<UIManager>
     {
         Timing.RunCoroutine(ShowAndLoadScreen<GameOverPanel>("GameOverPanel", CanvasType.InGame, data));
     }
-    
+
     public void ShowRankScreen()
     {
         Timing.RunCoroutine(ShowAndLoadScreen<RankPanel>("RankPanel", CanvasType.Main));
+    }
+
+    [Button]
+    public void ClearPlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }

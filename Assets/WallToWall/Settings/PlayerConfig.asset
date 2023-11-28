@@ -18,22 +18,6 @@ MonoBehaviour:
   multipleScoreChangeBackgrounds: 5
   inManualAtStart: 1
   offsetAtStart: 3
-  backgroundKeys:
-  - key: BG_1
-    score: 15
-    unlockSprite: {fileID: 21300000, guid: 8fe969b368f658043ac18090df6900d3, type: 3}
-  - key: BG_2
-    score: 25
-    unlockSprite: {fileID: 21300000, guid: 8a035cdd82af0d64cb4fe2d7bfb42960, type: 3}
-  - key: BG_3
-    score: 35
-    unlockSprite: {fileID: 21300000, guid: b20d4f39bd08d824b93a213fe07c9698, type: 3}
-  - key: BG_4
-    score: 45
-    unlockSprite: {fileID: 21300000, guid: fcce419788982d94c98f35985f39c3ea, type: 3}
-  - key: BG_5
-    score: 55
-    unlockSprite: {fileID: 21300000, guid: f653f99794e412e4daf5c5799571809c, type: 3}
   offsetRight: -0.5
   offsetLeft: 0.5
   numberOfTrianglesStart: 1
@@ -41,38 +25,87 @@ MonoBehaviour:
   triangleCountUpScore: 2
   skins:
   - key: Skin_0
+    nameDisplay: HYPRO
     isUnlock: 0
     unlockSprite: {fileID: 21300000, guid: 0c2ec036c6b475d4d998dc72eeea152a, type: 3}
     lockSprite: {fileID: 21300000, guid: baa5175a00b2496408e247984cdca237, type: 3}
-    backgroundAllSprite: {fileID: 21300000, guid: 7b92598bf97d90149a6814ad4e1288d6,
+    backgroundAllSprite: {fileID: 21300000, guid: 8fe969b368f658043ac18090df6900d3,
       type: 3}
-    backgroundMainSprite: {fileID: 21300000, guid: 8200b5678a3113346a2d85a3ed831855,
+    backgroundMainSprite: {fileID: 21300000, guid: a3afba46dbae9dd48a97e33f06978d73,
       type: 3}
+    triangleSprite: {fileID: 21300000, guid: a0aafe11c23483549a84e5e7469c45e9, type: 3}
     unlockPoint: 0
     effectData:
       deathEffect: {fileID: 1204438978744632, guid: 65a5451625ed1496c8722e9a83ed5dc3,
         type: 3}
   - key: Skin_1
+    nameDisplay: BIRD
     isUnlock: 0
     unlockSprite: {fileID: 21300000, guid: 1e34c8e5ac199dd4d984cc50aa31e99d, type: 3}
     lockSprite: {fileID: 21300000, guid: baa5175a00b2496408e247984cdca237, type: 3}
     backgroundAllSprite: {fileID: 21300000, guid: fcce419788982d94c98f35985f39c3ea,
       type: 3}
-    backgroundMainSprite: {fileID: 21300000, guid: 9fbd7ba95ac0b03439e7f7957d5d6ace,
+    backgroundMainSprite: {fileID: 21300000, guid: 2a567567183951f4ab4f65bc0551e166,
       type: 3}
+    triangleSprite: {fileID: 21300000, guid: e01869fe6429e114b966850ad5461686, type: 3}
     unlockPoint: 0
     effectData:
       deathEffect: {fileID: 1204438978744632, guid: 46558f3248d89494aa4f0e0cea478d32,
         type: 3}
   - key: Skin_2
+    nameDisplay: FROG
     isUnlock: 0
     unlockSprite: {fileID: 21300000, guid: 892f81931b9aae94b81010a6287c2b69, type: 3}
     lockSprite: {fileID: 21300000, guid: 4635dcaba9ddca04682d206adb8611d7, type: 3}
     backgroundAllSprite: {fileID: 21300000, guid: f653f99794e412e4daf5c5799571809c,
       type: 3}
-    backgroundMainSprite: {fileID: 21300000, guid: 406f53e2a59e93c42924c3a2201955b6,
+    backgroundMainSprite: {fileID: 21300000, guid: c42bcd39244650942a20e18c6dc8cf81,
       type: 3}
+    triangleSprite: {fileID: 21300000, guid: d53613595398ecf4a8d8643fd03810a8, type: 3}
     unlockPoint: 0
     effectData:
       deathEffect: {fileID: 7282744016949600942, guid: c117c4e812df6ef479de14a423baed6d,
         type: 3}
+  - key: Skin_3
+    nameDisplay: SNOW
+    isUnlock: 0
+    unlockSprite: {fileID: 21300000, guid: 7b542e84f593261409cefdb54845b183, type: 3}
+    lockSprite: {fileID: 21300000, guid: 64f228219cf6b924499584862d11e473, type: 3}
+    backgroundAllSprite: {fileID: 21300000, guid: 864619f4a2167a04bb14069c2f5f52c9,
+      type: 3}
+    backgroundMainSprite: {fileID: 21300000, guid: 38c37a4d44bc1ba45a1e70c93b31b2a9,
+      type: 3}
+    triangleSprite: {fileID: 21300000, guid: 6922387e5d6b6034aba3e72116105373, type: 3}
+    unlockPoint: 0
+    effectData:
+      deathEffect: {fileID: 1751173354633357839, guid: 22054a1d1f985f64894dbc227d9461ae,
+        type: 3}
+  - key: Skin_4
+    nameDisplay: DRAGON
+    isUnlock: 0
+    unlockSprite: {fileID: 21300000, guid: 368ef25fbe00d26448a088cfab068961, type: 3}
+    lockSprite: {fileID: 21300000, guid: 78494b07ed3e66b408118abcaa63360b, type: 3}
+    backgroundAllSprite: {fileID: 21300000, guid: 8a035cdd82af0d64cb4fe2d7bfb42960,
+      type: 3}
+    backgroundMainSprite: {fileID: 21300000, guid: d1676b5b2f50a514d9fa30a138c606e3,
+      type: 3}
+    triangleSprite: {fileID: 21300000, guid: c1b6f6ee88c45444fa00699d1e00000c, type: 3}
+    unlockPoint: 0
+    effectData:
+      deathEffect: {fileID: 8993451883925006246, guid: ad1fef91cbd5b9649908e0d5f244ea15,
+        type: 3}
+  - key: Skin_5
+    nameDisplay: SOUL
+    isUnlock: 0
+    unlockSprite: {fileID: 21300000, guid: 25e51032c5ac6814c9f73ea4e823a453, type: 3}
+    lockSprite: {fileID: 21300000, guid: e3427bed77fac79409fd8e6c447b0d43, type: 3}
+    backgroundAllSprite: {fileID: 21300000, guid: b20d4f39bd08d824b93a213fe07c9698,
+      type: 3}
+    backgroundMainSprite: {fileID: 21300000, guid: e75a8961a44fb904cbd5a17b9be8fa9b,
+      type: 3}
+    triangleSprite: {fileID: 21300000, guid: df6b24805c242ca4f93d79d3ccb26b8d, type: 3}
+    unlockPoint: 0
+    effectData:
+      deathEffect: {fileID: 3211446660954236966, guid: 10f1e9811ca60454cb13992ed7c177d2,
+        type: 3}
+  tutorialConfigs: []

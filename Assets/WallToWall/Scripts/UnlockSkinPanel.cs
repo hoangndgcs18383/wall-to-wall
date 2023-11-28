@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using MEC;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,11 +12,13 @@ using UnityEngine.UI;
 public struct SkinData : IUIData
 {
     public string key;
+    public string nameDisplay;
     public bool isUnlock;
     public Sprite unlockSprite;
     public Sprite lockSprite;
     public Sprite backgroundAllSprite;
     public Sprite backgroundMainSprite;
+    [FormerlySerializedAs("backgroundTriangleSprite")] public Sprite triangleSprite;
     public int unlockPoint;
     public EffectData effectData;
 }
@@ -31,17 +34,20 @@ public class UnlockSkinPanel : BaseScreen
     [SerializeField] private Image shadowTf;
     [SerializeField] private ButtonW2W tapToClose;
     [SerializeField] private TMP_Text tapToCloseTxt;
+    [SerializeField] private SkinTrailFX skinTrailFX;
 
     private Sequence _showAnim;
     private Material _material;
     private int _currentSkinIndex;
     private Dictionary<string, SkinData> _skinDatas = null;
+    private List<SkinTrailFX> _skinTrailFXs;
 
     public override void Initialize()
     {
         base.Initialize();
         tapToClose.onClick.AddListener(Hide);
         _material = skinImage.material;
+        _skinTrailFXs = new List<SkinTrailFX>();
     }
 
 
@@ -62,11 +68,11 @@ public class UnlockSkinPanel : BaseScreen
         SkinData data = _skinDatas.Values.ToArray()[_currentSkinIndex];
         skinImage.sprite = data.unlockSprite;
         shadowTf.sprite = data.unlockSprite;
-        tapToCloseTxt.DOKill();
-        effectTf.DOKill();
-        tapToClose.targetGraphic.DOKill();
+        tapToCloseTxt.DOComplete();
+        effectTf.DOComplete();
+        tapToClose.targetGraphic.DOComplete();
         tapToCloseTxt.SetText(_currentSkinIndex < _skinDatas.Count - 1 ? "Tap to continue" : "Tap to close");
-        
+
         skinImage.transform.localScale = Vector3.zero;
         effectTf.transform.localScale = Vector3.zero;
         effectTf.rotation = Quaternion.identity;
@@ -75,7 +81,7 @@ public class UnlockSkinPanel : BaseScreen
         tapToCloseTxt.transform.localScale = Vector3.zero;
         shadowTf.transform.localScale = Vector3.one * 2f;
         tapToCloseTxt.color = new Color32(255, 255, 255, 0);
-        
+
 
         _showAnim = DOTween.Sequence();
         _showAnim.Append(newTagTf.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack));
@@ -101,10 +107,7 @@ public class UnlockSkinPanel : BaseScreen
         }));
         //_showAnim.Append(newTagTf.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack));
         _showAnim.Append(tapToCloseTxt.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack));
-        _showAnim.OnComplete(() =>
-        {
-            tapToCloseTxt.DOFade(0.5f, 0.5f).SetLoops(-1, LoopType.Yoyo);
-        });
+        _showAnim.OnComplete(() => { tapToCloseTxt.DOFade(0.5f, 0.5f).SetLoops(-1, LoopType.Yoyo); });
     }
 
     public override void Hide()
@@ -117,6 +120,32 @@ public class UnlockSkinPanel : BaseScreen
         else
         {
             base.Hide();
+            Timing.RunCoroutine(IEPlayAnimComplete());
+        }
+    }
+
+    private IEnumerator<float> IEPlayAnimComplete()
+    {
+        yield return Timing.WaitForOneFrame;
+
+        RectTransform target = UIManager.Instance.GetScreen<MainMenu>().GetInventoryButton();
+
+        int count = 0;
+        foreach (var skinData in _skinDatas)
+        {
+            if (_skinTrailFXs.Count > count)
+            {
+                _skinTrailFXs[count].Initialize(skinData.Value.unlockSprite, target);
+            }
+            else
+            {
+                SkinTrailFX fx = Instantiate(skinTrailFX, target.parent, false);
+                fx.Initialize(skinData.Value.unlockSprite, target);
+                _skinTrailFXs.Add(fx);
+            }
+
+            count++;
+            yield return Timing.WaitForSeconds(0.1f);
         }
     }
 }

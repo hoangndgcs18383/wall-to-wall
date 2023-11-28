@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
-using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -43,9 +41,10 @@ public class Player : MonoBehaviour
         _material = GetComponent<SpriteRenderer>().material;
         StopPlayer();
 
-        var defaultEffect = DeadEffectObj;
-        DeadEffectObj = playerConfig.skins.FirstOrDefault(i => SkinManager.Instance.GetCurrentKey() == i.key).effectData.deathEffect;
-        Debug.Log(SkinManager.Instance.GetCurrentKey());
+        //var defaultEffect = DeadEffectObj;
+        SkinData skinData = SkinManager.Instance.GetCurrentSkin();
+        DeadEffectObj = skinData.effectData.deathEffect;
+        //Debug.Log(SkinManager.Instance.GetCurrentKey());
     }
 
 

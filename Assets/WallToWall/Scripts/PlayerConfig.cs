@@ -17,7 +17,7 @@ public class PlayerConfig : ScriptableObject
     [BoxGroup("Triangle")] public float offsetAtStart = 3f;
 
     //[BoxGroup("Triangle")] public List<Sprite> backgroundSprites;
-    [BoxGroup("Triangle")] public List<BackgroundData> backgroundKeys;
+    //[BoxGroup("Triangle")] public List<BackgroundData> backgroundKeys;
     [BoxGroup("Triangle")] public float offsetRight = -0.7f;
     [BoxGroup("Triangle")] public float offsetLeft = 0f;
 
@@ -28,6 +28,8 @@ public class PlayerConfig : ScriptableObject
     [BoxGroup("Triangle")] [Range(1, 10)] public int triangleCountUpScore = 3;
 
     [BoxGroup("Skins features")] public List<SkinData> skins = new List<SkinData>();
+    
+    [BoxGroup("Tutorial Config")] public List<TutorialConfig> tutorialConfigs = new List<TutorialConfig>();
 }
 
 [Serializable]

@@ -18,7 +18,7 @@ public class RankPanel : BaseScreen
         var rankList = RankManager.Instance.GetRankList;
 
         int index = 0;
-        
+
         foreach (var rank in rankList)
         {
             if (rankingItems.Count <= index) break;
@@ -28,7 +28,8 @@ public class RankPanel : BaseScreen
                 index++;
                 continue;
             }
-            rankingItems[index].SetRankText(rank.Key, rank.Value);
+
+            rankingItems[index].SetRankText((index + 1).ToString(), rank.Value);
             rankingItems[index].gameObject.SetActive(true);
             index++;
         }

@@ -6,7 +6,6 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public enum TransitionType
@@ -50,6 +49,7 @@ public class LoadingManager : MonoBehaviour
     async void Start()
     {
         Application.quitting += RestTransition;
+        Application.targetFrameRate = 60;
         
         /*AddressablesManager.TryLoadAssetSync(BackgroundAddress.GetAddress("BG_FIRST"), out Sprite backgroundSprite);
         background.sprite = backgroundSprite;*/

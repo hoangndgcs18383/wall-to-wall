@@ -46,9 +46,11 @@ public class MainMenu : BaseScreen
     [BoxGroup("Buttons")] [SerializeField] private ButtonW2W playButton;
     [BoxGroup("Buttons")] [SerializeField] private ButtonW2W rankButton;
     [BoxGroup("Buttons")] [SerializeField] private ButtonW2W settingButton;
+    [BoxGroup("Buttons")] [SerializeField] private ButtonW2W inventoryButton;
 
     [BoxGroup("GUI")] [SerializeField] private CanvasGroup canvasGroup;
     [BoxGroup("GUI")] [SerializeField] private Image background;
+    [BoxGroup("GUI")] [SerializeField] private Image blurBackground;
     [BoxGroup("GUI")] [SerializeField] private Image mainBackground;
     [BoxGroup("GUI")] [SerializeField] private Image hole;
 
@@ -86,13 +88,14 @@ public class MainMenu : BaseScreen
         //AdsManager.Instance.Initialize();
 #endif
 
-        nextSkinButton.onClick.AddListener(NextSkin);
-        previousButton.onClick.AddListener(PreviousSkin);
+        //nextSkinButton.onClick.AddListener(NextSkin);
+        //previousButton.onClick.AddListener(PreviousSkin);
 
         rateButton.onClick.AddListener(ShowRatePanel);
         settingButton.onClick.AddListener(ShowSettingPanel);
         playButton.onClick.AddListener(ShowInGamePanel);
         rankButton.onClick.AddListener(ShowRankPanel);
+        inventoryButton.onClick.AddListener(ShowInventoryPanel);
         Transition();
     }
 
@@ -120,6 +123,7 @@ public class MainMenu : BaseScreen
         _allCanvasGroup.alpha = 0;
         _allCanvasGroup.DOFade(1, 2f);
         background.gameObject.SetActive(true);
+        blurBackground.gameObject.SetActive(true);
         ShowOrHideCanvasGroup(true);
 
         Timing.CallDelayed(3f, () =>
@@ -141,6 +145,18 @@ public class MainMenu : BaseScreen
     public override void Hide()
     {
         _allCanvasGroup.DOFade(0, 2f).OnComplete(base.Hide);
+    }
+
+    [Button]
+    public void TestSkin()
+    {
+        PlayerPrefs.DeleteAll();
+        Show();
+    }
+    
+    public RectTransform GetInventoryButton()
+    {
+        return inventoryButton.transform as RectTransform;
     }
 
     private void NextSkin()
@@ -197,7 +213,7 @@ public class MainMenu : BaseScreen
     {
         PlayerPrefs.SetInt("CurrentSkinIndex", _currentSkinIndex);
 
-        if (PlayerPrefs.GetInt("BestScore", 0) < playerConfig.skins[_currentSkinIndex].unlockPoint &&
+        /*if (PlayerPrefs.GetInt("BestScore", 0) < playerConfig.skins[_currentSkinIndex].unlockPoint &&
             _currentSkinIndex > 0)
         {
             currentPlayerSprite.sprite = playerConfig.skins[_currentSkinIndex].lockSprite;
@@ -206,12 +222,14 @@ public class MainMenu : BaseScreen
             mainBackground.sprite = playerConfig.skins[_currentSkinIndex].backgroundMainSprite;
             //background.sprite = playerConfig.skins[_currentSkinIndex].backgroundAllSprite;
             return;
-        }
+        }*/
 
-        currentPlayerSprite.sprite = playerConfig.skins[_currentSkinIndex].unlockSprite;
+        var skinData = SkinManager.Instance.GetCurrentSkin();
+
+        currentPlayerSprite.sprite = skinData.unlockSprite;
         currentUnlockStarImage.sprite = unlockStarSprite;
-        currentSkinText.SetText(playerConfig.skins[_currentSkinIndex].key);
-        mainBackground.sprite = playerConfig.skins[_currentSkinIndex].backgroundMainSprite;
+        currentSkinText.SetText(skinData.nameDisplay);
+        mainBackground.sprite = skinData.backgroundMainSprite;
         //background.sprite = playerConfig.skins[_currentSkinIndex].backgroundAllSprite;
         PlayerPrefs.SetInt("LastSkinIndex", _currentSkinIndex);
     }
@@ -250,6 +268,7 @@ public class MainMenu : BaseScreen
             hole.rectTransform.DOKill();
             hole.gameObject.SetActive(false);
             background.gameObject.SetActive(false);
+            blurBackground.gameObject.SetActive(false);
             UIManager.Instance.ShowInGameScreen();
             AudioManager.Instance.PlayBGM("BGM_INGAME", volume: 0.3f);
         });
@@ -258,6 +277,11 @@ public class MainMenu : BaseScreen
     private void ShowRankPanel()
     {
         UIManager.Instance.ShowRankScreen();
+    }
+    
+    private void ShowInventoryPanel()
+    {
+        UIManager.Instance.ShowInventoryScreen(OnLoadSkin);
     }
 
     #endregion

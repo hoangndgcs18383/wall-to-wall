@@ -9,6 +9,7 @@ public class Triangle : MonoBehaviour
 
     private void OnEnable()
     {
+        transform.localPosition = new Vector3(-offsetX, transform.localPosition.y, transform.localPosition.z);
         transform.DOLocalMoveX(offsetX, duration).SetEase(Ease.Linear);
     }
     
