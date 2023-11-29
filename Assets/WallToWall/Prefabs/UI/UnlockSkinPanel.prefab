@@ -61,7 +61,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ec8d0f6c7e9944fb9befeea7f608c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isScale: 1
   isInteractable: 1
   targetGraphic: {fileID: 0}
   onClick:
@@ -242,6 +243,7 @@ GameObject:
   - component: {fileID: 7777352241699528684}
   - component: {fileID: 6414379275899495557}
   - component: {fileID: 3771664528229371773}
+  - component: {fileID: 1744211601554178093}
   m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
@@ -307,6 +309,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1744211601554178093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2293268286063208040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71ec8d0f6c7e9944fb9befeea7f608c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isScale: 0
+  isInteractable: 1
+  targetGraphic: {fileID: 3771664528229371773}
+  onClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2770202713295281265
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,7 +387,7 @@ MonoBehaviour:
   newTagTf: {fileID: 4248205773759878031}
   effectTf: {fileID: 6512894846517575169}
   shadowTf: {fileID: 2541167112647246428}
-  tapToClose: {fileID: 6439807445693676246}
+  tapToClose: {fileID: 1744211601554178093}
   tapToCloseTxt: {fileID: 4633668877601275549}
   skinTrailFX: {fileID: 469958683662663927, guid: eeeb86a92b5af624993562c5eec0d927,
     type: 3}

@@ -124,6 +124,7 @@ public class MainMenu : BaseScreen
         _allCanvasGroup.DOFade(1, 2f);
         background.gameObject.SetActive(true);
         blurBackground.gameObject.SetActive(true);
+        hole.gameObject.SetActive(true);
         ShowOrHideCanvasGroup(true);
 
         Timing.CallDelayed(3f, () =>
@@ -229,7 +230,7 @@ public class MainMenu : BaseScreen
         currentPlayerSprite.sprite = skinData.unlockSprite;
         currentUnlockStarImage.sprite = unlockStarSprite;
         currentSkinText.SetText(skinData.nameDisplay);
-        mainBackground.sprite = skinData.backgroundMainSprite;
+        //mainBackground.sprite = skinData.backgroundMainSprite;
         //background.sprite = playerConfig.skins[_currentSkinIndex].backgroundAllSprite;
         PlayerPrefs.SetInt("LastSkinIndex", _currentSkinIndex);
     }

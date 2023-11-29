@@ -7,6 +7,7 @@ public class InGamePanel : BaseScreen
     [SerializeField] private GameObject gameOverEffectPanel;
     [SerializeField] private ButtonW2W tapToStart;
     [SerializeField] private ButtonW2W btnPause;
+    [SerializeField] private GameObject tapToPlay;
 
     public override void Initialize()
     {
@@ -19,6 +20,7 @@ public class InGamePanel : BaseScreen
     {
         base.Show(data);
         tapToStart.gameObject.SetActive(true);
+        tapToPlay.SetActive(true);
     }
 
     public void ShowGameOverEffect()
@@ -41,6 +43,7 @@ public class InGamePanel : BaseScreen
         GameManager.Instance.GameStart();
         btnPause.gameObject.SetActive(true);
         tapToStart.gameObject.SetActive(false);
+        tapToPlay.SetActive(false);
         AudioManager.Instance.PlayBGM("BGM_INGAME", volume: 0.3f);
     }
 

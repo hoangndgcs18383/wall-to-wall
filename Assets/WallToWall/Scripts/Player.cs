@@ -143,7 +143,7 @@ public class Player : MonoBehaviour
 
     public void StartPlayer()
     {
-        rb.velocity = new Vector2(-1, 0);
+        rb.velocity = new Vector2(playerConfig.jumpSpeedX, playerConfig.jumpSpeedY);
         rb.isKinematic = false;
         // isStarted = true;
     }

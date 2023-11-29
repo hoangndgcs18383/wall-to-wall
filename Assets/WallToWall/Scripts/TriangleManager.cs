@@ -43,8 +43,8 @@ public class TriangleManager : MonoBehaviour
 
         NumberOfTriangles = triangleConfig.numberOfTrianglesStart;
 
-        triangleConfig.offsetLeft = (LeftWall.transform.localScale.x / 2f);
-        triangleConfig.offsetRight = -(RightWall.transform.localScale.x / 2f);
+        //triangleConfig.offsetLeft = (LeftWall.transform.localScale.x / 2f);
+        //triangleConfig.offsetRight = -(RightWall.transform.localScale.x / 2f);
 
         if (triangleConfig.inManualAtStart)
         {
@@ -102,6 +102,7 @@ public class TriangleManager : MonoBehaviour
             obj.transform.position = new Vector2(wall.transform.position.x + triangleConfig.offsetRight, y);
             obj.transform.rotation = wall.transform.rotation;
             obj.SetActive(true);
+            obj.GetComponent<Triangle>().TurnOn();
             _triangleStart.Add(obj);
         });
     }
@@ -113,8 +114,6 @@ public class TriangleManager : MonoBehaviour
     IEnumerator CreateTriangles(string LeftOrRight)
     {
         yield return new WaitForSeconds(0.1f);
-
-        Debug.Log(NumberOfTriangles);
         for (int i = 0; i < NumberOfTriangles; i++) // Multiple triangles may appear in the same place.
         {
             int randomY = Random.Range(-6, 7);
@@ -127,6 +126,7 @@ public class TriangleManager : MonoBehaviour
                         randomY * 1.5f);
                     obj.transform.rotation = LeftWall.transform.rotation;
                     obj.SetActive(true);
+                    obj.GetComponent<Triangle>().TurnOn();
                     //_triangleLList.Add(obj);
                 });
             }
@@ -139,6 +139,7 @@ public class TriangleManager : MonoBehaviour
                         randomY * 1.5f);
                     obj.transform.rotation = RightWall.transform.rotation;
                     obj.SetActive(true);
+                    obj.GetComponent<Triangle>().TurnOn();
                     //_triangleRList.Add(obj);
                 });
             }
@@ -153,7 +154,7 @@ public class TriangleManager : MonoBehaviour
 
     void DeleteTriangles(string LeftOrRight)
     {
-        if (LeftOrRight == "Left")
+        if (LeftOrRight == "Right")
         {
             foreach (Transform child in RightWall.transform)
             {
@@ -166,7 +167,7 @@ public class TriangleManager : MonoBehaviour
                 child.GetComponent<Triangle>().TurnOff();
             }
         }
-        else if (LeftOrRight == "Right")
+        else if (LeftOrRight == "Left")
         {
             foreach (Transform child in LeftWall.transform)
             {

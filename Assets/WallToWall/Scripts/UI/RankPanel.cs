@@ -15,6 +15,7 @@ public class RankPanel : BaseScreen
     [Button("SetRanking")]
     public void SetRanking()
     {
+        RankManager.Instance.SortRank();
         var rankList = RankManager.Instance.GetRankList;
 
         int index = 0;

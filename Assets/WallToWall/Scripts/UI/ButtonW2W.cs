@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class ButtonW2W : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IPointerEnterHandler
 {
+    public bool isScale = true;
     public bool isInteractable = true;
     public Image targetGraphic;
     public UnityEvent onClick = new UnityEvent();
@@ -46,22 +47,22 @@ public class ButtonW2W : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        _rectTransform.DOScale(1.1f, 0.1f).SetEase(Ease.OutBack);
+        if(isScale) _rectTransform.DOScale(1.1f, 0.1f).SetEase(Ease.OutBack);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        _rectTransform.DOScale(1f, 0.1f).SetEase(Ease.OutBack);
+        if(isScale) _rectTransform.DOScale(1f, 0.1f).SetEase(Ease.OutBack);
         onClick?.Invoke();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        _rectTransform.DOScale(1f, 0.1f).SetEase(Ease.OutBack);
+        if(isScale) _rectTransform.DOScale(1f, 0.1f).SetEase(Ease.OutBack);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        _rectTransform.DOScale(1.1f, 0.1f).SetEase(Ease.OutBack);
+        if(isScale) _rectTransform.DOScale(1.1f, 0.1f).SetEase(Ease.OutBack);
     }
 }

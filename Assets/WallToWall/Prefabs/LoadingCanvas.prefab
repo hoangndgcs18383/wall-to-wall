@@ -378,6 +378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ec8d0f6c7e9944fb9befeea7f608c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isScale: 1
   isInteractable: 1
   targetGraphic: {fileID: 3337711849423176753}
   onClick:
@@ -619,7 +620,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0.0.2 (3)
+  m_text: 0.0.2 (5)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f71ea128871fda04eb813ff5a5f76cda, type: 2}
   m_sharedMaterial: {fileID: -902999296769898718, guid: f71ea128871fda04eb813ff5a5f76cda,

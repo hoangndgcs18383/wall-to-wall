@@ -12,7 +12,7 @@ public class RankManager
     private Dictionary<string, int> _rankList = new Dictionary<string, int>();
     private readonly int _maxRank = 10;
     private const string RankPrefKey = "Rank_{index}";
-    private event Action OnRankChanged; 
+    private event Action OnRankChanged;
     private bool _isInitialized;
 
     #endregion
@@ -43,9 +43,8 @@ public class RankManager
 
     private void Initialize()
     {
-        if(_isInitialized) return;
+        if (_isInitialized) return;
         _isInitialized = true;
-        Debug.Log("RankManager Initialize");
         GetRankList.Clear();
 
         for (int i = 0; i < _maxRank; i++)
@@ -57,7 +56,7 @@ public class RankManager
         SortRank();
         OnRankChanged?.Invoke();
     }
-    
+
     public void SetRank(int currentRank)
     {
         if (currentRank >= 1)
@@ -82,7 +81,7 @@ public class RankManager
                 PlayerPrefs.SetInt(firstOrDefault.Key, bestScore);
                 return true;
             }
-            
+
             if (!SoftRankHasSlot(bestScore))
             {
                 PlayerPrefs.SetInt(firstOrDefault.Key, bestScore);
@@ -99,25 +98,25 @@ public class RankManager
             GetRankList[e.Key] = bestScore;
             return true;
         });
-        
+
         if (find.Key != null)
         {
             PlayerPrefs.SetInt(find.Key, bestScore);
         }
-        
+
         return find.Key != null;
     }
-    
-    private void SortRank()
+
+    public void SortRank()
     {
         GetRankList = GetRankList.OrderByDescending(r => r.Value).ToDictionary(r => r.Key, r => r.Value);
     }
-    
+
     public void AddListenerRankChanged(Action action)
     {
         OnRankChanged += action;
     }
-    
+
     public void RemoveListenerRankChanged(Action action)
     {
         OnRankChanged -= action;

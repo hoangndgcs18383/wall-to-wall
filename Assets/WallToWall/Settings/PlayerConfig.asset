@@ -18,14 +18,14 @@ MonoBehaviour:
   multipleScoreChangeBackgrounds: 5
   inManualAtStart: 1
   offsetAtStart: 3
-  offsetRight: -0.5
-  offsetLeft: 0.5
+  offsetRight: 1
+  offsetLeft: -1
   numberOfTrianglesStart: 1
   numberOfTrianglesMax: 4
-  triangleCountUpScore: 2
+  triangleCountUpScore: 5
   skins:
   - key: Skin_0
-    nameDisplay: HYPRO
+    nameDisplay: HYDRO
     isUnlock: 0
     unlockSprite: {fileID: 21300000, guid: 0c2ec036c6b475d4d998dc72eeea152a, type: 3}
     lockSprite: {fileID: 21300000, guid: baa5175a00b2496408e247984cdca237, type: 3}
@@ -39,7 +39,7 @@ MonoBehaviour:
       deathEffect: {fileID: 1204438978744632, guid: 65a5451625ed1496c8722e9a83ed5dc3,
         type: 3}
   - key: Skin_1
-    nameDisplay: BIRD
+    nameDisplay: SHINY
     isUnlock: 0
     unlockSprite: {fileID: 21300000, guid: 1e34c8e5ac199dd4d984cc50aa31e99d, type: 3}
     lockSprite: {fileID: 21300000, guid: baa5175a00b2496408e247984cdca237, type: 3}
