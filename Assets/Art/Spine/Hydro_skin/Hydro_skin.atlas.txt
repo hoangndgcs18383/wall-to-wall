@@ -1,0 +1,78 @@
+
+Hydro_skin.png
+size: 293,293
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hyro_skin
+  rotate: false
+  xy: 2, 2
+  size: 289, 289
+  orig: 289, 289
+  offset: 0, 0
+  index: -1
+  
+Shiny_skin.png
+size: 293,293
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shiny_skin
+  rotate: false
+  xy: 2, 2
+  size: 289, 289
+  orig: 289, 289
+  offset: 0, 0
+  index: -1
+  
+Snow_skin.png
+size: 293,293
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+snow_skin
+  rotate: false
+  xy: 2, 2
+  size: 289, 289
+  orig: 289, 289
+  offset: 0, 0
+  index: -1
+  
+Eggfrog_skin.png
+size: 293,293
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+eggfrog_skin
+  rotate: false
+  xy: 2, 2
+  size: 289, 289
+  orig: 289, 289
+  offset: 0, 0
+  index: -1
+
+Dragon_skin.png
+size: 293,293
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dragon_skin
+  rotate: false
+  xy: 2, 2
+  size: 289, 289
+  orig: 289, 289
+  offset: 0, 0
+  index: -1
+  
+Soul_skin.png
+size: 293,293
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+soul_skin
+  rotate: false
+  xy: 2, 2
+  size: 289, 289
+  orig: 289, 289
+  offset: 0, 0
+  index: -1

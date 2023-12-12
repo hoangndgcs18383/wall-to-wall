@@ -12,6 +12,7 @@ using UnityEngine.UI;
 public struct SkinData : IUIData
 {
     public string key;
+    public string hash;
     public string nameDisplay;
     public bool isUnlock;
     public Sprite unlockSprite;
@@ -69,7 +70,7 @@ public class UnlockSkinPanel : BaseScreen
         skinImage.sprite = data.unlockSprite;
         shadowTf.sprite = data.unlockSprite;
         tapToCloseTxt.DOComplete();
-        effectTf.DOComplete();
+        effectTf.transform.DOKill();
         tapToClose.targetGraphic.DOComplete();
         tapToCloseTxt.SetText(_currentSkinIndex < _skinDatas.Count - 1 ? "Tap to continue" : "Tap to close");
 

@@ -376,6 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ec8d0f6c7e9944fb9befeea7f608c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isScale: 1
   isInteractable: 1
   targetGraphic: {fileID: 3240013471300210642}
   onClick:
@@ -439,6 +440,10 @@ MonoBehaviour:
   currentSkinText: {fileID: 363834884682754105}
   currentSkinImage: {fileID: 2265235271522436677}
   currentSkinBackground: {fileID: 7118846172273934885}
+  selectSkinImage: {fileID: 2478911369728067237}
+  selectSkinSprite: {fileID: 21300000, guid: a5a79422e24f6f94ba9d612573fe3adc, type: 3}
+  unselectSkinSprite: {fileID: 21300000, guid: 1c9bfcf0c934a294e8dec83154424d97, type: 3}
+  selectSkinText: {fileID: 4966017640205663454}
   newTag: {fileID: 7188030956303494869}
   playerConfig: {fileID: 11400000, guid: 9101fa62ba1daae4789a7eb2ca778c76, type: 2}
 --- !u!1 &5293685861282566409
@@ -530,6 +535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ec8d0f6c7e9944fb9befeea7f608c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isScale: 1
   isInteractable: 1
   targetGraphic: {fileID: 1401290349475326148}
   onClick:
@@ -797,6 +803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ec8d0f6c7e9944fb9befeea7f608c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isScale: 1
   isInteractable: 1
   targetGraphic: {fileID: 2478911369728067237}
   onClick:
@@ -1164,7 +1171,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 49.5, y: -48.009766}
+  m_AnchoredPosition: {x: 21.40002, y: -48.009766}
   m_SizeDelta: {x: 117, y: 97}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1296340301525171093
@@ -1217,6 +1224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ec8d0f6c7e9944fb9befeea7f608c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isScale: 1
   isInteractable: 1
   targetGraphic: {fileID: 6272048854435746365}
   onClick:

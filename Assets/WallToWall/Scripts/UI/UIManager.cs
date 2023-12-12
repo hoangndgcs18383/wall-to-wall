@@ -108,10 +108,8 @@ public class UIManager : Singleton<UIManager>
 
     public void ShowInventoryScreen(Action onClose = null)
     {
-        Timing.RunCoroutine(ShowAndLoadScreen<InventoryPanel>("InventoryPanel", CanvasType.Main, null, panel =>
-        {
-            panel.RegisterOnClose(onClose);
-        }));
+        Timing.RunCoroutine(ShowAndLoadScreen<InventoryPanel>("InventoryPanel", CanvasType.Main, null,
+            panel => { panel.RegisterOnClose(onClose); }));
     }
 
     public void ShowUnlockSkinScreen(Dictionary<string, SkinData> skinData)
@@ -133,6 +131,12 @@ public class UIManager : Singleton<UIManager>
     public void ShowRankScreen()
     {
         Timing.RunCoroutine(ShowAndLoadScreen<RankPanel>("RankPanel", CanvasType.Main));
+    }
+
+    public void ShowTutorialScreen(Action onComplete = null)
+    {
+        Timing.RunCoroutine(ShowAndLoadScreen<TutorialPanel>("TutorialPanel", CanvasType.Main, null,
+            screen => { screen.RegisterCompleteCallback(onComplete); }));
     }
 
     [Button]

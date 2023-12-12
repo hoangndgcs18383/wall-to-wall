@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb5f4779b7df95b43a422b6107ca329a, type: 3}
+  m_Name: SpineSkinTool
+  m_EditorClassIdentifier: 
+  templateTexture: {fileID: 0}
+  textures:
+  - {fileID: 2800000, guid: 4bfb90c1c596ca345aeac4319ff2e886, type: 3}
+  - {fileID: 2800000, guid: 76965316f52fab049aa20bd339b863f9, type: 3}
+  - {fileID: 2800000, guid: 481fcd9e9ad42a041b1c41bdcfa1b38f, type: 3}
+  - {fileID: 2800000, guid: 1046437e3c6e0de4cbf97fa7a6ff7cc4, type: 3}
+  - {fileID: 2800000, guid: 4c3563b1177256f4a8f32b8133ea71df, type: 3}
+  rootPath: Art/Spine
+  images:
+  - sprite: {fileID: 21300000, guid: 3e33780aef890394ab54c6aa46f7fbd6, type: 3}
+    imageName: Shiny
+    size: {x: 293, y: 293}
+    format: RGBA8888
+    filter: Linear,Linear
+    repeat: none
+    hash: shiny_skin
+    rotate: 0
+    xy: {x: 2, y: 2}
+    sizeStr: {x: 289, y: 289}
+    orig: {x: 289, y: 289}
+    offset: {x: 0, y: 0}
+    index: -1
+  hydroAtlasAsset: {fileID: 4900000, guid: ac06c76f9112b124eb7f92c0df665c1f, type: 3}

@@ -302,6 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ec8d0f6c7e9944fb9befeea7f608c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isScale: 1
   isInteractable: 1
   targetGraphic: {fileID: 1342390006041467448}
   onClick:
@@ -370,6 +371,7 @@ MonoBehaviour:
   tapToStart: {fileID: 1641983957558190916}
   btnPause: {fileID: 9143478476711847376}
   tapToPlay: {fileID: 1342390006041467446}
+  pointFrame: {fileID: 1342390007429067768}
 --- !u!1 &1342390006285820745
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,6 +597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ec8d0f6c7e9944fb9befeea7f608c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isScale: 1
   isInteractable: 1
   targetGraphic: {fileID: 1342390006473296211}
   onClick:
@@ -987,7 +990,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1342390007234192942
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1059,6 +1062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ec8d0f6c7e9944fb9befeea7f608c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isScale: 1
   isInteractable: 1
   targetGraphic: {fileID: 1342390007234192945}
   onClick:
@@ -1081,7 +1085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1342390007429067771
 RectTransform:
   m_ObjectHideFlags: 0

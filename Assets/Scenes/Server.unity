@@ -132,7 +132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 712342655}
-  - component: {fileID: 712342654}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -140,22 +139,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &712342654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 712342653}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c1278059dbc944f933d08c040dcc32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  username: hoangtest
-  email: hoangtest@gmail.com
-  password: Jiyeon3012
-  userImage: /C:/Users/USER/Pictures/unnamed.png
 --- !u!4 &712342655
 Transform:
   m_ObjectHideFlags: 0

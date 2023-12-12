@@ -24,7 +24,7 @@ public class SkinTrailFX : MonoBehaviour
         if (final == null)
         {
             final = Instantiate(finalFx, target.parent, false);
-            _material = final.material;
+            //_material = final.material;
             _target = target;
         }
 
@@ -48,8 +48,8 @@ public class SkinTrailFX : MonoBehaviour
 
     private void UpdateMaterial()
     {
-        int hsv = Random.Range(0, 360);
-        _material.SetInt("_HsvShift", hsv);
+        //int hsv = Random.Range(0, 360);
+        //_material.SetInt("_HsvShift", hsv);
     }
 
     private void OnDestroy()

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using MEC;
 using Sirenix.OdinInspector;
+using Spine.Unity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -51,16 +52,20 @@ public class MainMenu : BaseScreen
     [BoxGroup("GUI")] [SerializeField] private CanvasGroup canvasGroup;
     [BoxGroup("GUI")] [SerializeField] private Image background;
     [BoxGroup("GUI")] [SerializeField] private Image blurBackground;
-    [BoxGroup("GUI")] [SerializeField] private Image mainBackground;
-    [BoxGroup("GUI")] [SerializeField] private Image hole;
+
+    [BoxGroup("GUI")] [SerializeField] private SkeletonGraphic skeletonGraphic;
+    //[BoxGroup("GUI")] [SerializeField] private Image mainBackground;
+    //[BoxGroup("GUI")] [SerializeField] private Image hole;
 
     [BoxGroup("Config")] [SerializeField] private PlayerConfig playerConfig;
 
     [SerializeField] private Image currentPlayerSprite;
+    [BoxGroup("GUI")] [SerializeField] private SkeletonGraphic skinSkeleton;
 
     [SerializeField] private Image currentUnlockStarImage;
 
     //[SerializeField] private Sprite unlockSkinSprite;
+    //[SerializeField] private Material unlockSkinMaterial;
     [SerializeField] private Sprite lockStarSprite;
     [SerializeField] private Sprite unlockStarSprite;
     [SerializeField] private ButtonW2W nextSkinButton;
@@ -83,6 +88,7 @@ public class MainMenu : BaseScreen
         }
 
         SkinManager.Instance.Initialize(sprites);
+        TutorialManager.Instance.Initialize();
         //SkinManager.Instance.AddListenerSkinUnlocked(OnUnlockSkin);
 #if UNITY_ANDROID || UNITY_IOS
         //AdsManager.Instance.Initialize();
@@ -93,7 +99,15 @@ public class MainMenu : BaseScreen
 
         rateButton.onClick.AddListener(ShowRatePanel);
         settingButton.onClick.AddListener(ShowSettingPanel);
-        playButton.onClick.AddListener(ShowInGamePanel);
+        if (TutorialManager.Instance.HadReleasedTutorial)
+        {
+            playButton.onClick.AddListener(ShowInGamePanel);
+        }
+        else
+        {
+            playButton.onClick.AddListener(ShowInTutorialPanel);
+        }
+
         rankButton.onClick.AddListener(ShowRankPanel);
         inventoryButton.onClick.AddListener(ShowInventoryPanel);
         Transition();
@@ -102,30 +116,30 @@ public class MainMenu : BaseScreen
     private void Transition()
     {
         OnLoadSkin();
-        hole.rectTransform.DOKill();
-        hole.rectTransform.localRotation = Quaternion.identity;
-        hole.rectTransform.DORotate(new Vector3(0, 0, 360), 10f, rotateMode).SetEase(Ease.Linear)
-            .SetLoops(-1, LoopType.Restart);
-
         currentPlayer.DOKill();
         currentPlayer.localPosition = Vector3.zero;
         currentPlayer.localScale = Vector3.one;
         currentPlayer.localRotation = Quaternion.identity;
 
         currentPlayer.DOLocalMoveY(jumpHeight, jumpDuration).SetEase(jumpEase).SetLoops(-1, LoopType.Yoyo);
-        currentPlayer.DOScale(scaleWeight, scaleDuration).SetEase(scaleEase).SetLoops(-1, LoopType.Yoyo);
-        currentPlayer.DORotate(rotateAngle, rotateDuration, rotateMode).SetEase(rotateEase).SetLoops(-1, LoopType.Yoyo);
+        currentPlayer.DOScaleY(0.85f, jumpDuration).SetEase(jumpEase).SetLoops(-1, LoopType.Yoyo);
+
+        //currentPlayer.DOScale(scaleWeight, scaleDuration).SetEase(scaleEase).SetLoops(-1, LoopType.Yoyo);
+        //currentPlayer.DORotate(rotateAngle, rotateDuration, rotateMode).SetEase(rotateEase).SetLoops(-1, LoopType.Yoyo);
     }
 
     public override void Show(IUIData data = null)
     {
         base.Show(data);
-        _allCanvasGroup.alpha = 0;
-        _allCanvasGroup.DOFade(1, 2f);
+
         background.gameObject.SetActive(true);
         blurBackground.gameObject.SetActive(true);
-        hole.gameObject.SetActive(true);
+        _allCanvasGroup.alpha = 0;
+        _allCanvasGroup.interactable = false;
+        _allCanvasGroup.blocksRaycasts = false;
+        _allCanvasGroup.DOFade(1, 2f);
         ShowOrHideCanvasGroup(true);
+        skeletonGraphic.allowMultipleCanvasRenderers = true;
 
         Timing.CallDelayed(3f, () =>
         {
@@ -140,74 +154,21 @@ public class MainMenu : BaseScreen
             {
                 UIManager.Instance.ShowUnlockSkinScreen(SkinManager.Instance.GetCurrentSkinList());
             }
+
+            _allCanvasGroup.interactable = true;
+            _allCanvasGroup.blocksRaycasts = true;
         });
     }
-    
+
     public override void Hide()
     {
         _allCanvasGroup.DOFade(0, 2f).OnComplete(base.Hide);
+        skeletonGraphic.allowMultipleCanvasRenderers = false;
     }
 
-    [Button]
-    public void TestSkin()
-    {
-        PlayerPrefs.DeleteAll();
-        Show();
-    }
-    
     public RectTransform GetInventoryButton()
     {
         return inventoryButton.transform as RectTransform;
-    }
-
-    private void NextSkin()
-    {
-        if (_isTransitioning) return;
-        _isTransitioning = true;
-
-        //mainBackground.DOFade(0, 0.5f);
-        currentPlayerSprite.DOFade(0, 0.5f).OnComplete(() =>
-        {
-            _isTransitioning = false;
-            NextSkinIndex();
-            //mainBackground.DOFade(1, 0.5f);
-            currentPlayerSprite.DOFade(1, 0.5f);
-        });
-    }
-
-    private void NextSkinIndex()
-    {
-        _currentSkinIndex++;
-        if (_currentSkinIndex >= playerConfig.skins.Count)
-        {
-            _currentSkinIndex = 0;
-        }
-
-        OnLoadSkin();
-    }
-
-    private void PreviousSkin()
-    {
-        if (_isTransitioning) return;
-        _isTransitioning = true;
-        
-        currentPlayerSprite.DOFade(0, 0.5f).OnComplete(() =>
-        {
-            _isTransitioning = false;
-            PreviousSkinIndex();
-            currentPlayerSprite.DOFade(1, 0.5f);
-        });
-    }
-
-    private void PreviousSkinIndex()
-    {
-        _currentSkinIndex--;
-        if (_currentSkinIndex < 0)
-        {
-            _currentSkinIndex = playerConfig.skins.Count - 1;
-        }
-
-        OnLoadSkin();
     }
 
     private void OnLoadSkin()
@@ -226,9 +187,11 @@ public class MainMenu : BaseScreen
         }*/
 
         var skinData = SkinManager.Instance.GetCurrentSkin();
-
+        //unlockSkinMaterial.SetTexture("_MainTex", skinData.unlockSprite.texture);
         currentPlayerSprite.sprite = skinData.unlockSprite;
         currentUnlockStarImage.sprite = unlockStarSprite;
+        skinSkeleton.initialSkinName = skinData.hash;
+        skinSkeleton.Initialize(true);
         currentSkinText.SetText(skinData.nameDisplay);
         //mainBackground.sprite = skinData.backgroundMainSprite;
         //background.sprite = playerConfig.skins[_currentSkinIndex].backgroundAllSprite;
@@ -239,6 +202,7 @@ public class MainMenu : BaseScreen
 
     private void ShowOrHideCanvasGroup(bool isShow)
     {
+        skeletonGraphic.gameObject.SetActive(isShow);
         canvasGroup.alpha = isShow ? 1 : 0;
         canvasGroup.interactable = isShow;
         canvasGroup.blocksRaycasts = isShow;
@@ -258,19 +222,37 @@ public class MainMenu : BaseScreen
     {
         SceneManager.LoadSceneAsync("InGame");
         //InGameManager.Instance.Reload();
-
-        LoadingManager.Instance.Transition(TransitionType.Fade, hole);
         LoadingManager.Instance.Transition(TransitionType.Fade, background, () =>
         {
             ShowOrHideCanvasGroup(false);
             AudioManager.Instance.StopBGM();
         }, () =>
         {
-            hole.rectTransform.DOKill();
-            hole.gameObject.SetActive(false);
             background.gameObject.SetActive(false);
             blurBackground.gameObject.SetActive(false);
             UIManager.Instance.ShowInGameScreen();
+            AudioManager.Instance.PlayBGM("BGM_INGAME", volume: 0.3f);
+        });
+    }
+
+    private void ShowInTutorialPanel()
+    {
+        UIManager.Instance.ShowTutorialScreen(() =>
+        {
+            ShowInGamePanel();
+            playButton.onClick.AddListener(ShowInGamePanel);
+            TutorialManager.Instance.HadReleasedTutorial = true;
+        });
+
+        //LoadingManager.Instance.Transition(TransitionType.Fade, hole);
+        LoadingManager.Instance.Transition(TransitionType.Fade, background, () =>
+        {
+            ShowOrHideCanvasGroup(false);
+            AudioManager.Instance.StopBGM();
+        }, () =>
+        {
+            blurBackground.gameObject.SetActive(false);
+            //UIManager.Instance.ShowInGameScreen();
             AudioManager.Instance.PlayBGM("BGM_INGAME", volume: 0.3f);
         });
     }
@@ -279,7 +261,7 @@ public class MainMenu : BaseScreen
     {
         UIManager.Instance.ShowRankScreen();
     }
-    
+
     private void ShowInventoryPanel()
     {
         UIManager.Instance.ShowInventoryScreen(OnLoadSkin);

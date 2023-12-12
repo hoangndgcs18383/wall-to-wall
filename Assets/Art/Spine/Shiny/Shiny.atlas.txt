@@ -1,0 +1,13 @@
+
+Shiny.png
+size: 293,293
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shiny_skin
+  rotate: false
+  xy: 2, 2
+  size: 289, 289
+  orig: 289, 289
+  offset: 0, 0
+  index: -1

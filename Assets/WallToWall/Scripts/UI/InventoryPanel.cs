@@ -15,6 +15,10 @@ public class InventoryPanel : BaseScreen
     [SerializeField] private TMP_Text currentSkinText;
     [SerializeField] private Image currentSkinImage;
     [SerializeField] private Image currentSkinBackground;
+    [SerializeField] private Image selectSkinImage;
+    [SerializeField] private Sprite selectSkinSprite;
+    [SerializeField] private Sprite unselectSkinSprite;
+    [SerializeField] private TMP_Text selectSkinText;
     [SerializeField] private GameObject newTag;
 
     [SerializeField] private PlayerConfig playerConfig;
@@ -30,13 +34,18 @@ public class InventoryPanel : BaseScreen
         nextSkinButton.onClick.AddListener(OnNextSkin);
         previousSkinButton.onClick.AddListener(OnPreviousSkin);
         closeButton.onClick.AddListener(OnClose);
-        _currentSkinIndex = PlayerPrefs.GetInt("CurrentSkinIndex", 0);
-        LoadSkin();
     }
-    
+
     public void RegisterOnClose(Action onClose)
     {
         _onClose = onClose;
+    }
+
+    public override void Show(IUIData data = null)
+    {
+        base.Show(data);
+        _currentSkinIndex = SkinManager.Instance.GetCurrentSkinIndex();
+        LoadSkin();
     }
 
     private void OnClose()
@@ -112,22 +121,42 @@ public class InventoryPanel : BaseScreen
             currentSkinImage.sprite = playerConfig.skins[_currentSkinIndex].lockSprite;
             currentSkinText.SetText(playerConfig.skins[_currentSkinIndex].nameDisplay);
             currentSkinBackground.sprite = playerConfig.skins[_currentSkinIndex].backgroundMainSprite;
+            OnSelectSkin(false, playerConfig.skins[_currentSkinIndex].unlockPoint);
             return;
         }
 
         currentSkinImage.sprite = playerConfig.skins[_currentSkinIndex].unlockSprite;
         currentSkinText.SetText(playerConfig.skins[_currentSkinIndex].nameDisplay);
         currentSkinBackground.sprite = playerConfig.skins[_currentSkinIndex].backgroundMainSprite;
+        OnSelectSkin(true, playerConfig.skins[_currentSkinIndex].unlockPoint);
         PlayerPrefs.SetInt("LastSkinIndex", _currentSkinIndex);
+    }
+
+    private void OnSelectSkin(bool isUnlock, int levelUnlock)
+    {
+        if (isUnlock)
+        {
+            selectSkinImage.sprite = selectSkinSprite;
+            selectSkinText.SetText("Select");
+        }
+        else
+        {
+            selectSkinImage.sprite = unselectSkinSprite;
+            selectSkinText.SetText(levelUnlock.ToString());
+        }
+
+        selectButton.targetGraphic.raycastTarget = isUnlock;
     }
 
     private bool IsNew()
     {
+        if (!SkinManager.Instance.IsSkinUnlocked(_currentSkinIndex)) return true;
         return PlayerPrefs.GetInt($"IsNewSkin{_currentSkinIndex}", 0) == 1;
     }
 
     private void SetNew()
     {
+        if (!SkinManager.Instance.IsSkinUnlocked(_currentSkinIndex)) return;
         PlayerPrefs.SetInt($"IsNewSkin{_currentSkinIndex}", 1);
     }
 

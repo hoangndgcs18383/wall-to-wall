@@ -1,0 +1,181 @@
+{
+"skeleton": {
+	"hash": "5zz3JPgxhFXvenLutJ9FLffk5cI",
+	"spine": "3.8.55",
+	"x": -959.81,
+	"width": 1920,
+	"height": 1080,
+	"images": "./images/",
+	"audio": "D:/Game create/w_2_w/fx/bg_main_fx"
+},
+"bones": [
+	{ "name": "root" },
+	{ "name": "dot_light", "parent": "root", "y": 528.16 },
+	{ "name": "hole1", "parent": "root", "y": 590 },
+	{ "name": "hole2", "parent": "root", "y": 590 },
+	{ "name": "dot_light2", "parent": "root", "y": 590 },
+	{ "name": "light", "parent": "root" }
+],
+"slots": [
+	{ "name": "black_hole", "bone": "hole2", "attachment": "black_hole" },
+	{ "name": "black_hole1", "bone": "hole1", "attachment": "black_hole1" },
+	{ "name": "bg_main_3", "bone": "light", "attachment": "bg_main_3" },
+	{ "name": "L4", "bone": "light", "attachment": "L4", "blend": "additive" },
+	{ "name": "L3", "bone": "light", "attachment": "L3", "blend": "additive" },
+	{ "name": "L2", "bone": "light", "attachment": "L2", "blend": "additive" },
+	{ "name": "L1", "bone": "light", "attachment": "L1", "blend": "additive" },
+	{ "name": "dot_lights", "bone": "dot_light", "attachment": "dot_lights", "blend": "screen" },
+	{ "name": "dot_lights2", "bone": "dot_light2", "attachment": "dot_lights" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"black_hole": {
+				"black_hole": { "x": 1.19, "y": -13, "width": 712, "height": 712 }
+			},
+			"dot_lights": {
+				"dot_lights": { "x": 7.19, "y": 13.1, "width": 1768, "height": 939 }
+			},
+			"L1": {
+				"L1": { "x": 59.69, "y": 540, "width": 917, "height": 1080 }
+			},
+			"L2": {
+				"L2": { "x": -514.31, "y": 540, "width": 891, "height": 1080 }
+			},
+			"bg_main_3": {
+				"bg_main_3": { "x": 0.19, "y": 540, "width": 1920, "height": 1080 }
+			},
+			"L4": {
+				"L4": { "x": -359.81, "y": 540, "width": 804, "height": 1080 }
+			},
+			"black_hole1": {
+				"black_hole1": { "x": 1.19, "y": -14, "width": 724, "height": 724 }
+			},
+			"L3": {
+				"L3": { "x": 759.19, "y": 794.5, "width": 402, "height": 571 }
+			},
+			"dot_lights2": {
+				"dot_lights": { "y": 0.92, "width": 1768, "height": 939 }
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {
+		"slots": {
+			"black_hole1": {
+				"color": [
+					{ "color": "ffffff00" },
+					{ "time": 3.6667, "color": "ffffffa5" },
+					{ "time": 7.3333, "color": "ffffff00" }
+				]
+			},
+			"L4": {
+				"color": [
+					{ "color": "b23afff1" },
+					{ "time": 1.6667, "color": "b239ff00" },
+					{ "time": 5, "color": "39dfff9a" },
+					{ "time": 5.6667, "color": "b239ff00" },
+					{ "time": 7.3333, "color": "b23afff1" }
+				]
+			},
+			"L2": {
+				"color": [
+					{ "color": "ffffff00" },
+					{ "time": 1.6667, "color": "ffffff96" },
+					{ "time": 5, "color": "ffffff00" },
+					{ "time": 6, "color": "ffffff47" },
+					{ "time": 7.3333, "color": "ffffff00" }
+				]
+			},
+			"dot_lights2": {
+				"color": [
+					{ "color": "ffffffff" },
+					{ "time": 1.8, "color": "ffffff00" },
+					{ "time": 1.9333, "color": "ffffffff" },
+					{ "time": 3.6333, "color": "ffffff00" },
+					{ "time": 3.7667, "color": "ffffffff" },
+					{ "time": 5.4667, "color": "ffffff00" },
+					{ "time": 5.6, "color": "ffffffff" },
+					{ "time": 7.3, "color": "ffffff00" },
+					{ "time": 7.3333, "color": "ffffffff" }
+				]
+			},
+			"L3": {
+				"color": [
+					{ "color": "ffffff00" },
+					{ "time": 1, "color": "06a1f7ff" },
+					{ "time": 4, "color": "ffffff00" },
+					{ "time": 4.6667, "color": "ffa50d5c" },
+					{ "time": 7.3333, "color": "ffffff00" }
+				]
+			},
+			"dot_lights": {
+				"color": [
+					{ "color": "ffffff00" },
+					{ "time": 1.3333, "color": "ffffffff" },
+					{ "time": 2.6667, "color": "ffffff00" },
+					{ "time": 5, "color": "ffffffff" },
+					{ "time": 7, "color": "ffffff00" }
+				]
+			},
+			"L1": {
+				"color": [
+					{ "color": "ffffff87" },
+					{ "time": 2.3333, "color": "ffffff00" },
+					{ "time": 3.6667, "color": "a4fc55ab" },
+					{ "time": 5, "color": "ffffff00" },
+					{ "time": 7.3333, "color": "ffffff87" }
+				]
+			}
+		},
+		"bones": {
+			"dot_light": {
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 7 }
+				]
+			},
+			"hole1": {
+				"rotate": [
+					{},
+					{ "time": 1.8333, "angle": 90 },
+					{ "time": 3.6667, "angle": 178.13 },
+					{ "time": 5.5, "angle": -82.84 },
+					{ "time": 7.3333 }
+				]
+			},
+			"hole2": {
+				"rotate": [
+					{ "angle": 90 },
+					{ "time": 1.8333, "angle": 180 },
+					{ "time": 3.6667, "angle": -88.12 },
+					{ "time": 5.5, "angle": 7.84 },
+					{ "time": 7.3333, "angle": 90 }
+				]
+			},
+			"dot_light2": {
+				"rotate": [
+					{},
+					{ "time": 1.8333, "angle": 90 },
+					{ "time": 3.6667, "angle": 180 },
+					{ "time": 5.5, "angle": -90 },
+					{ "time": 7.3333 }
+				],
+				"scale": [
+					{ "x": 0.043, "y": 0.043 },
+					{ "time": 1.8, "x": 0.536, "y": 0.536 },
+					{ "time": 1.8333, "x": 0.043, "y": 0.043 },
+					{ "time": 3.6333, "x": 0.424, "y": 0.424 },
+					{ "time": 3.6667, "x": 0.043, "y": 0.043 },
+					{ "time": 5.4667, "x": 0.424, "y": 0.424 },
+					{ "time": 5.5, "x": 0.043, "y": 0.043 },
+					{ "time": 7.3, "x": 0.424, "y": 0.424 },
+					{ "time": 7.3333, "x": 0.043, "y": 0.043 }
+				]
+			}
+		}
+	}
+}
+}

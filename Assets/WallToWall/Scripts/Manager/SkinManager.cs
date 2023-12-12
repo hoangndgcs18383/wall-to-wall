@@ -116,6 +116,11 @@ public class SkinManager
         return _skinList[_currentSkinKey];
     }
 
+    public int GetCurrentSkinIndex()
+    {
+        return int.Parse(_currentSkinKey.Split('_')[1]);
+    }
+
     public void AddListenerSkinColorChanged(Action<Color> action)
     {
         OnSkinColorChanged += action;

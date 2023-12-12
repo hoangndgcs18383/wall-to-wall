@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using DG.Tweening;
+using MEC;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -58,6 +61,27 @@ public class Player : MonoBehaviour
         if (isDead) return;
         if (!GameManagerScript.isStarted) return;
 
+        if (_tutorialProcess) return;
+        UserInput();
+    }
+    
+    private bool _tutorialProcess;
+
+    public IEnumerator<float> TutorialProcess()
+    {
+        yield return Timing.WaitForSeconds(1f);
+        StopPlayerForTutorial();
+        _tutorialProcess = true;
+    }
+
+    private void StopPlayerForTutorial()
+    {
+        rb.velocity = new Vector2(0, 0);
+        rb.isKinematic = true;
+    }
+
+    private bool UserInput()
+    {
         if (Input.GetMouseButtonDown(0))
         {
             PoolManager.Instance.CreateOrGetPool(JumpEffectObj, 3, (obj) =>
@@ -66,7 +90,7 @@ public class Player : MonoBehaviour
                 obj.SetActive(true);
                 StartCoroutine(ReturnPool(JumpEffectObj, obj));
             });
-            
+
             PoolManager.Instance.CreateOrGetPool(TouchEffectObj, 3, (obj) =>
             {
                 var pos = _camera.ScreenToWorldPoint(Input.mousePosition);
@@ -75,7 +99,7 @@ public class Player : MonoBehaviour
                 obj.SetActive(true);
                 StartCoroutine(ReturnPool(TouchEffectObj, obj, isAutoDisable: true));
             });
-            
+
             //AudioManager.Instance.PlaySfx("TouchSFX");
 
             if (rb.velocity.x > 0)
@@ -86,9 +110,12 @@ public class Player : MonoBehaviour
             {
                 rb.velocity = new Vector2(-playerConfig.jumpSpeedX, playerConfig.jumpSpeedY);
             }
-        }
-    }
 
+            return true;
+        }
+
+        return false;
+    }
 
     void OnCollisionEnter2D(Collision2D other)
     {
@@ -143,7 +170,20 @@ public class Player : MonoBehaviour
 
     public void StartPlayer()
     {
-        rb.velocity = new Vector2(playerConfig.jumpSpeedX, playerConfig.jumpSpeedY);
+        if (!TutorialManager.Instance.HadReleasedTutorial)
+        {
+            Timing.RunCoroutine(TutorialProcess());
+        }
+
+        if (rb.velocity.x > 0)
+        {
+            rb.velocity = new Vector2(playerConfig.jumpSpeedX, playerConfig.jumpSpeedY);
+        }
+        else
+        {
+            rb.velocity = new Vector2(-playerConfig.jumpSpeedX, playerConfig.jumpSpeedY);
+        }
+
         rb.isKinematic = false;
         // isStarted = true;
     }

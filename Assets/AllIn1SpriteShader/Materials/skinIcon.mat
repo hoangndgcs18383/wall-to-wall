@@ -130,7 +130,7 @@ Material:
     - _GrassSpeed: 2
     - _GrassWind: 20
     - _GreyscaleBlend: 1
-    - _GreyscaleLuminosity: 0
+    - _GreyscaleLuminosity: 0.25
     - _GreyscaleOutline: 0
     - _HandDrawnAmount: 0
     - _HandDrawnSpeed: 5

@@ -5,6 +5,7 @@ using UnityEngine;
 public class TutorialManager
 {
     private static TutorialManager _instance;
+    private bool _hadReleasedTutorial;
 
     public static TutorialManager Instance
     {
@@ -13,9 +14,19 @@ public class TutorialManager
 
     private List<TutorialConfig> _tutorialConfigs;
 
-    public void Initialize(List<TutorialConfig> tutorialConfigs)
+    public void Initialize()
     {
-        _tutorialConfigs = tutorialConfigs;
+        _hadReleasedTutorial = PlayerPrefs.GetInt("HadReleasedTutorial", 0) == 1;
+    }
+
+    public bool HadReleasedTutorial
+    {
+        get => _hadReleasedTutorial;
+        set
+        {
+            _hadReleasedTutorial = value;
+            PlayerPrefs.SetInt("HadReleasedTutorial", _hadReleasedTutorial ? 1 : 0);
+        }
     }
 
     public void NextTutorial()

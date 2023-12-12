@@ -17,7 +17,7 @@ MonoBehaviour:
   gravity: 3
   multipleScoreChangeBackgrounds: 5
   inManualAtStart: 1
-  offsetAtStart: 3
+  offsetAtStart: 6
   offsetRight: 1
   offsetLeft: -1
   numberOfTrianglesStart: 1
@@ -25,10 +25,11 @@ MonoBehaviour:
   triangleCountUpScore: 5
   skins:
   - key: Skin_0
+    hash: hyro_skin
     nameDisplay: HYDRO
     isUnlock: 0
-    unlockSprite: {fileID: 21300000, guid: 0c2ec036c6b475d4d998dc72eeea152a, type: 3}
-    lockSprite: {fileID: 21300000, guid: baa5175a00b2496408e247984cdca237, type: 3}
+    unlockSprite: {fileID: 21300000, guid: 1ba8464a5fbbaec4da58207a25812548, type: 3}
+    lockSprite: {fileID: 21300000, guid: eb87fed4760e24f43b85b0813fe26d70, type: 3}
     backgroundAllSprite: {fileID: 21300000, guid: 8fe969b368f658043ac18090df6900d3,
       type: 3}
     backgroundMainSprite: {fileID: 21300000, guid: a3afba46dbae9dd48a97e33f06978d73,
@@ -39,10 +40,11 @@ MonoBehaviour:
       deathEffect: {fileID: 1204438978744632, guid: 65a5451625ed1496c8722e9a83ed5dc3,
         type: 3}
   - key: Skin_1
+    hash: shiny_skin
     nameDisplay: SHINY
     isUnlock: 0
-    unlockSprite: {fileID: 21300000, guid: 1e34c8e5ac199dd4d984cc50aa31e99d, type: 3}
-    lockSprite: {fileID: 21300000, guid: baa5175a00b2496408e247984cdca237, type: 3}
+    unlockSprite: {fileID: 21300000, guid: 3e33780aef890394ab54c6aa46f7fbd6, type: 3}
+    lockSprite: {fileID: 21300000, guid: eb87fed4760e24f43b85b0813fe26d70, type: 3}
     backgroundAllSprite: {fileID: 21300000, guid: fcce419788982d94c98f35985f39c3ea,
       type: 3}
     backgroundMainSprite: {fileID: 21300000, guid: 2a567567183951f4ab4f65bc0551e166,
@@ -53,10 +55,11 @@ MonoBehaviour:
       deathEffect: {fileID: 1204438978744632, guid: 46558f3248d89494aa4f0e0cea478d32,
         type: 3}
   - key: Skin_2
+    hash: eggfrog_skin
     nameDisplay: FROG
     isUnlock: 0
-    unlockSprite: {fileID: 21300000, guid: 892f81931b9aae94b81010a6287c2b69, type: 3}
-    lockSprite: {fileID: 21300000, guid: 4635dcaba9ddca04682d206adb8611d7, type: 3}
+    unlockSprite: {fileID: 21300000, guid: d78c24d77f39bf24385a923b2f0ff9d9, type: 3}
+    lockSprite: {fileID: 21300000, guid: eb87fed4760e24f43b85b0813fe26d70, type: 3}
     backgroundAllSprite: {fileID: 21300000, guid: f653f99794e412e4daf5c5799571809c,
       type: 3}
     backgroundMainSprite: {fileID: 21300000, guid: c42bcd39244650942a20e18c6dc8cf81,
@@ -67,10 +70,11 @@ MonoBehaviour:
       deathEffect: {fileID: 7282744016949600942, guid: c117c4e812df6ef479de14a423baed6d,
         type: 3}
   - key: Skin_3
+    hash: snow_skin
     nameDisplay: SNOW
     isUnlock: 0
-    unlockSprite: {fileID: 21300000, guid: 7b542e84f593261409cefdb54845b183, type: 3}
-    lockSprite: {fileID: 21300000, guid: 64f228219cf6b924499584862d11e473, type: 3}
+    unlockSprite: {fileID: 21300000, guid: ede69ebb04ba5f744bdd906d8797f469, type: 3}
+    lockSprite: {fileID: 21300000, guid: eb87fed4760e24f43b85b0813fe26d70, type: 3}
     backgroundAllSprite: {fileID: 21300000, guid: 864619f4a2167a04bb14069c2f5f52c9,
       type: 3}
     backgroundMainSprite: {fileID: 21300000, guid: 38c37a4d44bc1ba45a1e70c93b31b2a9,
@@ -81,10 +85,11 @@ MonoBehaviour:
       deathEffect: {fileID: 1751173354633357839, guid: 22054a1d1f985f64894dbc227d9461ae,
         type: 3}
   - key: Skin_4
+    hash: dragon_skin
     nameDisplay: DRAGON
     isUnlock: 0
-    unlockSprite: {fileID: 21300000, guid: 368ef25fbe00d26448a088cfab068961, type: 3}
-    lockSprite: {fileID: 21300000, guid: 78494b07ed3e66b408118abcaa63360b, type: 3}
+    unlockSprite: {fileID: 21300000, guid: 4bf026d1a4fb16a4bba57f0d9b869c7f, type: 3}
+    lockSprite: {fileID: 21300000, guid: eb87fed4760e24f43b85b0813fe26d70, type: 3}
     backgroundAllSprite: {fileID: 21300000, guid: 8a035cdd82af0d64cb4fe2d7bfb42960,
       type: 3}
     backgroundMainSprite: {fileID: 21300000, guid: d1676b5b2f50a514d9fa30a138c606e3,
@@ -95,10 +100,11 @@ MonoBehaviour:
       deathEffect: {fileID: 8993451883925006246, guid: ad1fef91cbd5b9649908e0d5f244ea15,
         type: 3}
   - key: Skin_5
+    hash: soul_skin
     nameDisplay: SOUL
     isUnlock: 0
-    unlockSprite: {fileID: 21300000, guid: 25e51032c5ac6814c9f73ea4e823a453, type: 3}
-    lockSprite: {fileID: 21300000, guid: e3427bed77fac79409fd8e6c447b0d43, type: 3}
+    unlockSprite: {fileID: 21300000, guid: b668922ccfe10d143a92ed19decb0e39, type: 3}
+    lockSprite: {fileID: 21300000, guid: eb87fed4760e24f43b85b0813fe26d70, type: 3}
     backgroundAllSprite: {fileID: 21300000, guid: b20d4f39bd08d824b93a213fe07c9698,
       type: 3}
     backgroundMainSprite: {fileID: 21300000, guid: e75a8961a44fb904cbd5a17b9be8fa9b,

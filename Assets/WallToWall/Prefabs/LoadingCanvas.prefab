@@ -565,6 +565,7 @@ GameObject:
   - component: {fileID: 8075433615681576487}
   - component: {fileID: 449288250855651479}
   - component: {fileID: 6867243710734514157}
+  - component: {fileID: 9069980897538225132}
   m_Layer: 5
   m_Name: TextVersion
   m_TagString: Untagged
@@ -690,6 +691,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &9069980897538225132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5952117015662493912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f9d9bbc39944c6408132f3cdc40eaac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6594903637380696590
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,7 +837,7 @@ MonoBehaviour:
   backgroundMaterial: {fileID: 2100000, guid: f332627d2724a4f4cb90918872983742, type: 2}
   transitionDuration: 3
   startValue: 0
-  endValue: 1
+  endValue: 0.8
   background: {fileID: 6212644954983259763}
 --- !u!114 &9060788924633609439
 MonoBehaviour:
@@ -865,6 +878,9 @@ MonoBehaviour:
       type: 3}
   - key: InventoryPanel
     screen: {fileID: 396956047977567467, guid: 2f2973d84f3688347a1ddb14859c3fe6, type: 3}
+  - key: TutorialPanel
+    screen: {fileID: 1679699162510860852, guid: a55f9f85268c75b4ab720bfbcfa11978,
+      type: 3}
   mainCanvas: {fileID: 1184724110152480333}
   inGameCanvas: {fileID: 3975701002231932911}
 --- !u!1 &7033955815577136376

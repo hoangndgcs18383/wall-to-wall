@@ -26,7 +26,7 @@ public class LoadingManager : MonoBehaviour
     private float startValue = 0f;
 
     [TabGroup("Transition")] [SerializeField]
-    private float endValue = 1f;
+    private float endValue = 0.8f;
     
     [SerializeField] private Image background;
 
@@ -50,6 +50,8 @@ public class LoadingManager : MonoBehaviour
     {
         Application.quitting += RestTransition;
         Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 0;
+        QualitySettings.SetQualityLevel(0);
         
         /*AddressablesManager.TryLoadAssetSync(BackgroundAddress.GetAddress("BG_FIRST"), out Sprite backgroundSprite);
         background.sprite = backgroundSprite;*/
