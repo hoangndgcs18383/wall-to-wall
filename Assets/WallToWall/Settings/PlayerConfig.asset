@@ -50,7 +50,7 @@ MonoBehaviour:
     backgroundMainSprite: {fileID: 21300000, guid: 2a567567183951f4ab4f65bc0551e166,
       type: 3}
     triangleSprite: {fileID: 21300000, guid: e01869fe6429e114b966850ad5461686, type: 3}
-    unlockPoint: 0
+    unlockPoint: 10
     effectData:
       deathEffect: {fileID: 1204438978744632, guid: 46558f3248d89494aa4f0e0cea478d32,
         type: 3}
@@ -65,7 +65,7 @@ MonoBehaviour:
     backgroundMainSprite: {fileID: 21300000, guid: c42bcd39244650942a20e18c6dc8cf81,
       type: 3}
     triangleSprite: {fileID: 21300000, guid: d53613595398ecf4a8d8643fd03810a8, type: 3}
-    unlockPoint: 0
+    unlockPoint: 50
     effectData:
       deathEffect: {fileID: 7282744016949600942, guid: c117c4e812df6ef479de14a423baed6d,
         type: 3}
@@ -80,7 +80,7 @@ MonoBehaviour:
     backgroundMainSprite: {fileID: 21300000, guid: 38c37a4d44bc1ba45a1e70c93b31b2a9,
       type: 3}
     triangleSprite: {fileID: 21300000, guid: 6922387e5d6b6034aba3e72116105373, type: 3}
-    unlockPoint: 0
+    unlockPoint: 100
     effectData:
       deathEffect: {fileID: 1751173354633357839, guid: 22054a1d1f985f64894dbc227d9461ae,
         type: 3}
@@ -95,7 +95,7 @@ MonoBehaviour:
     backgroundMainSprite: {fileID: 21300000, guid: d1676b5b2f50a514d9fa30a138c606e3,
       type: 3}
     triangleSprite: {fileID: 21300000, guid: c1b6f6ee88c45444fa00699d1e00000c, type: 3}
-    unlockPoint: 0
+    unlockPoint: 150
     effectData:
       deathEffect: {fileID: 8993451883925006246, guid: ad1fef91cbd5b9649908e0d5f244ea15,
         type: 3}
@@ -110,7 +110,7 @@ MonoBehaviour:
     backgroundMainSprite: {fileID: 21300000, guid: e75a8961a44fb904cbd5a17b9be8fa9b,
       type: 3}
     triangleSprite: {fileID: 21300000, guid: df6b24805c242ca4f93d79d3ccb26b8d, type: 3}
-    unlockPoint: 0
+    unlockPoint: 200
     effectData:
       deathEffect: {fileID: 3211446660954236966, guid: 10f1e9811ca60454cb13992ed7c177d2,
         type: 3}
