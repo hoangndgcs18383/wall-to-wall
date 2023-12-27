@@ -302,6 +302,12 @@ public class TutorialPanel : BaseScreen
             .SetEase(ease);
     }
 
+    public override void Hide()
+    {
+        base.Hide();
+        Destroy(gameObject);
+    }
+
     public void SetComplete()
     {
         LoadingManager.Instance.Transition(TransitionType.Fade, getReadyImage, () =>

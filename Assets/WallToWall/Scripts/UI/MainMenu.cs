@@ -240,6 +240,7 @@ public class MainMenu : BaseScreen
         UIManager.Instance.ShowTutorialScreen(() =>
         {
             ShowInGamePanel();
+            playButton.onClick.RemoveListener(ShowInTutorialPanel);
             playButton.onClick.AddListener(ShowInGamePanel);
             TutorialManager.Instance.HadReleasedTutorial = true;
         });
