@@ -277,7 +277,6 @@ public class TutorialPanel : BaseScreen
         getReadyImage.DOFade(1, 0.5f);
         yield return Timing.WaitForSeconds(0.5f);
         //yield return Timing.WaitForSeconds(1f);
-        _isCanNextStep = true;
         SetComplete();
     }
 
@@ -308,14 +307,20 @@ public class TutorialPanel : BaseScreen
         Destroy(gameObject);
     }
 
+    private void OnDestroy()
+    {
+        // kill all do tween
+        DOTween.KillAll();
+    }
+
     public void SetComplete()
     {
+        _isComplete = true;
         LoadingManager.Instance.Transition(TransitionType.Fade, getReadyImage, () =>
         {
             {
                 _completeCallback?.Invoke();
                 _completeCallback = null;
-                _isComplete = true;
             }
         }, Hide);
     }
