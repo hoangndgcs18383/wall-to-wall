@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
 
     private Material _material;
     private int _deathCount;
+    private ISkill _currentSkill;
 
     void Start()
     {
@@ -52,6 +53,24 @@ public class Player : MonoBehaviour
         SkinData skinData = SkinManager.Instance.GetCurrentSkin();
         DeadEffectObj = skinData.effectData.deathEffect;
         //Debug.Log(SkinManager.Instance.GetCurrentKey());
+
+        if (skinData.key == "Skin_0")
+        {
+            _currentSkill = SkillManager.Instance.GetSkill("Hydro Skill");
+            _currentSkill.Initialize(this);
+
+            if (_currentSkill == null)
+            {
+                Debug.Log("Load skill: Hydro Skill");
+                _currentSkill = Resources.Load<SkillSO>("Skills/HydroSkill");
+                _currentSkill.Initialize(this);
+                Debug.Log("Load skill: " + _currentSkill.GetSkillDataConfig().NameDisplay);
+                SkillManager.Instance.RegisterSkill("Hydro Skill", _currentSkill);
+                Debug.Log("Register skill: " + _currentSkill.GetSkillDataConfig().NameDisplay);
+            }
+            
+            SkillManager.Instance.SetCurrentSkill(_currentSkill);
+        }
     }
 
 
@@ -67,6 +86,11 @@ public class Player : MonoBehaviour
 
         if (_tutorialProcess) return;
         UserInput();
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            UseSkill();
+        }
     }
 
     private bool _tutorialProcess;
@@ -119,6 +143,11 @@ public class Player : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void UseSkill()
+    {
+        _currentSkill?.ReleaseSkill();
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -204,6 +233,11 @@ public class Player : MonoBehaviour
         transform.position = _startPos;
         isDead = false;
         StopPlayer();
+    }
+
+    public Vector2 GetDirection()
+    {
+        return rb.velocity.normalized;
     }
 
 
