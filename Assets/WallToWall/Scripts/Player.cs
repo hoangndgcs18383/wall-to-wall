@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     public int Gravity;*/
 
     private Material _material;
+    private int _deathCount;
 
     void Start()
     {
@@ -42,6 +43,9 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         GameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
         _material = GetComponent<SpriteRenderer>().material;
+
+        _deathCount = SaveSystem.Instance.GetInt(PrefKeys.DeathCount);
+
         StopPlayer();
 
         //var defaultEffect = DeadEffectObj;
@@ -64,7 +68,7 @@ public class Player : MonoBehaviour
         if (_tutorialProcess) return;
         UserInput();
     }
-    
+
     private bool _tutorialProcess;
 
     public IEnumerator<float> TutorialProcess()
@@ -236,5 +240,8 @@ public class Player : MonoBehaviour
         gameObject.SetActive(false);
         _material.DisableKeyword("ROUNDWAVEUV_ON");
         yield return new WaitForSecondsRealtime(0.1f);
+        _deathCount++;
+
+        SaveSystem.Instance.SetInt(PrefKeys.DeathCount, _deathCount);
     }
 }

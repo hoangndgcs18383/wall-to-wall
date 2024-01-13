@@ -1,0 +1,55 @@
+{
+"skeleton": {
+	"hash": "9m72cCmqH/ssFPtdLoFSZDQB+K0",
+	"spine": "3.8.5",
+	"x": -144,
+	"y": 0.14,
+	"width": 289,
+	"height": 289,
+	"images": "../images/",
+	"audio": ""
+},
+"bones": [
+	{ "name": "root" },
+	{ "name": "bone", "parent": "root" }
+],
+"slots": [
+	{ "name": "hyro_skin", "bone": "bone", "attachment": "hyro_skin" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"hyro_skin": {
+				"hyro_skin": { "x": 0.5, "y": 144.64, "width": 289, "height": 289 }
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {
+		"bones": {
+			"bone": {
+				"translate": [
+					{ "curve": 0.223, "c2": 0.07, "c3": 0.577 },
+					{ "time": 1, "y": 36.6, "curve": 0.595, "c2": 0.09, "c3": 0.615, "c4": 0.98 },
+					{ "time": 2 }
+				],
+				"scale": [
+					{ "x": 0.947, "y": 0.889, "curve": 0.223, "c2": 0.07, "c3": 0.577 },
+					{
+						"time": 1,
+						"x": 0.927,
+						"y": 0.967,
+						"curve": 0.595,
+						"c2": 0.09,
+						"c3": 0.615,
+						"c4": 0.98
+					},
+					{ "time": 2, "x": 0.947, "y": 0.889 }
+				]
+			}
+		}
+	}
+}
+}

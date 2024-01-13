@@ -27,7 +27,7 @@ public class LoadingManager : MonoBehaviour
 
     [TabGroup("Transition")] [SerializeField]
     private float endValue = 0.8f;
-    
+
     [SerializeField] private Image background;
 
     public static LoadingManager Instance;
@@ -36,7 +36,10 @@ public class LoadingManager : MonoBehaviour
     {
         public int TriangleCountUpScore;
     }
-    public struct appAttributes {}
+
+    public struct appAttributes
+    {
+    }
 
     //private static readonly int PinchUvAmount = Shader.PropertyToID("_PinchUvAmount");
     //private static readonly int FadeAmount = Shader.PropertyToID("_FadeAmount");
@@ -45,14 +48,18 @@ public class LoadingManager : MonoBehaviour
     {
         Instance = this;
     }
-    
+
     async void Start()
     {
         Application.quitting += RestTransition;
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
         QualitySettings.SetQualityLevel(0);
-        
+
+#if UNITY_ANDROID || UNITY_IOS
+        AdsManager.Instance.Initialize();
+#endif
+
         /*AddressablesManager.TryLoadAssetSync(BackgroundAddress.GetAddress("BG_FIRST"), out Sprite backgroundSprite);
         background.sprite = backgroundSprite;*/
         /*if (Utilities.CheckForInternetConnection())
@@ -108,7 +115,7 @@ public class LoadingManager : MonoBehaviour
 
     private void RestTransition()
     {
-        backgroundMaterial.EnableKeyword("FADE_ON");    
+        backgroundMaterial.EnableKeyword("FADE_ON");
         backgroundMaterial.SetFloat("_FadeAmount", startValue);
     }
 }

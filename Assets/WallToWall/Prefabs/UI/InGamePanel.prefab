@@ -302,6 +302,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ec8d0f6c7e9944fb9befeea7f608c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlaySfx: 1
+  sfxKey: ClickSFX
   isScale: 1
   isInteractable: 1
   targetGraphic: {fileID: 1342390006041467448}
@@ -597,6 +599,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ec8d0f6c7e9944fb9befeea7f608c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlaySfx: 0
+  sfxKey: ClickSFX
   isScale: 1
   isInteractable: 1
   targetGraphic: {fileID: 1342390006473296211}
@@ -1062,6 +1066,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ec8d0f6c7e9944fb9befeea7f608c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlaySfx: 1
+  sfxKey: ClickSFX
   isScale: 1
   isInteractable: 1
   targetGraphic: {fileID: 1342390007234192945}

@@ -263,6 +263,16 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 4e1ff8faed12a475eba9be0e46072269, type: 3}
   - key: TouchSFX
     clip: {fileID: 8300000, guid: 0994c12e202f342459a4212e7287f7e8, type: 3}
+  - key: ClickSFX
+    clip: {fileID: 8300000, guid: 34c6415b1b25bd44daeb0418b1b55db1, type: 3}
+  - key: SwipeSFX
+    clip: {fileID: 8300000, guid: 60a819fd7ed7e1341a1444e71c47123f, type: 3}
+  - key: OpenSFX
+    clip: {fileID: 8300000, guid: 78a5bd70144167449ad826ac9c6ec4ee, type: 3}
+  - key: ExplosionBrightSFX
+    clip: {fileID: 8300000, guid: 920b9d0f6b2baf84485f5ccbdcedf773, type: 3}
+  - key: SuccessCalmSFX
+    clip: {fileID: 8300000, guid: 5f79928cbe6e12647ba8697f1883afbd, type: 3}
   backgroundClips:
   - key: BGM_INGAME
     clip: {fileID: 8300000, guid: 559c232a43caebe41870ce54786f604e, type: 3}

@@ -10,6 +10,8 @@ public class InGamePanel : BaseScreen
     [SerializeField] private GameObject tapToPlay;
     [SerializeField] private GameObject pointFrame;
 
+    [SerializeField] private bool _isStartGame = false;
+    
     public override void Initialize()
     {
         base.Initialize();
@@ -30,6 +32,11 @@ public class InGamePanel : BaseScreen
     {
         gameOverEffectPanel.SetActive(true);
     }
+    
+    public void ResetStartGame()
+    {
+        _isStartGame = false;
+    }
 
     public void HideGameOverEffect()
     {
@@ -44,6 +51,8 @@ public class InGamePanel : BaseScreen
     
     public void StartGame()
     {
+        if(_isStartGame) return;
+        _isStartGame = true;
         GameManager.Instance.GameStart();
         btnPause.gameObject.SetActive(true);
         pointFrame.SetActive(true);

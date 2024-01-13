@@ -1,0 +1,13 @@
+
+dragon_idle.png
+size: 297,300
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dragon_skin
+  rotate: false
+  xy: 2, 2
+  size: 293, 296
+  orig: 293, 296
+  offset: 0, 0
+  index: -1

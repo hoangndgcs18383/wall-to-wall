@@ -1,0 +1,13 @@
+
+snow_idle.png
+size: 296,296
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+snow_skin
+  rotate: false
+  xy: 2, 2
+  size: 292, 292
+  orig: 292, 292
+  offset: 0, 0
+  index: -1

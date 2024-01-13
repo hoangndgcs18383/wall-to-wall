@@ -48,6 +48,7 @@ public class MainMenu : BaseScreen
     [BoxGroup("Buttons")] [SerializeField] private ButtonW2W rankButton;
     [BoxGroup("Buttons")] [SerializeField] private ButtonW2W settingButton;
     [BoxGroup("Buttons")] [SerializeField] private ButtonW2W inventoryButton;
+    [BoxGroup("Buttons")] [SerializeField] private ButtonW2W removeAdsButton;
 
     [BoxGroup("GUI")] [SerializeField] private CanvasGroup canvasGroup;
     [BoxGroup("GUI")] [SerializeField] private Image background;
@@ -189,8 +190,9 @@ public class MainMenu : BaseScreen
         var skinData = SkinManager.Instance.GetCurrentSkin();
         //unlockSkinMaterial.SetTexture("_MainTex", skinData.unlockSprite.texture);
         currentPlayerSprite.sprite = skinData.unlockSprite;
-        currentUnlockStarImage.sprite = unlockStarSprite;
-        skinSkeleton.initialSkinName = skinData.hash;
+        //currentUnlockStarImage.sprite = unlockStarSprite;
+        //skinSkeleton.initialSkinName = skinData.hash;
+        skinSkeleton.skeletonDataAsset = skinData.skeletonDataAsset;
         skinSkeleton.Initialize(true);
         currentSkinText.SetText(skinData.nameDisplay);
         //mainBackground.sprite = skinData.backgroundMainSprite;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using MEC;
+using Spine.Unity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -22,6 +23,7 @@ public struct SkinData : IUIData
     [FormerlySerializedAs("backgroundTriangleSprite")] public Sprite triangleSprite;
     public int unlockPoint;
     public EffectData effectData;
+    public SkeletonDataAsset skeletonDataAsset;
 }
 
 public class UnlockSkinPanel : BaseScreen
@@ -55,6 +57,7 @@ public class UnlockSkinPanel : BaseScreen
     public override void Show(IUIData data = null)
     {
         base.Show(data);
+        AudioManager.Instance.SetBGMSlow();
         //if (data != null) OnShow((SkinData)data);
     }
 
@@ -66,6 +69,8 @@ public class UnlockSkinPanel : BaseScreen
 
     private void OnShow()
     {
+        AudioManager.Instance.PlaySfx("SuccessCalmSFX");
+
         SkinData data = _skinDatas.Values.ToArray()[_currentSkinIndex];
         skinImage.sprite = data.unlockSprite;
         shadowTf.sprite = data.unlockSprite;
@@ -122,6 +127,7 @@ public class UnlockSkinPanel : BaseScreen
         {
             base.Hide();
             Timing.RunCoroutine(IEPlayAnimComplete());
+            AudioManager.Instance.SetBGMNormal();
         }
     }
 
@@ -148,5 +154,8 @@ public class UnlockSkinPanel : BaseScreen
             count++;
             yield return Timing.WaitForSeconds(0.1f);
         }
+        
+        yield return Timing.WaitForSeconds(0.5f);
+        AudioManager.Instance.PlaySfx("ExplosionBrightSFX");
     }
 }

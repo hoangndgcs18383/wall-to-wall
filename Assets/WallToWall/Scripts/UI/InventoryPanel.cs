@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -134,6 +135,7 @@ public class InventoryPanel : BaseScreen
 
     private void OnSelectSkin(bool isUnlock, int levelUnlock)
     {
+        Unlock(isUnlock);
         if (isUnlock)
         {
             selectSkinImage.sprite = selectSkinSprite;
@@ -165,5 +167,19 @@ public class InventoryPanel : BaseScreen
         SkinManager.Instance.SelectSkin($"Skin_{_currentSkinIndex}");
         Hide();
         _onClose?.Invoke();
+    }
+
+    private void Unlock(bool isUnlock)
+    {
+        if (!isUnlock)
+        {
+            currentSkinBackground.material.EnableKeyword("HSV_ON");
+            currentSkinBackground.material.EnableKeyword("GREYSCALE_ON");
+        }
+        else
+        {
+            currentSkinBackground.material.DisableKeyword("HSV_ON");
+            currentSkinBackground.material.DisableKeyword("GREYSCALE_ON");
+        }
     }
 }

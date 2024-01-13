@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,6 +6,8 @@ using UnityEngine.UI;
 
 public class ButtonW2W : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IPointerEnterHandler
 {
+    public bool isPlaySfx = true;
+    public string sfxKey = "ClickSFX";
     public bool isScale = true;
     public bool isInteractable = true;
     public Image targetGraphic;
@@ -53,6 +54,8 @@ public class ButtonW2W : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
     public void OnPointerUp(PointerEventData eventData)
     {
         if(isScale) _rectTransform.DOScale(1f, 0.1f).SetEase(Ease.OutBack);
+        
+        if(isPlaySfx) AudioManager.Instance.PlaySfx(sfxKey);
         onClick?.Invoke();
     }
 

@@ -76,6 +76,7 @@ public class GameOverPanel : BaseScreen
         SceneManager.LoadSceneAsync("Menu");
         AudioManager.Instance.PlayBGM("BGM_MENU", volume: 0.3f);
         UIManager.Instance.GetScreen<InGamePanel>().Hide();
+        UIManager.Instance.GetScreen<InGamePanel>().ResetStartGame();
         UIManager.Instance.ShowMainMenuScreen();
         Hide();
     }

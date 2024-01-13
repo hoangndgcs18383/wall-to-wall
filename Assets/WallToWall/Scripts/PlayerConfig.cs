@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Spine.Unity;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.U2D.Animation;
 
 [CreateAssetMenu(fileName = "PlayerConfig", menuName = "ScriptableObjects/PlayerConfig", order = 1)]
 public class PlayerConfig : ScriptableObject

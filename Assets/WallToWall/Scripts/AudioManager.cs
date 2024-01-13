@@ -19,11 +19,15 @@ public class AudioManager : Singleton<AudioManager>
     
     private Dictionary<string, AudioClip> _sfxClips = new Dictionary<string, AudioClip>();
     private Dictionary<string, AudioClip> _backgroundClips = new Dictionary<string, AudioClip>();
+    
+    private bool _isSfxOn = true;
+    private bool _isBgmOn = true;
 
     void Awake()
     {
         _sfxClips.Clear();
-        
+        _isSfxOn = PlayerPrefs.GetInt("Sound", 1) == 1;
+        _isBgmOn = PlayerPrefs.GetInt("Music", 1) == 1;
         
         //load audio clips online
 
@@ -38,11 +42,13 @@ public class AudioManager : Singleton<AudioManager>
             _backgroundClips.Add(audioData.key, audioData.clip);
         }
 
+        if(_isBgmOn) return;
         PlayBGM("BGM_FIRST_SCREEN", volume: 0.3f);
     }
 
     public void PlayBGM(string key, bool isLoop = true, float volume = 1)
     {
+        if(!_isBgmOn) return;
         if (_backgroundClips.ContainsKey(key))
         {
             bgmSource.clip = _backgroundClips[key];
@@ -60,6 +66,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlaySfx(string key)
     {
+        if(!_isSfxOn) return;
         if (_sfxClips.ContainsKey(key))
         {
             sfxSource.PlayOneShot(_sfxClips[key]);
@@ -74,5 +81,17 @@ public class AudioManager : Singleton<AudioManager>
     public void SetOnOffBGM(bool isOn)
     {
         bgmSource.mute = !isOn;
+    }
+
+    public void SetBGMSlow()
+    {
+        if(!_isBgmOn) return;
+        bgmSource.Stop();
+    }
+    
+    public void SetBGMNormal()
+    {
+        if(!_isBgmOn) return;
+        bgmSource.Play();
     }
 }

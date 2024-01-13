@@ -146,8 +146,8 @@ Material:
     - _HsvSaturation: 1
     - _HsvShift: 180
     - _InnerOutlineAlpha: 1
-    - _InnerOutlineGlow: 4
-    - _InnerOutlineThickness: 1
+    - _InnerOutlineGlow: 250
+    - _InnerOutlineThickness: 3
     - _MaxXUV: 1
     - _MaxYUV: 1
     - _MinXUV: 0
@@ -165,11 +165,11 @@ Material:
     - _OutlineDistortAmount: 0.5
     - _OutlineDistortTexXSpeed: 5
     - _OutlineDistortTexYSpeed: 5
-    - _OutlineGlow: 1.5
+    - _OutlineGlow: 100
     - _OutlinePixelWidth: 1
     - _OutlineTexXSpeed: 10
     - _OutlineTexYSpeed: 0
-    - _OutlineWidth: 0.004
+    - _OutlineWidth: 0
     - _OverlayBlend: 1
     - _OverlayGlow: 1
     - _PinchUvAmount: 0
@@ -189,7 +189,7 @@ Material:
     - _ShakeUvX: 1.5
     - _ShakeUvY: 1
     - _ShineGlow: 1
-    - _ShineLocation: 0.927
+    - _ShineLocation: 0
     - _ShineRotate: 0.28
     - _ShineWidth: 0.1
     - _TextureScrollXSpeed: 1
@@ -228,7 +228,7 @@ Material:
     - _HitEffectColor: {r: 1, g: 1, b: 1, a: 1}
     - _HologramStripeColor: {r: 0, g: 1, b: 1, a: 1}
     - _InnerOutlineColor: {r: 1, g: 0, b: 0, a: 1}
-    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 1, g: 0, b: 0, a: 1}
     - _OverlayColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShineColor: {r: 1, g: 1, b: 1, a: 1}

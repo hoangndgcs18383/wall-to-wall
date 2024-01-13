@@ -1,0 +1,34 @@
+
+Soul_idle.png
+size: 461,536
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Li1
+  rotate: true
+  xy: 293, 280
+  size: 254, 153
+  orig: 254, 153
+  offset: 0, 0
+  index: -1
+Li2
+  rotate: false
+  xy: 2, 2
+  size: 241, 241
+  orig: 241, 241
+  offset: 0, 0
+  index: -1
+Li3
+  rotate: false
+  xy: 2, 245
+  size: 289, 289
+  orig: 289, 289
+  offset: 0, 0
+  index: -1
+Soul
+  rotate: false
+  xy: 245, 26
+  size: 214, 217
+  orig: 214, 217
+  offset: 0, 0
+  index: -1

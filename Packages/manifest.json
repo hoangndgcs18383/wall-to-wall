@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.hzeff.ui.recycleable-scroll-rect": "https://github.com/hoangndgcs18383/Recycleable-Scroll-Rect.git",
     "com.laicasaane.unity-addressables-manager": "https://github.com/laicasaane/unity-addressables-manager.git",
     "com.unity.2d.animation": "7.0.12",
     "com.unity.2d.sprite": "1.0.0",

@@ -121,6 +121,14 @@ public class GameManager : MonoBehaviour
         inGamePanel.HideGameOverEffect();
         Time.timeScale = 1f;
         inGamePanel.UpdateScore("0");
+
+        if (SaveSystem.Instance.GetInt(PrefKeys.DeathCount) == 10)
+        {
+            SaveSystem.Instance.SetInt(PrefKeys.DeathCount, 0);
+#if UNITY_ANDROID || UNITY_IOS
+            AdsManager.Instance.LoadInterstitial();
+#endif
+        }
     }
 
     public void PauseGame()
@@ -140,6 +148,7 @@ public class GameManager : MonoBehaviour
 
         AudioManager.Instance.PlayBGM("BGM_INGAME", volume: 0.3f);
         inGamePanel.Show();
+        inGamePanel.ResetStartGame();
         SceneManager.LoadSceneAsync("InGame");
         RankManager.Instance.RemoveListenerRankChanged(RankChanged);
     }

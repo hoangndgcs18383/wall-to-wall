@@ -1,0 +1,20 @@
+
+eggfrog_idle.png
+size: 393,297
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Star1
+  rotate: false
+  xy: 297, 199
+  size: 94, 96
+  orig: 101, 101
+  offset: 4, 2
+  index: -1
+eggfrog_skin
+  rotate: false
+  xy: 2, 2
+  size: 293, 293
+  orig: 293, 293
+  offset: 0, 0
+  index: -1
