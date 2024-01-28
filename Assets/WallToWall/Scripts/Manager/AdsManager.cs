@@ -33,7 +33,7 @@ public class AdsManager : IUnityAdsInitializationListener, IUnityAdsLoadListener
         _adUnitInterstitialId = _adUnitInterstitialAndroidId;
 #elif UNITY_EDITOR
         _gameId = _androidGameId;
-        _adUnitInterstitialId = _adUnitInterstitialAndrodiId;
+        _adUnitInterstitialId = _adUnitInterstitialAndroidId;
 #endif
 
 #if UNITY_ANDROID || UNITY_IOS
