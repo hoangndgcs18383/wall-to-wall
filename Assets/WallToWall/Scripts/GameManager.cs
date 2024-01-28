@@ -112,17 +112,22 @@ public class GameManager : MonoBehaviour
         BestScoreText.color = Color.white;
         BestText.color = Color.white;*/
         inGamePanel.ShowGameOverEffect();
-        Time.timeScale = 0.1f;
-        yield return Player.IEDeadAnimation();
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.1f);
+        //Time.timeScale = 0.1f;
+        //yield return Player.IEDeadAnimation();
+        Player.SetActiveSprite(false);
+        Player.PlayDeadAnimation();
+        //yield return new WaitUntil(() => !Player.IsDeadAnimationPlaying());
+        yield return new WaitForSecondsRealtime(1.5f);
         RankManager.Instance.SetRank(score);
         UIManager.Instance.ShowGameOverScreen(new TotalScoreUIData(score,
             PlayerPrefs.GetInt("BestScore", 0), _isMoreThanBestScore));
         inGamePanel.HideGameOverEffect();
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
         inGamePanel.UpdateScore("0");
+        Player.DisableAnimator();
 
-        if (SaveSystem.Instance.GetInt(PrefKeys.DeathCount) == 10)
+        if (SaveSystem.Instance.GetInt(PrefKeys.DeathCount) == GameConstant.AdsTriggerCount)
         {
             SaveSystem.Instance.SetInt(PrefKeys.DeathCount, 0);
 #if UNITY_ANDROID || UNITY_IOS

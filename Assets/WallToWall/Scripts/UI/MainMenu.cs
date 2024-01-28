@@ -111,6 +111,8 @@ public class MainMenu : BaseScreen
 
         rankButton.onClick.AddListener(ShowRankPanel);
         inventoryButton.onClick.AddListener(ShowInventoryPanel);
+        removeAdsButton.onClick.AddListener(ShowRemoveAdsScreen);
+        
         Transition();
     }
 
@@ -268,6 +270,11 @@ public class MainMenu : BaseScreen
     private void ShowInventoryPanel()
     {
         UIManager.Instance.ShowInventoryScreen(OnLoadSkin);
+    }
+    
+    private void ShowRemoveAdsScreen()
+    {
+        UIManager.Instance.ShowAdsPopup();
     }
 
     #endregion

@@ -22,4 +22,4 @@ MonoBehaviour:
     IsUseSprite: 0
     Sprite: {fileID: 0}
     Duration: 1
-    CoolDown: 0
+    CoolDown: 3

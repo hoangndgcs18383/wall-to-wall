@@ -14,6 +14,7 @@ public struct SkillDataConfig
     public bool IsUseSprite;
     [ShowIf("IsUseSprite")] [Required]
     public Sprite Sprite;
+    public bool HasPassiveSkill;
     public float Duration;
     public float CoolDown;
 }

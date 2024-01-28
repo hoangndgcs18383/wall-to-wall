@@ -1,6 +1,8 @@
 public static class GameConstant 
 {
     //Constant
+    
+    public static int AdsTriggerCount = 5;
 }
 
 public static class PrefKeys
@@ -11,4 +13,15 @@ public static class PrefKeys
     public const string IsFirstTime = "IsFirstTime";
     
     public const string DeathCount = "DeathCount";
+}
+
+public static class ShaderKeys
+{
+    public const string GHOST_ON = "GHOST_ON";
+}
+
+public static class TagsKeys
+{
+    public const string PLAYER = "Player";
+    public const string GHOST = "Ghost";
 }

@@ -27,6 +27,7 @@ MonoBehaviour:
   - key: Skin_0
     hash: hyro_skin
     nameDisplay: HYDRO
+    bounceTrigger: 1
     isUnlock: 0
     unlockSprite: {fileID: 21300000, guid: 1ba8464a5fbbaec4da58207a25812548, type: 3}
     lockSprite: {fileID: 21300000, guid: b5569ddffc7641e44be1d1ce18b1da5a, type: 3}
@@ -44,6 +45,7 @@ MonoBehaviour:
   - key: Skin_1
     hash: shiny_skin
     nameDisplay: SHINY
+    bounceTrigger: 2
     isUnlock: 0
     unlockSprite: {fileID: 21300000, guid: 3e33780aef890394ab54c6aa46f7fbd6, type: 3}
     lockSprite: {fileID: 21300000, guid: b5569ddffc7641e44be1d1ce18b1da5a, type: 3}
@@ -51,7 +53,7 @@ MonoBehaviour:
       type: 3}
     backgroundMainSprite: {fileID: 21300000, guid: 2a567567183951f4ab4f65bc0551e166,
       type: 3}
-    triangleSprite: {fileID: 21300000, guid: e01869fe6429e114b966850ad5461686, type: 3}
+    triangleSprite: {fileID: 21300000, guid: a0aafe11c23483549a84e5e7469c45e9, type: 3}
     unlockPoint: 10
     effectData:
       deathEffect: {fileID: 1204438978744632, guid: 46558f3248d89494aa4f0e0cea478d32,
@@ -61,6 +63,7 @@ MonoBehaviour:
   - key: Skin_2
     hash: eggfrog_skin
     nameDisplay: FROG
+    bounceTrigger: 3
     isUnlock: 0
     unlockSprite: {fileID: 21300000, guid: d78c24d77f39bf24385a923b2f0ff9d9, type: 3}
     lockSprite: {fileID: 21300000, guid: b5569ddffc7641e44be1d1ce18b1da5a, type: 3}
@@ -68,7 +71,7 @@ MonoBehaviour:
       type: 3}
     backgroundMainSprite: {fileID: 21300000, guid: c42bcd39244650942a20e18c6dc8cf81,
       type: 3}
-    triangleSprite: {fileID: 21300000, guid: d53613595398ecf4a8d8643fd03810a8, type: 3}
+    triangleSprite: {fileID: 21300000, guid: a0aafe11c23483549a84e5e7469c45e9, type: 3}
     unlockPoint: 50
     effectData:
       deathEffect: {fileID: 7282744016949600942, guid: c117c4e812df6ef479de14a423baed6d,
@@ -78,6 +81,7 @@ MonoBehaviour:
   - key: Skin_3
     hash: snow_skin
     nameDisplay: SNOW
+    bounceTrigger: 4
     isUnlock: 0
     unlockSprite: {fileID: 21300000, guid: ede69ebb04ba5f744bdd906d8797f469, type: 3}
     lockSprite: {fileID: 21300000, guid: b5569ddffc7641e44be1d1ce18b1da5a, type: 3}
@@ -85,7 +89,7 @@ MonoBehaviour:
       type: 3}
     backgroundMainSprite: {fileID: 21300000, guid: 38c37a4d44bc1ba45a1e70c93b31b2a9,
       type: 3}
-    triangleSprite: {fileID: 21300000, guid: 6922387e5d6b6034aba3e72116105373, type: 3}
+    triangleSprite: {fileID: 21300000, guid: a0aafe11c23483549a84e5e7469c45e9, type: 3}
     unlockPoint: 100
     effectData:
       deathEffect: {fileID: 1751173354633357839, guid: 22054a1d1f985f64894dbc227d9461ae,
@@ -95,6 +99,7 @@ MonoBehaviour:
   - key: Skin_4
     hash: dragon_skin
     nameDisplay: DRAGON
+    bounceTrigger: 5
     isUnlock: 0
     unlockSprite: {fileID: 21300000, guid: 4bf026d1a4fb16a4bba57f0d9b869c7f, type: 3}
     lockSprite: {fileID: 21300000, guid: b5569ddffc7641e44be1d1ce18b1da5a, type: 3}
@@ -102,7 +107,7 @@ MonoBehaviour:
       type: 3}
     backgroundMainSprite: {fileID: 21300000, guid: d1676b5b2f50a514d9fa30a138c606e3,
       type: 3}
-    triangleSprite: {fileID: 21300000, guid: c1b6f6ee88c45444fa00699d1e00000c, type: 3}
+    triangleSprite: {fileID: 21300000, guid: a0aafe11c23483549a84e5e7469c45e9, type: 3}
     unlockPoint: 150
     effectData:
       deathEffect: {fileID: 8993451883925006246, guid: ad1fef91cbd5b9649908e0d5f244ea15,
@@ -112,6 +117,7 @@ MonoBehaviour:
   - key: Skin_5
     hash: soul_skin
     nameDisplay: SOUL
+    bounceTrigger: 6
     isUnlock: 0
     unlockSprite: {fileID: 21300000, guid: b668922ccfe10d143a92ed19decb0e39, type: 3}
     lockSprite: {fileID: 21300000, guid: b5569ddffc7641e44be1d1ce18b1da5a, type: 3}
@@ -119,8 +125,8 @@ MonoBehaviour:
       type: 3}
     backgroundMainSprite: {fileID: 21300000, guid: e75a8961a44fb904cbd5a17b9be8fa9b,
       type: 3}
-    triangleSprite: {fileID: 21300000, guid: df6b24805c242ca4f93d79d3ccb26b8d, type: 3}
-    unlockPoint: 200
+    triangleSprite: {fileID: 21300000, guid: a0aafe11c23483549a84e5e7469c45e9, type: 3}
+    unlockPoint: 0
     effectData:
       deathEffect: {fileID: 3211446660954236966, guid: 10f1e9811ca60454cb13992ed7c177d2,
         type: 3}

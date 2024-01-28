@@ -16,10 +16,10 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Ghost
+  - Wall
+  - Triangle
   - 
   - 
   - 

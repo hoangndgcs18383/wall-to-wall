@@ -42,7 +42,7 @@ public class AudioManager : Singleton<AudioManager>
             _backgroundClips.Add(audioData.key, audioData.clip);
         }
 
-        if(_isBgmOn) return;
+        if(!_isBgmOn) return;
         PlayBGM("BGM_FIRST_SCREEN", volume: 0.3f);
     }
 

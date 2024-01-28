@@ -378,6 +378,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ec8d0f6c7e9944fb9befeea7f608c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlaySfx: 1
+  sfxKey: ClickSFX
   isScale: 1
   isInteractable: 1
   targetGraphic: {fileID: 3337711849423176753}
@@ -880,6 +882,9 @@ MonoBehaviour:
     screen: {fileID: 396956047977567467, guid: 2f2973d84f3688347a1ddb14859c3fe6, type: 3}
   - key: TutorialPanel
     screen: {fileID: 1679699162510860852, guid: a55f9f85268c75b4ab720bfbcfa11978,
+      type: 3}
+  - key: AdsPopup
+    screen: {fileID: -4948267683388472928, guid: 875823697837d4341aa16a9834dff121,
       type: 3}
   mainCanvas: {fileID: 1184724110152480333}
   inGameCanvas: {fileID: 3975701002231932911}

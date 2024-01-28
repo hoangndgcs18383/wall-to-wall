@@ -138,6 +138,11 @@ public class UIManager : Singleton<UIManager>
         Timing.RunCoroutine(ShowAndLoadScreen<TutorialPanel>("TutorialPanel", CanvasType.Main, null,
             screen => { screen.RegisterCompleteCallback(onComplete); }));
     }
+    
+    public void ShowAdsPopup()
+    {
+        Timing.RunCoroutine(ShowAndLoadScreen<AdsPopup>("AdsPopup", CanvasType.Main));
+    }
 
     [Button]
     public void ClearPlayerPrefs()

@@ -6,7 +6,6 @@ using MEC;
 using Spine.Unity;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [Serializable]
@@ -15,12 +14,13 @@ public struct SkinData : IUIData
     public string key;
     public string hash;
     public string nameDisplay;
+    public int bounceTrigger;
     public bool isUnlock;
     public Sprite unlockSprite;
     public Sprite lockSprite;
     public Sprite backgroundAllSprite;
     public Sprite backgroundMainSprite;
-    [FormerlySerializedAs("backgroundTriangleSprite")] public Sprite triangleSprite;
+    public Sprite triangleSprite;
     public int unlockPoint;
     public EffectData effectData;
     public SkeletonDataAsset skeletonDataAsset;
@@ -154,7 +154,7 @@ public class UnlockSkinPanel : BaseScreen
             count++;
             yield return Timing.WaitForSeconds(0.1f);
         }
-        
+
         yield return Timing.WaitForSeconds(0.5f);
         AudioManager.Instance.PlaySfx("ExplosionBrightSFX");
     }

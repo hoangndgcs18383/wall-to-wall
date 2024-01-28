@@ -1,7 +1,11 @@
+using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using MEC;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InGamePanel : BaseScreen
 {
@@ -9,6 +13,8 @@ public class InGamePanel : BaseScreen
     [SerializeField] private GameObject gameOverEffectPanel;
     [SerializeField] private ButtonW2W tapToStart;
     [SerializeField] private ButtonW2W btnPause;
+    [SerializeField] private ButtonW2W btnUseSkill;
+    [SerializeField] private Image countDownImage;
     [SerializeField] private GameObject tapToPlay;
     [SerializeField] private GameObject pointFrame;
     [SerializeField] private TMP_Text skillInfoText;
@@ -22,6 +28,12 @@ public class InGamePanel : BaseScreen
         base.Initialize();
         tapToStart.onClick.AddListener(StartGame);
         btnPause.onClick.AddListener(OnPauseGame);
+        btnUseSkill.onClick.AddListener(UseSkill);
+        btnUseSkill.gameObject.SetActive(false);
+        skillInfoText.gameObject.SetActive(false);
+#if UNITY_EDITOR
+        EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+#endif
     }
 
     public override void Show(IUIData data = null)
@@ -67,7 +79,7 @@ public class InGamePanel : BaseScreen
         if (_isStartGame) return;
         _isStartGame = true;
         GameManager.Instance.GameStart();
-        btnPause.gameObject.SetActive(true);
+        //btnPause.gameObject.SetActive(true);
         pointFrame.SetActive(true);
         tapToStart.gameObject.SetActive(true);
         tapToPlay.SetActive(false);
@@ -86,16 +98,46 @@ public class InGamePanel : BaseScreen
         _countDown = _currentSkill.GetSkillDataConfig().CoolDown;
         while (skillInfoText != null && _countDown > 0)
         {
-            skillInfoText.SetText($"{Mathf.RoundToInt(_countDown)} giây nữa mới dùng được skill");
-            _countDown -= 1;
+            skillInfoText.SetText($"{Mathf.RoundToInt(_countDown)} to use skill");
+            _countDown -= 1f;
             yield return Timing.WaitForSeconds(1f);
         }
 
-        skillInfoText.SetText("Skill đã sẵn sàng");
+        skillInfoText.SetText("Skill ready");
     }
 
     public void OnPauseGame()
     {
         UIManager.Instance.ShowPauseScreen();
     }
+
+    private void UseSkill()
+    {
+        if (_currentSkill != null)
+        {
+            _currentSkill.ReleaseSkill();
+            countDownImage.fillAmount = 0;
+            countDownImage.DOFillAmount(1, _currentSkill.GetSkillDataConfig().CoolDown).SetEase(Ease.Linear).OnComplete(
+                () => { countDownImage.raycastTarget = true; });
+            countDownImage.raycastTarget = false;
+        }
+    }
+
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        if (!hasFocus)
+        {
+            OnPauseGame();
+        }
+    }
+
+#if UNITY_EDITOR
+    private void OnPlayModeStateChanged(PlayModeStateChange state)
+    {
+        if (state == PlayModeStateChange.ExitingPlayMode)
+        {
+            OnPauseGame();
+        }
+    }
+#endif
 }
