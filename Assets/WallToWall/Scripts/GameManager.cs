@@ -1,25 +1,32 @@
 ﻿using System;
 using System.Collections;
 using System.Text;
+using FreakyBall.Abilities;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private PlayerConfig playerConfig;
+
     [HideInInspector] public int score = 0;
 
     public TMP_Text RankText;
 
-    public SpriteRenderer player;
+    //public SpriteRenderer player;
 
-    [HideInInspector] public bool isStarted = false;
+    [HideInInspector] public bool IsStarted = false;
     static int PlayCount;
 
-    public Player Player;
+    //public Player Player;
+
+    private IEntity _player;
 
     private InGamePanel inGamePanel;
     private bool _isMoreThanBestScore;
@@ -32,11 +39,38 @@ public class GameManager : MonoBehaviour
         //background.gameObject.SetActive(true);
     }
 
-
     private void Start()
     {
         //InGameManager.Instance.UpdateBestScore(PlayerPrefs.GetInt("BestScore", 0).ToString());
-        player.sprite = SkinManager.Instance.GetCurrentSkin().unlockSprite;
+        //player.sprite = SkinManager.Instance.GetCurrentSkin().unlockSprite;
+
+        inGamePanel = UIManager.Instance.GetScreen<InGamePanel>();
+        GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+
+        switch (SkinManager.Instance.GetCurrentSkin().hash)
+        {
+            case "hyro_skin":
+            case "shiny_skin":
+                _player = player.AddComponent<Hydro>();
+                break;
+                //_player = player.AddComponent<>();
+                break;
+            case "soul_skin":
+                _player = player.AddComponent<Soul>();
+                break;
+            case "snow_skin":
+                _player = player.AddComponent<Snow>();
+                break;
+            case "eggfrog_skin":
+                _player = player.AddComponent<FrogEgg>();
+                break;
+            default:
+                _player = player.AddComponent<BaseEntity>();
+                break;
+        }
+
+        _player?.Initialize(playerConfig, SkinManager.Instance.GetCurrentSkin());
+        _player?.SetSkin(SkinManager.Instance.GetCurrentSkin().unlockSprite);
     }
 
     [Button]
@@ -48,23 +82,23 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         if (IsStarted) return;
-        isStarted = true;
-        Player.StartPlayer();
+        IsStarted = true;
+        _player?.StartGame();
+        //Player.StartPlayer();
 
         RankManager.Instance.AddListenerRankChanged(RankChanged);
-
         //SkinManager.Instance.AddListenerSkinColorChanged(SkinColorChanged);
         //SkinManager.Instance.Initialize();
-
+        //score = Player.playerConfig.startScore;
         inGamePanel = UIManager.Instance.GetScreen<InGamePanel>();
+        inGamePanel.UpdateScore(score.ToString());
+
 
         TriangleManager.Instance.StartGame();
 
         //background.gameObject.SetActive(false);
         //InGameManager.Instance.InGamePanelStart();
     }
-
-    private bool IsStarted => isStarted;
 
     private void RankChanged()
     {
@@ -79,13 +113,7 @@ public class GameManager : MonoBehaviour
         RankText.SetText(sb);
     }
 
-    private void SkinColorChanged(Color color)
-    {
-        player.color = color;
-    }
-
-
-    public void addScore()
+    public void AddScore()
     {
         score++;
         inGamePanel.UpdateScore(score.ToString());
@@ -100,7 +128,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void Gameover()
+    public void GameOver()
     {
         StartCoroutine(GameoverCoroutine());
     }
@@ -115,8 +143,9 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.1f);
         //Time.timeScale = 0.1f;
         //yield return Player.IEDeadAnimation();
-        Player.SetActiveSprite(false);
-        Player.PlayDeadAnimation();
+        _player?.AddDeathCount();
+        _player?.SetActiveSprite(false);
+        _player?.PlayDeadAnimation();
         //yield return new WaitUntil(() => !Player.IsDeadAnimationPlaying());
         yield return new WaitForSecondsRealtime(1.5f);
         RankManager.Instance.SetRank(score);
@@ -124,10 +153,10 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.GetInt("BestScore", 0), _isMoreThanBestScore));
         inGamePanel.HideGameOverEffect();
         //Time.timeScale = 1f;
-        inGamePanel.UpdateScore("0");
-        Player.DisableAnimator();
+        _player?.DisableAnimator();
+        _player?.Dispose();
 
-        if (SaveSystem.Instance.GetInt(PrefKeys.DeathCount) == GameConstant.AdsTriggerCount)
+        if (SaveSystem.Instance.GetInt(PrefKeys.DeathCount) >= GameConstant.AdsTriggerCount)
         {
             SaveSystem.Instance.SetInt(PrefKeys.DeathCount, 0);
 #if UNITY_ANDROID || UNITY_IOS
@@ -149,13 +178,18 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         //RankManager.Instance.SetRank(score);
-        isStarted = false;
+        IsStarted = false;
 
         AudioManager.Instance.PlayBGM("BGM_INGAME", volume: 0.3f);
         inGamePanel.Show();
         inGamePanel.ResetStartGame();
         SceneManager.LoadSceneAsync("InGame");
         RankManager.Instance.RemoveListenerRankChanged(RankChanged);
+    }
+
+    public IEntity GetPlayer()
+    {
+        return _player;
     }
 
     private void OnDestroy()

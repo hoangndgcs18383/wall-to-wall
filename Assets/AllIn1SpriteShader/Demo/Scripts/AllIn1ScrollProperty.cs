@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace AllIn1SpriteShader
 {
     public class AllIn1ScrollProperty : MonoBehaviour
     {
+        [SerializeField] private UnityEvent onScrollStart;
+        
         [SerializeField] private string numericPropertyName = "_RotateUvAmount";
         [SerializeField] private float scrollSpeed = 0f;
 
@@ -51,6 +54,11 @@ namespace AllIn1SpriteShader
             currValue += scrollSpeed * Time.deltaTime;
             if (applyModulo) currValue %= modulo;
             mat.SetFloat(propertyShaderID, currValue);
+            
+            if(currValue <= Time.deltaTime || currValue > modulo)
+            {
+                onScrollStart?.Invoke();
+            }
         }
 
         private void DestroyComponentAndLogError(string logError)

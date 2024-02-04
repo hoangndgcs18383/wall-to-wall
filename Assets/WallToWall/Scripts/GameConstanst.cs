@@ -25,3 +25,9 @@ public static class TagsKeys
     public const string PLAYER = "Player";
     public const string GHOST = "Ghost";
 }
+
+public static class LayerKeys
+{
+    public const string WALL = "Wall";
+    public const string TRIANGLE = "Triangle";
+}

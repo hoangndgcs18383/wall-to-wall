@@ -174,7 +174,7 @@ public class MainMenu : BaseScreen
         return inventoryButton.transform as RectTransform;
     }
 
-    private void OnLoadSkin()
+    public void OnLoadSkin()
     {
         PlayerPrefs.SetInt("CurrentSkinIndex", _currentSkinIndex);
 

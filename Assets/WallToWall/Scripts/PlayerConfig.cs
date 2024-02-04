@@ -9,6 +9,25 @@ using UnityEngine.U2D.Animation;
 [CreateAssetMenu(fileName = "PlayerConfig", menuName = "ScriptableObjects/PlayerConfig", order = 1)]
 public class PlayerConfig : ScriptableObject
 {
+    private static PlayerConfig _instance;
+
+    public static PlayerConfig GetInstance()
+    {
+        if (_instance == null)
+        {
+            _instance = Resources.Load<PlayerConfig>("PlayerConfig");
+        }
+
+        return _instance;
+    }
+    
+
+    [BoxGroup("Cheat")] public int startScore = 0;
+    
+    [BoxGroup("Player Prefab Effect")] public GameObject wallBounceEffectPrefab;
+    [BoxGroup("Player Prefab Effect")] public GameObject jumpEffectPrefab;
+    [BoxGroup("Player Prefab Effect")] public GameObject touchEffectPrefab;
+
     [BoxGroup("Player")] public int jumpSpeedX = 10;
     [BoxGroup("Player")] public int jumpSpeedY = 17;
     [BoxGroup("Player")] public float gravity = 3;
@@ -30,7 +49,7 @@ public class PlayerConfig : ScriptableObject
     [BoxGroup("Triangle")] [Range(1, 10)] public int triangleCountUpScore = 3;
 
     [BoxGroup("Skins features")] public List<SkinData> skins = new List<SkinData>();
-    
+
     [BoxGroup("Tutorial Config")] public List<TutorialConfig> tutorialConfigs = new List<TutorialConfig>();
 }
 

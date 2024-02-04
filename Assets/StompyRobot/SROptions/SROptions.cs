@@ -27,7 +27,7 @@ public partial class SROptions : INotifyPropertyChanged
 #endif
 
     public event SROptionsPropertyChanged PropertyChanged;
-    
+
 #if UNITY_EDITOR
     [JetBrains.Annotations.NotifyPropertyChangedInvocator]
 #endif
@@ -50,5 +50,24 @@ public partial class SROptions : INotifyPropertyChanged
     {
         add { InterfacePropertyChangedEventHandler += value; }
         remove { InterfacePropertyChangedEventHandler -= value; }
+    }
+
+    [NumberRange(0, 100000)]
+    [Category("Cheat Game ^^")]
+    [DisplayName("Set Start Point")]
+    public int SetStartPoint
+    {
+        get => PlayerConfig.GetInstance().startScore;
+        set => PlayerConfig.GetInstance().startScore = value;
+    }
+
+    [Category("Cheat Game ^^")]
+    [DisplayName("Unlock All Skin")]
+    public void UnlockAllSkin()
+    {
+        for (int i = 0; i < PlayerConfig.GetInstance().skins.Count; i++)
+        {
+            PlayerPrefs.SetInt($"SkinUnlocked_{i}", 1);
+        }
     }
 }

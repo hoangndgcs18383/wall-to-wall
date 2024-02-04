@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using FreakyBall.Abilities;
 using MEC;
 using TMPro;
 using UnityEditor;
@@ -18,10 +19,17 @@ public class InGamePanel : BaseScreen
     [SerializeField] private GameObject tapToPlay;
     [SerializeField] private GameObject pointFrame;
     [SerializeField] private TMP_Text skillInfoText;
+    [SerializeField] private AbilityView abilityView;
 
     [SerializeField] private bool _isStartGame = false;
 
     private ISkill _currentSkill;
+
+    public AbilityView AbilityView
+    {
+        get => abilityView;
+        set => abilityView = value;
+    }
 
     public override void Initialize()
     {
@@ -125,7 +133,8 @@ public class InGamePanel : BaseScreen
 
     private void OnApplicationFocus(bool hasFocus)
     {
-        if (!hasFocus)
+        return;
+        if (!hasFocus && _isStartGame)
         {
             OnPauseGame();
         }
@@ -134,7 +143,8 @@ public class InGamePanel : BaseScreen
 #if UNITY_EDITOR
     private void OnPlayModeStateChanged(PlayModeStateChange state)
     {
-        if (state == PlayModeStateChange.ExitingPlayMode)
+        return;
+        if (state == PlayModeStateChange.ExitingPlayMode && _isStartGame)
         {
             OnPauseGame();
         }

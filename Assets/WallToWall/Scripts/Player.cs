@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using FreakyBall.Abilities;
+using Hzeff.Events;
 using MEC;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -67,6 +69,21 @@ public class Player : MonoBehaviour
         SetSkillByKey("Skin_2", "FrogSkill", _skinData, new FrogSkill(this));*/
     }
 
+    private void OnEnable()
+    {
+        EventDispatcher<PlayerCommandData>.Register(new EventBinding<PlayerCommandData>(OnPlayerCommand));
+    }
+
+    private void OnDisable()
+    {
+        EventDispatcher<PlayerCommandData>.Unregister(new EventBinding<PlayerCommandData>(OnPlayerCommand));
+    }
+
+    private void OnPlayerCommand(PlayerCommandData data)
+    {
+        Debug.Log("OnPlayerCommand: " + data.abilityData.abilityName);
+    }
+
     private void SetSkillByKey(string key, string skillName, SkinData skinData, ISkillRelease skillRelease = null)
     {
         if (skinData.key == key)
@@ -96,7 +113,7 @@ public class Player : MonoBehaviour
     {
         SetConfigScaleGravity();
         if (isDead) return;
-        if (!GameManagerScript.isStarted) return;
+        if (!GameManagerScript.IsStarted) return;
 
         if (_tutorialProcess) return;
         UserInput();
@@ -175,7 +192,7 @@ public class Player : MonoBehaviour
 
             if (other.gameObject.name == "Left" || other.gameObject.name == "Right")
             {
-                GameManagerScript.addScore();
+                GameManagerScript.AddScore();
                 //bounceAnimator.SetInteger(Animator.StringToHash("Bounce"), _skinData.bounceTrigger);
 
                 GameObject.Find("GameManager").GetComponent<TriangleManager>().WallTouched(other.gameObject.name);
@@ -232,7 +249,7 @@ public class Player : MonoBehaviour
                 StartCoroutine(ReturnPool(DeadEffectObj, obj, isAutoDisable: true));
             });*/
 
-            GameManagerScript.Gameover();
+            GameManagerScript.GameOver();
             StartCoroutine(cameraShake.Shake(0.2f, 0.3f));
             StopPlayer();
         }
@@ -261,6 +278,8 @@ public class Player : MonoBehaviour
         }
 
         rb.isKinematic = false;
+        /*transform.DORotate(new Vector3(0, 0, 360), 10f, RotateMode.FastBeyond360).SetLoops(-1, LoopType.Incremental)
+            .SetEase(Ease.Linear);*/
         // isStarted = true;
     }
 
@@ -310,7 +329,7 @@ public class Player : MonoBehaviour
         deadAnimator.gameObject.SetActive(true);
         deadAnimator.SetTrigger(_skinData.key);
     }
-    
+
     public void DisableAnimator()
     {
         deadAnimator.gameObject.SetActive(false);
@@ -340,7 +359,12 @@ public class Player : MonoBehaviour
         _material.DisableKeyword("ROUNDWAVEUV_ON");
         yield return new WaitForSecondsRealtime(0.1f);
         _deathCount++;
+        SaveSystem.Instance.SetInt(PrefKeys.DeathCount, _deathCount);
+    }
 
+    public void AddDeathCount()
+    {
+        _deathCount++;
         SaveSystem.Instance.SetInt(PrefKeys.DeathCount, _deathCount);
     }
 
@@ -367,10 +391,9 @@ public class Player : MonoBehaviour
     {
         return _material;
     }
-    
+
     public void SetLayer(int layer)
     {
         gameObject.layer = layer;
     }
-
 }
