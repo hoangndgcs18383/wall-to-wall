@@ -1,5 +1,3 @@
-using FreakyBall.Abilities;
-
 public class Snow : BaseEntity
 {
     public override void StartGame()
@@ -10,9 +8,4 @@ public class Snow : BaseEntity
         base.StartGame();
     }
     
-    public override void OnPlayerCommand(PlayerCommandData playerCommandData)
-    {
-        base.OnPlayerCommand(playerCommandData);
-        playerCommandData.abilityData.UseAbility();
-    }
 }

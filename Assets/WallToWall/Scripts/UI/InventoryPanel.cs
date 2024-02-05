@@ -4,6 +4,7 @@ using DG.Tweening;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class InventoryPanel : BaseScreen
@@ -28,6 +29,9 @@ public class InventoryPanel : BaseScreen
     private bool _isTransitioning = false;
     private Action _onClose;
 
+    private LocalKeyword _hsvOn;
+    private LocalKeyword _greyscaleOn;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -35,6 +39,12 @@ public class InventoryPanel : BaseScreen
         nextSkinButton.onClick.AddListener(OnNextSkin);
         previousSkinButton.onClick.AddListener(OnPreviousSkin);
         closeButton.onClick.AddListener(OnClose);
+
+        _hsvOn = new LocalKeyword(currentSkinBackground.material.shader, "HSV_ON");
+        _greyscaleOn = new LocalKeyword(currentSkinBackground.material.shader, "GREYSCALE_ON");
+
+        /*currentSkinBackground.material.EnableKeyword("HSV_ON");
+        currentSkinBackground.material.EnableKeyword("GREYSCALE_ON");*/
     }
 
     public void RegisterOnClose(Action onClose)
@@ -172,13 +182,13 @@ public class InventoryPanel : BaseScreen
     {
         if (!isUnlock)
         {
-            currentSkinBackground.material.EnableKeyword("HSV_ON");
-            currentSkinBackground.material.EnableKeyword("GREYSCALE_ON");
+            currentSkinBackground.material.EnableKeyword(_hsvOn);
+            currentSkinBackground.material.EnableKeyword(_greyscaleOn);
         }
         else
         {
-            currentSkinBackground.material.DisableKeyword("HSV_ON");
-            currentSkinBackground.material.DisableKeyword("GREYSCALE_ON");
+            currentSkinBackground.material.DisableKeyword(_hsvOn);
+            currentSkinBackground.material.DisableKeyword(_greyscaleOn);
         }
     }
 }

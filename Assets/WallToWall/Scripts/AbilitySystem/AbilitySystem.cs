@@ -1,11 +1,17 @@
 using System;
-using System.Collections.Generic;
-using MEC;
+using Hzeff.Events;
 using TMPro;
 using UnityEngine;
 
 namespace FreakyBall.Abilities
 {
+    public struct AbilityStateData : IEvent
+    {
+        public string abilityName;
+        public PlayerState playerState;
+        public string message;
+    }
+
     public class AbilitySystem : MonoBehaviour
     {
         [SerializeField] private AbilityData[] startingAbilities;
@@ -13,6 +19,7 @@ namespace FreakyBall.Abilities
 
         private AbilityView _abilityView;
         private AbilityController _abilityController;
+        private EventBinding<AbilityStateData> _abilityStateData;
 
         public void Initialize(InGamePanel inGamePanel, params string[] abilityExcepts)
         {
@@ -26,20 +33,27 @@ namespace FreakyBall.Abilities
             _abilityView = inGamePanel.AbilityView;
             _abilityView.gameObject.SetActive(true);
             _abilityController = new AbilityController.Builder().WithAbilities(startingAbilities).Build(_abilityView);
-            gameObject.SetActive(true);
+
+            _abilityStateData = new EventBinding<AbilityStateData>(OnPlayerChangeState);
+            EventDispatcher<AbilityStateData>.Register(_abilityStateData);
         }
 
-        public void OnPlayerChangeState(PlayerState state, string abilityName = "")
+        public void Dispose()
+        {
+            EventDispatcher<AbilityStateData>.Unregister(_abilityStateData);
+        }
+
+        public void OnPlayerChangeState(AbilityStateData abilityName)
         {
 #if UNITY_EDITOR
-            switch (state)
+            switch (abilityName.playerState)
             {
                 case PlayerState.Idle:
                 case PlayerState.Input:
-                    stateText.SetText("");
+                    stateText.SetText(abilityName.message);
                     break;
                 case PlayerState.Ability:
-                    stateText.SetText($"Using {abilityName}");
+                    stateText.SetText($"Using {abilityName.abilityName}");
                     break;
                 case PlayerState.ChooseDirection:
                     stateText.SetText("Choose Direction");

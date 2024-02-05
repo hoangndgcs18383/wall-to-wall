@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using FreakyBall.Abilities;
-using UnityEngine;
 
 public class FrogEgg : BaseEntity
 {
@@ -17,6 +14,5 @@ public class FrogEgg : BaseEntity
     public override void OnPlayerCommand(PlayerCommandData playerCommandData)
     {
         base.OnPlayerCommand(playerCommandData);
-        playerCommandData.abilityData.UseAbility();
     }
 }

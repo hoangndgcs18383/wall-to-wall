@@ -60,7 +60,7 @@ public class UIManager : Singleton<UIManager>
             baseScreen.RectTransform.sizeDelta = Vector2.zero;
             baseScreen.RectTransform.localScale = Vector3.one;
             baseScreen.RectTransform.SetAsLastSibling();
-            yield return Timing.WaitForOneFrame;
+            //yield return Timing.WaitForOneFrame;
             screens.Add(screenName, baseScreen);
             screens[screenName].Initialize();
         }
@@ -69,7 +69,7 @@ public class UIManager : Singleton<UIManager>
             baseScreen = (BaseScreen)screens[screenName];
         }
 
-        yield return Timing.WaitForOneFrame;
+        //yield return Timing.WaitForOneFrame;
         baseScreen.Show(data);
 
         yield return Timing.WaitForOneFrame;

@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class SpriteRenderMaterialInstance : MonoBehaviour
 {
-    public string keyword = "FADE_ON";
-    private SpriteRenderer  spriteRenderer;
+    public string[] keywords;
+    private SpriteRenderer spriteRenderer;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -15,6 +14,13 @@ public class SpriteRenderMaterialInstance : MonoBehaviour
 
     private void Start()
     {
-        spriteRenderer.material.DisableKeyword(keyword);
+        if (keywords.Length > 0)
+        {
+            for (int i = 0; i < keywords.Length; i++)
+            {
+                spriteRenderer.material.DisableKeyword(keywords[i]);
+            }
+            
+        }
     }
 }

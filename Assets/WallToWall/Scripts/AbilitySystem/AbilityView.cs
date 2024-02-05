@@ -15,12 +15,6 @@ namespace FreakyBall.Abilities
             {
                 abilityButtons[i].Initialize(i);
             }
-            
-            gameObject.SetActive(false);
-        }
-        
-        public void RegisterOnPlayerChangeState(Action<PlayerState, string> action)
-        {
         }
 
         [Button]
@@ -56,6 +50,7 @@ namespace FreakyBall.Abilities
                 if (i < abilities.Count)
                 {
                     abilityButtons[i].UpdateAbilitySprite(abilities[i].data.abilityIcon);
+                    abilityButtons[i].gameObject.SetActive(true);
                 }
                 else
                 {

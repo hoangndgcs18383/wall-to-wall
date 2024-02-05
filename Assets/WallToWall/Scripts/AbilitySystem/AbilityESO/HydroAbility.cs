@@ -11,6 +11,7 @@ public class HydroAbility : AbilityData
     
     public override void UseAbility()
     {
+        base.UseAbility();
         if (GetCurrentDirection().x > 0)
         {
             if (_abilityPrefab)
@@ -52,6 +53,7 @@ public class HydroAbility : AbilityData
         if (_abilityPrefab != null)
         {
             _abilityPrefab.gameObject.SetActive(false);
+            CompleteAbility();
         }
     }
 }

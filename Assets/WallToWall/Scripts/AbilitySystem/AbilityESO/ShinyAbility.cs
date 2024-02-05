@@ -8,6 +8,7 @@ public class ShinyAbility : AbilityData
 {
     public override void UseAbility()
     {
+        base.UseAbility();
         Timing.RunCoroutine(IEStopAndChooseDirection());
     }
 

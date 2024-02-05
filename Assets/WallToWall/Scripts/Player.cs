@@ -6,6 +6,7 @@ using FreakyBall.Abilities;
 using Hzeff.Events;
 using MEC;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -52,7 +53,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         GameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
         _material = GetComponent<SpriteRenderer>().material;
-
+        _material.DisableKeyword(new LocalKeyword(_material.shader, ShaderKeys.GHOST_ON));
         _deathCount = SaveSystem.Instance.GetInt(PrefKeys.DeathCount);
 
         deadAnimator.gameObject.SetActive(false);

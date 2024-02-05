@@ -5,6 +5,7 @@ using FreakyBall.Abilities;
 using Hzeff.Events;
 using MEC;
 using UnityEngine;
+using UnityEngine.Rendering;
 using Random = UnityEngine.Random;
 
 public enum PlayerState
@@ -35,7 +36,6 @@ public class BaseEntity : MonoBehaviour, IEntity
         get => _playerState;
         set
         {
-            if (AbilitySystem) AbilitySystem.OnPlayerChangeState(value, value.ToString());
             OnPlayerChangeState?.Invoke(value);
             _playerState = value;
         }
@@ -47,13 +47,16 @@ public class BaseEntity : MonoBehaviour, IEntity
     private Animator _deadAnimator;
     private Rigidbody2D _rigidbody2D;
 
+    private TrailRenderer _trailRenderer;
+
     private Camera _mainCamera;
     private CameraShake _cameraShake;
     private SkinData _skinData;
+    private Material _material;
+
     private bool _tutorialProcess;
     private int _deathCount;
     private bool _isDead;
-    private Material _material;
 
     private PlayerState _playerState = PlayerState.Idle;
     private Vector2[] lineRendererPositions = new Vector2[2];
@@ -68,8 +71,9 @@ public class BaseEntity : MonoBehaviour, IEntity
         _skinData = skinData;
         _deadAnimator = GetComponentInChildren<Animator>(true);
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _trailRenderer = GetComponent<TrailRenderer>();
         _material = GetComponent<SpriteRenderer>().material;
-
+        _material.EnableKeyword(new LocalKeyword(_material.shader, ShaderKeys.GHOST_ON));
         ResetPlayerDefault();
 
         _mainCamera = Camera.main;
@@ -85,9 +89,22 @@ public class BaseEntity : MonoBehaviour, IEntity
         gameObject.layer = layer;
     }
 
+    private float _currentVelocity;
+
+    public void SaveCurrentVelocity()
+    {
+        _currentVelocity = _rigidbody2D.velocity.x;
+    }
+
+    public void RestoreVelocity()
+    {
+        _rigidbody2D.velocity = new Vector2(_currentVelocity, _rigidbody2D.velocity.y);
+    }
+
     public void Dispose()
     {
         EventDispatcher<PlayerCommandData>.Unregister(_playerCommandData);
+        AbilitySystem.Dispose();
     }
 
     public void StopImmediate()
@@ -125,21 +142,19 @@ public class BaseEntity : MonoBehaviour, IEntity
         lineRendererPositions[0] = transform.position;
         lineRenderer.SetPosition(0, lineRendererPositions[0]);
 
-#if !UNITY_ANDROID || UNITY_IOS
+#if UNITY_ANDROID || UNITY_IOS
         if (Input.touchCount <= 0) return;
         Vector3 touchPos = _mainCamera.ScreenToWorldPoint(Input.GetTouch(0).position);
         touchPos.z = 0;
         lineRendererPositions[1] = touchPos;
-
         lineRenderer.SetPosition(1, lineRendererPositions[1]);
-
-        if (Input.GetTouch(0).phase == TouchPhase.Ended)
+        HandlePlayerTouch(() =>
         {
             ContinueGame();
             AddForcePlayerToLineRendererVector();
             lineRenderer.positionCount = 0;
             lineRendererPositions = new Vector2[2];
-        }
+        });
 #else
         Vector3 mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
@@ -159,6 +174,40 @@ public class BaseEntity : MonoBehaviour, IEntity
         //next input
     }
 
+    // Move this method to next script
+
+    private float timeTouchBegan;
+    private bool touchReleased;
+
+    public void HandlePlayerTouch(Action onTouchRelease)
+    {
+        switch (Input.GetTouch(0).phase)
+        {
+            case TouchPhase.Began:
+                timeTouchBegan = Time.realtimeSinceStartup;
+                touchReleased = false;
+                break;
+            case TouchPhase.Moved:
+            case TouchPhase.Stationary:
+                if (Mathf.Abs(timeTouchBegan - Time.realtimeSinceStartup) > 0.5f)
+                {
+                    touchReleased = true;
+                }
+
+                break;
+            case TouchPhase.Ended:
+            case TouchPhase.Canceled:
+                if (touchReleased)
+                {
+                    timeTouchBegan = 0;
+                    onTouchRelease?.Invoke();
+                }
+
+                break;
+        }
+    }
+
+
     private void AddForcePlayerToLineRendererVector()
     {
         //implement speed base on distance
@@ -166,8 +215,8 @@ public class BaseEntity : MonoBehaviour, IEntity
         Vector2 distance = lineRendererPositions[1] - lineRendererPositions[0];
         float distanceMagnitude = distance.magnitude;
         float speed = distanceMagnitude * 0.5f;
-        if (speed > 10) speed = 2;
-        if (speed < 5) speed = 1;
+        if (speed > 10) speed = 10;
+        if (speed < 5) speed = 5;
 
         Vector2 direction = (lineRendererPositions[1] - lineRendererPositions[0]).normalized;
         _rigidbody2D.velocity = direction * _playerConfig.jumpSpeedX * speed;
@@ -177,6 +226,7 @@ public class BaseEntity : MonoBehaviour, IEntity
     public void ContinueGame()
     {
         _rigidbody2D.isKinematic = false;
+        _trailRenderer.time = 0.5f;
         PlayerState = PlayerState.Input;
     }
 
@@ -349,11 +399,14 @@ public class BaseEntity : MonoBehaviour, IEntity
         _rigidbody2D.velocity = new Vector2(0, 0);
         _rigidbody2D.isKinematic = true;
         _rigidbody2D.freezeRotation = true;
+        _trailRenderer.time = 0f;
     }
 
 
     public virtual void OnPlayerCommand(PlayerCommandData playerCommandData)
     {
+        playerCommandData.abilityData.SetCurrentDirection(GetPosition(), transform.position);
+        playerCommandData.abilityData.UseAbility();
     }
 
     public void AddDeathCount()
@@ -414,5 +467,7 @@ public interface IEntity
     void SetLineRendererToChooseDirection();
     void StopImmediate();
     bool IsReceiveLive { get; set; }
+    void SaveCurrentVelocity();
+    void RestoreVelocity();
     void Dispose();
 }

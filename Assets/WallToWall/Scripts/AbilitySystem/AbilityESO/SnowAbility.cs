@@ -12,11 +12,12 @@ public class SnowAbility : AbilityData
 
     public override void UseAbility()
     {
-        IEntity player = GameManager.Instance.GetPlayer();
-        player.StopImmediate();
-        
+        base.UseAbility();
         PoolManager.Instance.CreateOrGetPool(snowDetector.gameObject, 2, o =>
         {
+            IEntity player = GameManager.Instance.GetPlayer();
+            player.SaveCurrentVelocity();
+            player.StopImmediate();
             o.transform.position = GetCurrentPosition();
             o.SetActive(true);
             SnowDetector snow = o.GetComponent<SnowDetector>();
@@ -24,6 +25,8 @@ public class SnowAbility : AbilityData
             Timing.RunCoroutine(ReturnPool(o, gameObject =>
             {
                 player.ContinueGame();
+                player.RestoreVelocity();
+                CompleteAbility();
             }));
         });
     }

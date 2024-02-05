@@ -42,6 +42,8 @@ public class InGamePanel : BaseScreen
 #if UNITY_EDITOR
         EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
 #endif
+        
+        AbilityView.gameObject.SetActive(false);
     }
 
     public override void Show(IUIData data = null)
@@ -64,6 +66,7 @@ public class InGamePanel : BaseScreen
     public void ShowGameOverEffect()
     {
         gameOverEffectPanel.SetActive(true);
+        AbilityView.gameObject.SetActive(false);
     }
 
     public void ResetStartGame()
@@ -86,6 +89,7 @@ public class InGamePanel : BaseScreen
     {
         if (_isStartGame) return;
         _isStartGame = true;
+        
         GameManager.Instance.GameStart();
         //btnPause.gameObject.SetActive(true);
         pointFrame.SetActive(true);

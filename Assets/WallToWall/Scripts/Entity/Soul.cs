@@ -7,11 +7,9 @@ public class Soul : BaseEntity
 
     public override void StartGame()
     {
-        InGamePanel inGamePanel = UIManager.Instance.GetScreen<InGamePanel>();
-        AbilitySystem abilitySystem = GetComponent<AbilitySystem>();
-        abilitySystem.Initialize(inGamePanel);
-        
         base.StartGame();
+        InGamePanel inGamePanel = UIManager.Instance.GetScreen<InGamePanel>();
+        AbilitySystem.Initialize(inGamePanel);
     }
     
     protected override void OnEnterTriangleCollision()
@@ -31,6 +29,6 @@ public class Soul : BaseEntity
     {
         base.OnPlayerCommand(playerCommandData);
         IsReceiveLive = true;
-        RevivalAction = playerCommandData.abilityData.UseAbility;
+        RevivalAction = playerCommandData.abilityData.PassiveAbility;
     }
 }
