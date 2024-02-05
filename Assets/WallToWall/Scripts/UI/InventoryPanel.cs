@@ -116,12 +116,12 @@ public class InventoryPanel : BaseScreen
             newTag.SetActive(false);
         }
 
-        if (SkinManager.Instance.IsSkinUnlocked(_currentSkinIndex))
+        if (!SkinManager.Instance.IsSkinUnlocked(_currentSkinIndex))
         {
-            currentSkinImage.sprite = playerConfig.skins[_currentSkinIndex].unlockSprite;
+            currentSkinImage.sprite = playerConfig.skins[_currentSkinIndex].lockSprite;
             currentSkinText.SetText(playerConfig.skins[_currentSkinIndex].nameDisplay);
             currentSkinBackground.sprite = playerConfig.skins[_currentSkinIndex].backgroundMainSprite;
-            OnSelectSkin(true, playerConfig.skins[_currentSkinIndex].unlockPoint);
+            OnSelectSkin(false, playerConfig.skins[_currentSkinIndex].unlockPoint);
             return;
         }
 
