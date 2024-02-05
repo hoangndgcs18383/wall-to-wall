@@ -166,8 +166,8 @@ public class BaseEntity : MonoBehaviour, IEntity
         Vector2 distance = lineRendererPositions[1] - lineRendererPositions[0];
         float distanceMagnitude = distance.magnitude;
         float speed = distanceMagnitude * 0.5f;
-        if (speed > 10) speed = 10;
-        if (speed < 5) speed = 5;
+        if (speed > 10) speed = 2;
+        if (speed < 5) speed = 1;
 
         Vector2 direction = (lineRendererPositions[1] - lineRendererPositions[0]).normalized;
         _rigidbody2D.velocity = direction * _playerConfig.jumpSpeedX * speed;
