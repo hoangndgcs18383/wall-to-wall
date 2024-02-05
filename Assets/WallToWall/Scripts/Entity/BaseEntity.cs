@@ -125,7 +125,7 @@ public class BaseEntity : MonoBehaviour, IEntity
         lineRendererPositions[0] = transform.position;
         lineRenderer.SetPosition(0, lineRendererPositions[0]);
 
-#if !UNITY_ANDROID || UNITY_IOS
+#if UNITY_ANDROID || UNITY_IOS
         if (Input.touchCount <= 0) return;
         Vector3 touchPos = _mainCamera.ScreenToWorldPoint(Input.GetTouch(0).position);
         touchPos.z = 0;
