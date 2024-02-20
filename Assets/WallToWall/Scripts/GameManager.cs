@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
         //InGameManager.Instance.UpdateBestScore(PlayerPrefs.GetInt("BestScore", 0).ToString());
         //player.sprite = SkinManager.Instance.GetCurrentSkin().unlockSprite;
 
+        
         inGamePanel = UIManager.Instance.GetScreen<InGamePanel>();
         GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
 
@@ -52,8 +53,6 @@ public class GameManager : MonoBehaviour
             case "hyro_skin":
             case "shiny_skin":
                 _player = player.AddComponent<Hydro>();
-                break;
-                //_player = player.AddComponent<>();
                 break;
             case "soul_skin":
                 _player = player.AddComponent<Soul>();

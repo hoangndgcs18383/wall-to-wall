@@ -137,7 +137,6 @@ public class InGamePanel : BaseScreen
 
     private void OnApplicationFocus(bool hasFocus)
     {
-        return;
         if (!hasFocus && _isStartGame)
         {
             OnPauseGame();

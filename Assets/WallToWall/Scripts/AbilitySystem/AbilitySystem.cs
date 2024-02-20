@@ -31,7 +31,7 @@ namespace FreakyBall.Abilities
             Debug.Log("Starting abilities: " + startingAbilities.Length);
 
             _abilityView = inGamePanel.AbilityView;
-            _abilityView.gameObject.SetActive(true);
+            //_abilityView.gameObject.SetActive(true);
             _abilityController = new AbilityController.Builder().WithAbilities(startingAbilities).Build(_abilityView);
 
             _abilityStateData = new EventBinding<AbilityStateData>(OnPlayerChangeState);
