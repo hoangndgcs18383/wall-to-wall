@@ -13,6 +13,7 @@ public class SkinManager
 
     private Dictionary<string, SkinData> _skinList;
 
+
     private event Action<Color> OnSkinColorChanged;
     private event Action<SkinData> OnSkinUnlocked;
 
@@ -21,6 +22,15 @@ public class SkinManager
     public void Initialize(Dictionary<string, SkinData> sprites)
     {
         _skinList = sprites;
+        PlayerConfig playerConfig = Resources.Load<PlayerConfig>("PlayerConfig");
+        for (int i = 0; i < playerConfig.skins.Count; i++)
+        {
+            string hash = playerConfig.skins[i].hash;
+            playerConfig.skins[i].nameDisplay =
+                SaveSystem.Instance.GetString(string.Concat(hash, "_", PrefKeys.NameDisplay));
+            playerConfig.skins[i].unlockPoint =
+                SaveSystem.Instance.GetInt(string.Concat(hash, "_", PrefKeys.UnlockPoint));
+        }
     }
 
     public void SetSkinSprite()

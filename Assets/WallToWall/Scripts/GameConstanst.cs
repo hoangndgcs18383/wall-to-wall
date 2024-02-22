@@ -1,7 +1,7 @@
-public static class GameConstant 
+public static class GameConstant
 {
     //Constant
-    
+
     public static int AdsTriggerCount = 5;
 }
 
@@ -11,8 +11,19 @@ public static class PrefKeys
     public const string CurrentScore = "CurrentScore";
     public const string CurrentSkin = "CurrentSkin";
     public const string IsFirstTime = "IsFirstTime";
-    
+
     public const string DeathCount = "DeathCount";
+
+    public const string JumpSpeedX = "JumpSpeedX";
+    public const string JumpSpeedY = "JumpSpeedY";
+    public const string Gravity = "Gravity";
+
+    public const string ScorePerTriangle = "ScorePerTriangle";
+    public const string NumberOfStart = "NumberOfStart";
+    public const string NumberOfMax = "NumberOfMax";
+    
+    public const string NameDisplay = "NameDisplay";
+    public const string UnlockPoint = "UnlockPoint";
 }
 
 public static class ShaderKeys

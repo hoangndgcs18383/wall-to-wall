@@ -60,6 +60,18 @@ public class LoadingManager : MonoBehaviour
         AdsManager.Instance.Initialize();
 #endif
 
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            Debug.Log("Error. Check internet connection!");
+        }
+        else
+        {
+            await InitializeRemoteConfigAsync();
+            await RemoteManager.Instance.InitializeAsync();
+
+            //SpreadsheetManager.Write(new GSTU_Search(animal.associatedSheet, animal.associatedWorksheet, "G10"), new ValueRange(list), null);
+        }
+
         /*AddressablesManager.TryLoadAssetSync(BackgroundAddress.GetAddress("BG_FIRST"), out Sprite backgroundSprite);
         background.sprite = backgroundSprite;*/
         /*if (Utilities.CheckForInternetConnection())

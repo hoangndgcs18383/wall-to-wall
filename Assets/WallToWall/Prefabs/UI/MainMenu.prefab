@@ -1678,7 +1678,7 @@ MonoBehaviour:
   numericPropertyName: _ShineLocation
   scrollSpeed: 1
   applyModulo: 1
-  modulo: 6
+  modulo: 2
   mat: {fileID: 2100000, guid: 16038668f98b2c843b8550f75260822a, type: 2}
 --- !u!1 &2038622391854781159
 GameObject:

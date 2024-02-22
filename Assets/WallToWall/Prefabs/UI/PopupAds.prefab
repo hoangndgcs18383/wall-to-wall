@@ -640,9 +640,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Enjoy eliminating Ads forever with just one purchase\r\n    Unlock All
-    feature and stop worrying about ads.\nA small but meaningful act can spur us
-    on to create better game"
+  m_text: 'Unlock All feature and stop worrying about ads.
+
+    A small but meaningful
+    act can spur us on to create better game'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f71ea128871fda04eb813ff5a5f76cda, type: 2}
   m_sharedMaterial: {fileID: -902999296769898718, guid: f71ea128871fda04eb813ff5a5f76cda,
@@ -670,8 +671,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -682,7 +683,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 7
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0

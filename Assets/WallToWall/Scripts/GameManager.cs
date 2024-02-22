@@ -44,6 +44,18 @@ public class GameManager : MonoBehaviour
         //InGameManager.Instance.UpdateBestScore(PlayerPrefs.GetInt("BestScore", 0).ToString());
         //player.sprite = SkinManager.Instance.GetCurrentSkin().unlockSprite;
 
+        //load playerConfig
+
+        playerConfig.jumpSpeedX = SaveSystem.Instance.GetInt(PrefKeys.JumpSpeedX);
+        playerConfig.jumpSpeedY = SaveSystem.Instance.GetInt(PrefKeys.JumpSpeedY);
+        playerConfig.gravity = SaveSystem.Instance.GetInt(PrefKeys.Gravity);
+        
+        //triangle
+        
+        playerConfig.triangleCountUpScore = SaveSystem.Instance.GetInt(PrefKeys.ScorePerTriangle);
+        playerConfig.numberOfTrianglesStart = SaveSystem.Instance.GetInt(PrefKeys.NumberOfStart);
+        playerConfig.numberOfTrianglesMax = SaveSystem.Instance.GetInt(PrefKeys.NumberOfMax);
+        
         
         inGamePanel = UIManager.Instance.GetScreen<InGamePanel>();
         GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
@@ -138,6 +150,7 @@ public class GameManager : MonoBehaviour
         /*CurrentScoreText.color = Color.white;
         BestScoreText.color = Color.white;
         BestText.color = Color.white;*/
+        inGamePanel.EndGame();
         inGamePanel.ShowGameOverEffect();
         yield return new WaitForSecondsRealtime(0.1f);
         //Time.timeScale = 0.1f;
@@ -181,7 +194,7 @@ public class GameManager : MonoBehaviour
 
         AudioManager.Instance.PlayBGM("BGM_INGAME", volume: 0.3f);
         inGamePanel.Show();
-        inGamePanel.ResetStartGame();
+        inGamePanel.EndGame();
         SceneManager.LoadSceneAsync("InGame");
         RankManager.Instance.RemoveListenerRankChanged(RankChanged);
     }

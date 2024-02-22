@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [Serializable]
-public struct SkinData : IUIData
+public class SkinData : IUIData
 {
     public string key;
     public string hash;

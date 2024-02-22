@@ -40,7 +40,7 @@ public class InGamePanel : BaseScreen
         btnUseSkill.gameObject.SetActive(false);
         skillInfoText.gameObject.SetActive(false);
 #if UNITY_EDITOR
-        EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+        //EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
 #endif
         
         AbilityView.gameObject.SetActive(false);
@@ -69,7 +69,7 @@ public class InGamePanel : BaseScreen
         AbilityView.gameObject.SetActive(false);
     }
 
-    public void ResetStartGame()
+    public void EndGame()
     {
         _isStartGame = false;
     }
