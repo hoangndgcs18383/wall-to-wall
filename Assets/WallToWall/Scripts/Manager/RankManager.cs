@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GoogleSheetsToUnity;
+using Unity.Services.Authentication;
 using UnityEngine;
 
 public class RankManager
@@ -14,6 +16,7 @@ public class RankManager
     private const string RankPrefKey = "Rank_{index}";
     private event Action OnRankChanged;
     private bool _isInitialized;
+    private string _currentUid;
 
     #endregion
 
@@ -46,6 +49,20 @@ public class RankManager
         if (_isInitialized) return;
         _isInitialized = true;
         GetRankList.Clear();
+        _currentUid = AuthenticationService.Instance.PlayerId;
+        if (!string.IsNullOrWhiteSpace(_currentUid))
+        {
+            Debug.Log($"{_currentUid} has been initialized");
+
+            ValueRange inputData = new ValueRange(new List<string> { _currentUid });
+            inputData.Add(new List<string>
+            {
+                "100"
+            });
+            
+            SpreadsheetManager.Write(new GSTU_Search(RemoteManager.Instance.RemoteData.sheetId, "LeaderBoard"),
+                inputData, null);
+        }
 
         for (int i = 0; i < _maxRank; i++)
         {

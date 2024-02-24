@@ -62,19 +62,19 @@ public class GameManager : MonoBehaviour
 
         switch (SkinManager.Instance.GetCurrentSkin().hash)
         {
-            case "hyro_skin":
-            case "shiny_skin":
-                _player = player.AddComponent<Hydro>();
-                break;
-            case "soul_skin":
-                _player = player.AddComponent<Soul>();
-                break;
-            case "snow_skin":
-                _player = player.AddComponent<Snow>();
-                break;
-            case "eggfrog_skin":
-                _player = player.AddComponent<FrogEgg>();
-                break;
+            // case "hyro_skin":
+            // case "shiny_skin":
+            //     _player = player.AddComponent<Hydro>();
+            //     break;
+            // case "soul_skin":
+            //     _player = player.AddComponent<Soul>();
+            //     break;
+            // case "snow_skin":
+            //     _player = player.AddComponent<Snow>();
+            //     break;
+            // case "eggfrog_skin":
+            //     _player = player.AddComponent<FrogEgg>();
+            //     break;
             default:
                 _player = player.AddComponent<BaseEntity>();
                 break;

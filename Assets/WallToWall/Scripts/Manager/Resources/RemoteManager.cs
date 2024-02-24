@@ -41,7 +41,7 @@ public class RemoteManager
     {
         while (!IsLoaded)
         {
-            await Task.Delay(1000);
+            await Task.Delay(100);
         }
 
         if (IsLoaded)
