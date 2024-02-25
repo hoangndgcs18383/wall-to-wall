@@ -57,22 +57,22 @@ public class SaveSystem
 
     #region Getters
 
-    public int GetInt(string key)
+    public int GetInt(string key, int defaultValue = 0)
     {
-        return GetInt(key, 0);
+        return GetIntDefault(key, defaultValue);
     }
 
-    public float GetFloat(string key)
+    public float GetFloat(string key, float defaultValue = 0f)
     {
-        return GetFloat(key, 0f);
+        return GetFloatDefault(key, defaultValue);
     }
 
-    public string GetString(string key)
+    public string GetString(string key, string defaultValue = "")
     {
-        return GetString(key, "");
+        return GetStringDefault(key, defaultValue);
     }
 
-    private static int GetInt(string key, int defaultValue)
+    private static int GetIntDefault(string key, int defaultValue)
     {
         int value = PlayerPrefs.GetInt(key, defaultValue);
         if (!VerifyEncryption(key, _typeInt, value.ToString()))
@@ -83,7 +83,7 @@ public class SaveSystem
         return PlayerPrefs.GetInt(key, defaultValue);
     }
 
-    private static float GetFloat(string key, float defaultValue)
+    private static float GetFloatDefault(string key, float defaultValue)
     {
         float value = PlayerPrefs.GetFloat(key, defaultValue);
         if (!VerifyEncryption(key, _typeFloat, value.ToString(CultureInfo.InvariantCulture)))
@@ -94,7 +94,7 @@ public class SaveSystem
         return PlayerPrefs.GetFloat(key, defaultValue);
     }
 
-    private static string GetString(string key, string defaultValue)
+    private static string GetStringDefault(string key, string defaultValue)
     {
         string value = PlayerPrefs.GetString(key, defaultValue);
         if (!VerifyEncryption(key, _typeString, value))

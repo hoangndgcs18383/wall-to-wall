@@ -32,6 +32,10 @@ public class RatePanel : BaseScreen
 
     private void OnClick((int, float) obj)
     {
+        if (obj.Item1 >= 3)
+        {
+            AppRatingManager.Instance.RateAndReview();
+        }
     }
 
     private void OnRate((int r, float p) rate)
@@ -51,6 +55,7 @@ public class RatePanel : BaseScreen
 
     public void OnClickRateUs()
     {
-        Debug.Log("Rate Us");
+        //Debug.Log("Rate Us");
+        AppRatingManager.Instance.RateAndReview();
     }
 }

@@ -22,6 +22,8 @@ public class RankPanel : BaseScreen
 
         foreach (var rank in rankList)
         {
+            Debug.Log($"Rank: {rank.Key} - {rank.Value}");
+            
             if (rankingItems.Count <= index) break;
             if (rank.Value == -1)
             {

@@ -90,7 +90,7 @@ public class AudioManager : Singleton<AudioManager>
     public void SetOnOffBGM(bool isOn)
     {
         bgmSource.mute = !isOn;
-        if (isOn) PlayBGM("BGM_FIRST_SCREEN", volume: 0.3f);
+        if (isOn) PlayBGM("BGM_MENU", volume: 0.3f);
     }
 
     public void SetBGMSlow()

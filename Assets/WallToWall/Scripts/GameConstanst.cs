@@ -24,6 +24,9 @@ public static class PrefKeys
     
     public const string NameDisplay = "NameDisplay";
     public const string UnlockPoint = "UnlockPoint";
+    
+    public const string UserId = "UserId";
+    public const string UserName = "UserName";
 }
 
 public static class ShaderKeys

@@ -1,5 +1,6 @@
 using System;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 
 public class SettingPanel : BaseScreen
@@ -14,6 +15,8 @@ public class SettingPanel : BaseScreen
 
     [BoxGroup("Buttons")] [SerializeField] private ButtonW2W btnClose;
     [BoxGroup("Buttons")] [SerializeField] private ButtonW2W btnFacebook;
+
+    [SerializeField] private TMP_InputField inputFieldDisplayName;
 
     private void Awake()
     {
@@ -33,18 +36,30 @@ public class SettingPanel : BaseScreen
 
         btnClose.onClick.AddListener(Hide);
         btnFacebook.onClick.AddListener(OnClickFacebook);
+        inputFieldDisplayName.onEndEdit.AddListener(OnEndEditDisplayName);
     }
 
-    
+
     public override void Show(IUIData data = null)
     {
         base.Show(data);
+
+        inputFieldDisplayName.text = SaveSystem.Instance.GetString(PrefKeys.UserName);
+
         bool isSfxOn = PlayerPrefs.GetInt("Sound", 1) == 1;
         bool isMsbOn = PlayerPrefs.GetInt("Music", 1) == 1;
         soundItem.Initialize(isSfxOn, OnSound);
         musicItem.Initialize(isMsbOn, OnMusic);
     }
-    
+
+    private void OnEndEditDisplayName(string displayName)
+    {
+        if (!string.IsNullOrWhiteSpace(displayName))
+        {
+            SaveSystem.Instance.SetString(PrefKeys.UserName, displayName);
+        }
+    }
+
     private void OnMusic(bool obj)
     {
         PlayerPrefs.SetInt("Music", obj ? 1 : 0);

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GoogleSheetsToUnity;
-using Unity.Services.Authentication;
 using UnityEngine;
 
 public class RankManager
@@ -49,7 +47,7 @@ public class RankManager
         if (_isInitialized) return;
         _isInitialized = true;
         GetRankList.Clear();
-        _currentUid = AuthenticationService.Instance.PlayerId;
+        /*_currentUid = AuthenticationService.Instance.PlayerId;
         if (!string.IsNullOrWhiteSpace(_currentUid))
         {
             Debug.Log($"{_currentUid} has been initialized");
@@ -64,6 +62,12 @@ public class RankManager
                 inputData, null);
         }
 
+        for (int i = 0; i < _maxRank; i++)
+        {
+            string key = RankPrefKey.Replace("{index}", i.ToString());
+            GetRankList.Add(key, PlayerPrefs.GetInt(key, -1));
+        }*/
+        
         for (int i = 0; i < _maxRank; i++)
         {
             string key = RankPrefKey.Replace("{index}", i.ToString());

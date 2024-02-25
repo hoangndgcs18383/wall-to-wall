@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class RateStar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
 {
     [SerializeField] private Image fillImage;
-    
+
     private Image _image;
     private (int r, float p) _rate;
     private Action<(int, float)> _callback;
@@ -53,12 +53,12 @@ public class RateStar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         _callback?.Invoke((_rate.r, _rate.p));
     }
-    
+
     public void SetFill(float p)
     {
         fillImage.fillAmount = p;
     }
-    
+
     public void OnClick()
     {
         _onClick?.Invoke(_rate);

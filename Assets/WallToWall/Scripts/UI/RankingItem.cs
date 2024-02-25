@@ -8,7 +8,7 @@ public class RankingItem : MonoBehaviour
 
     public void SetRankText(string value, int point)
     {
-        rankText.SetText($"{value}\t Player{Random.Range(0, 100)}");
+        rankText.SetText($"{SaveSystem.Instance.GetString(PrefKeys.UserName)}");
         pointText.SetText(point.ToString());
     }
 }

@@ -1,12 +1,16 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DG.Tweening;
+using MEC;
 using Sirenix.OdinInspector;
+using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public enum TransitionType
 {
@@ -30,7 +34,13 @@ public class LoadingManager : MonoBehaviour
 
     [SerializeField] private Image background;
 
+    [SerializeField] private TMP_Text startText;
+    [SerializeField] private ButtonW2W startButton;
+
     public static LoadingManager Instance;
+    private int _percentage;
+    private int _targetPercentage;
+    private CoroutineHandle _loadingCoroutine;
 
     public struct userAttributes
     {
@@ -49,7 +59,7 @@ public class LoadingManager : MonoBehaviour
         Instance = this;
     }
 
-    async void Start()
+    void Start()
     {
         Application.quitting += RestTransition;
         Application.targetFrameRate = 60;
@@ -60,14 +70,23 @@ public class LoadingManager : MonoBehaviour
         AdsManager.Instance.Initialize();
 #endif
 
+        InitializeUnityServicesAsync();
+
+        startButton.targetGraphic.raycastTarget = false;
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
             Debug.Log("Error. Check internet connection!");
+            startButton.targetGraphic.raycastTarget = true;
+            startText.SetText("Press to start");
         }
         else
         {
-            await InitializeRemoteConfigAsync();
-            await RemoteManager.Instance.InitializeAsync();
+            RemoteManager.Instance.InitializeAsync((percent) =>
+            {
+                _targetPercentage += percent;
+                Timing.KillCoroutines(_loadingCoroutine);
+                _loadingCoroutine = Timing.RunCoroutine(IETextPercentage());
+            });
 
             //SpreadsheetManager.Write(new GSTU_Search(animal.associatedSheet, animal.associatedWorksheet, "G10"), new ValueRange(list), null);
         }
@@ -83,12 +102,28 @@ public class LoadingManager : MonoBehaviour
         RemoteConfigService.Instance.FetchConfigs(new userAttributes(), new appAttributes());*/
     }
 
+    public IEnumerator<float> IETextPercentage()
+    {
+        while (_percentage < _targetPercentage)
+        {
+            _percentage = Mathf.Clamp(_percentage + 1, 0, _targetPercentage);
+            startText.SetText($"{_percentage}%");
+            if (_percentage >= 100)
+            {
+                startButton.targetGraphic.raycastTarget = true;
+                startText.SetText("Press to start");
+            }
+
+            yield return Timing.WaitForOneFrame;
+        }
+    }
+
     private void ApplyRemoteSettings(ConfigResponse obj)
     {
         Debug.Log("RemoteConfigService.Instance.appConfig fetched: " + RemoteConfigService.Instance.appConfig.config);
     }
 
-    async Task InitializeRemoteConfigAsync()
+    async void InitializeUnityServicesAsync()
     {
         await UnityServices.InitializeAsync();
 
@@ -96,7 +131,18 @@ public class LoadingManager : MonoBehaviour
         if (!AuthenticationService.Instance.IsSignedIn)
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
+
+            if (!SaveSystem.Instance.HasKey(PrefKeys.UserId))
+            {
+                SaveSystem.Instance.SetString(PrefKeys.UserId, AuthenticationService.Instance.PlayerId);
+
+
+                string randomDisplayName = "User" + Random.Range(0, 1000);
+                SaveSystem.Instance.SetString(PrefKeys.UserName, randomDisplayName);
+            }
         }
+
+        IAPManager.Instance.InitializedIAP();
     }
 
     public void Transition(TransitionType transitionType, Image image, Action onStart = null, Action onComplete = null)

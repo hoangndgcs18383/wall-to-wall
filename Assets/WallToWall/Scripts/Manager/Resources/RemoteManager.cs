@@ -1,5 +1,8 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using GoogleSheetsToUnity;
+using MEC;
 using UnityEngine;
 
 public class RemoteManager
@@ -16,6 +19,7 @@ public class RemoteManager
     private const string BallSheet = "Ball";
 
     private PlayerConfig _playerConfig;
+    private Action<int> _onActionComplete;
 
     public static RemoteManager Instance
     {
@@ -37,12 +41,15 @@ public class RemoteManager
         _isLoaded = _remoteData != null;
     }
 
-    public async Task InitializeAsync()
+    public void InitializeAsync(Action<int> onActionComplete)
     {
-        while (!IsLoaded)
-        {
-            await Task.Delay(100);
-        }
+        _onActionComplete = onActionComplete;
+        Timing.RunCoroutine(InitializeAsync());
+    }
+
+    private IEnumerator<float> InitializeAsync()
+    {
+        yield return Timing.WaitUntilTrue(() => IsLoaded);
 
         if (IsLoaded)
         {
@@ -52,10 +59,10 @@ public class RemoteManager
             //load player
             SpreadsheetManager.Read(new GSTU_Search(_remoteData.sheetId, PlayerSheet),
                 OnSpreadsheetPlayer);
-            
+            yield return Timing.WaitForOneFrame;
             SpreadsheetManager.Read(new GSTU_Search(_remoteData.sheetId, TriangleSheet),
                 OnSpreadsheetTriangle);
-
+            yield return Timing.WaitForOneFrame;
             SpreadsheetManager.Read(new GSTU_Search(_remoteData.sheetId, BallSheet),
                 OnSpreadsheetBall);
         }
@@ -63,14 +70,26 @@ public class RemoteManager
 
     private void OnSpreadsheetPlayer(GstuSpreadSheet ss)
     {
+        _onActionComplete?.Invoke(30);
+        if (ss == null)
+        {
+            return;
+        }
+
         //player
         SaveSystem.Instance.SetInt(PrefKeys.JumpSpeedX, GetIntValue(PlayerSheet, PrefKeys.JumpSpeedX, ss));
         SaveSystem.Instance.SetInt(PrefKeys.JumpSpeedY, GetIntValue(PlayerSheet, PrefKeys.JumpSpeedY, ss));
-        SaveSystem.Instance.SetInt(PrefKeys.Gravity, GetIntValue(PlayerSheet, PrefKeys.Gravity, ss));
+        SaveSystem.Instance.SetFloat(PrefKeys.Gravity, GetIntValue(PlayerSheet, PrefKeys.Gravity, ss));
     }
 
     private void OnSpreadsheetTriangle(GstuSpreadSheet ss)
     {
+        _onActionComplete?.Invoke(30);
+        if (ss == null)
+        {
+            return;
+        }
+
         //triangle
         SaveSystem.Instance.SetInt(PrefKeys.ScorePerTriangle,
             GetIntValue(TriangleSheet, PrefKeys.ScorePerTriangle, ss));
@@ -81,7 +100,12 @@ public class RemoteManager
     private void OnSpreadsheetBall(GstuSpreadSheet ss)
     {
         //ball
-        
+        _onActionComplete?.Invoke(40);
+        if (ss == null)
+        {
+            return;
+        }
+
         for (int i = 0; i < _playerConfig.skins.Count; i++)
         {
             string hash = _playerConfig.skins[i].hash;
@@ -96,7 +120,7 @@ public class RemoteManager
     {
         return int.Parse(ss[row, column].value);
     }
-    
+
     private string GetStringValue(string row, string column, GstuSpreadSheet ss)
     {
         return ss[row, column].value;

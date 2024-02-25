@@ -1,5 +1,48 @@
 {
   "dependencies": {
+    "com.google.android.appbundle": {
+      "version": "https://github.com/google-unity/android-app-bundle.git#1.8.0",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "50d04b09ae563e7eed9b72180973870171e15423"
+    },
+    "com.google.external-dependency-manager": {
+      "version": "https://github.com/google-unity/external-dependency-manager.git#1.2.172",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "9e1c8529285a6cb5b23c225c30fb9de0a1b6cfea"
+    },
+    "com.google.play.common": {
+      "version": "https://github.com/google-unity/google-play-common.git#1.8.1",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.google.android.appbundle": "1.8.0"
+      },
+      "hash": "5c3fb2edb0d5fdd0e71b283b0ca529f8baf61059"
+    },
+    "com.google.play.core": {
+      "version": "https://github.com/google-unity/google-play-core.git#1.8.1",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.google.android.appbundle": "1.8.0",
+        "com.google.external-dependency-manager": "1.2.172"
+      },
+      "hash": "c8b5299670d28304ca0b96b493d3593fd6ac1862"
+    },
+    "com.google.play.review": {
+      "version": "https://github.com/google-unity/in-app-review.git#1.8.1",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.google.play.common": "1.8.1",
+        "com.google.play.core": "1.8.1"
+      },
+      "hash": "039118f280938f9770ed4efcf04b5bf030981e7e"
+    },
     "com.hzeff.ui.recycleable-scroll-rect": {
       "version": "https://github.com/hoangndgcs18383/Recycleable-Scroll-Rect.git",
       "depth": 0,
@@ -79,7 +122,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.burst": {
-      "version": "1.7.3",
+      "version": "1.8.4",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -113,13 +156,13 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.ide.visualstudio": "2.0.16",
-        "com.unity.ide.rider": "3.0.16",
+        "com.unity.ide.visualstudio": "2.0.18",
+        "com.unity.ide.rider": "3.0.24",
         "com.unity.ide.vscode": "1.2.5",
         "com.unity.editorcoroutines": "1.0.0",
-        "com.unity.performance.profile-analyzer": "1.1.1",
-        "com.unity.test-framework": "1.1.31",
-        "com.unity.testtools.codecoverage": "1.0.1"
+        "com.unity.performance.profile-analyzer": "1.2.2",
+        "com.unity.test-framework": "1.1.33",
+        "com.unity.testtools.codecoverage": "1.2.4"
       }
     },
     "com.unity.ide.rider": {
@@ -155,14 +198,14 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.nuget.newtonsoft-json": {
-      "version": "3.0.2",
+      "version": "3.2.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.performance.profile-analyzer": {
-      "version": "1.1.1",
+      "version": "1.2.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -178,21 +221,20 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.purchasing": {
-      "version": "4.9.3",
+      "version": "4.10.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.ugui": "1.0.0",
-        "com.unity.modules.unityanalytics": "1.0.0",
         "com.unity.modules.unitywebrequest": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0",
         "com.unity.modules.androidjni": "1.0.0",
-        "com.unity.services.core": "1.8.1"
+        "com.unity.services.core": "1.8.2"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.remote-config": {
-      "version": "3.2.2",
+      "version": "3.3.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -216,7 +258,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.core": {
-      "version": "12.1.8",
+      "version": "12.1.12",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
@@ -226,14 +268,14 @@
       }
     },
     "com.unity.render-pipelines.universal": {
-      "version": "12.1.8",
+      "version": "12.1.12",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
-        "com.unity.burst": "1.7.3",
-        "com.unity.render-pipelines.core": "12.1.8",
-        "com.unity.shadergraph": "12.1.8"
+        "com.unity.burst": "1.8.4",
+        "com.unity.render-pipelines.core": "12.1.12",
+        "com.unity.shadergraph": "12.1.12"
       }
     },
     "com.unity.scriptablebuildpipeline": {
@@ -251,19 +293,19 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.services.authentication": {
-      "version": "2.3.1",
+      "version": "2.6.1",
       "depth": 2,
       "source": "registry",
       "dependencies": {
-        "com.unity.nuget.newtonsoft-json": "3.0.2",
-        "com.unity.services.core": "1.4.3",
+        "com.unity.nuget.newtonsoft-json": "3.2.1",
+        "com.unity.services.core": "1.10.1",
         "com.unity.modules.unitywebrequest": "1.0.0",
         "com.unity.ugui": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.services.ccd.management": {
-      "version": "2.1.0",
+      "version": "2.2.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -278,12 +320,12 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.services.core": {
-      "version": "1.8.1",
+      "version": "1.10.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.unitywebrequest": "1.0.0",
-        "com.unity.nuget.newtonsoft-json": "3.0.2",
+        "com.unity.nuget.newtonsoft-json": "3.2.1",
         "com.unity.modules.androidjni": "1.0.0"
       },
       "url": "https://packages.unity.com"
@@ -303,11 +345,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
-      "version": "12.1.8",
+      "version": "12.1.12",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
-        "com.unity.render-pipelines.core": "12.1.8",
+        "com.unity.render-pipelines.core": "12.1.12",
         "com.unity.searcher": "4.9.1"
       }
     },
@@ -339,7 +381,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.testtools.codecoverage": {
-      "version": "1.0.1",
+      "version": "1.2.4",
       "depth": 1,
       "source": "registry",
       "dependencies": {

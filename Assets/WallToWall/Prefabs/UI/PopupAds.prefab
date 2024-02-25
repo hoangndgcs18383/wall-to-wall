@@ -236,7 +236,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -572,7 +572,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0df2236a393f0bb4e9cedb4e162afb6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  btnBuyRemoveAds: {fileID: 1834050852165718362}
   btnClose: {fileID: 2512491173953570110}
+  txtPrice: {fileID: 66108831490560845}
 --- !u!1 &6943436487223365086
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,15 +46,15 @@ public class GameManager : MonoBehaviour
 
         //load playerConfig
 
-        playerConfig.jumpSpeedX = SaveSystem.Instance.GetInt(PrefKeys.JumpSpeedX);
-        playerConfig.jumpSpeedY = SaveSystem.Instance.GetInt(PrefKeys.JumpSpeedY);
-        playerConfig.gravity = SaveSystem.Instance.GetInt(PrefKeys.Gravity);
+        playerConfig.jumpSpeedX = SaveSystem.Instance.GetInt(PrefKeys.JumpSpeedX, playerConfig.jumpSpeedX);
+        playerConfig.jumpSpeedY = SaveSystem.Instance.GetInt(PrefKeys.JumpSpeedY, playerConfig.jumpSpeedY);
+        playerConfig.gravity = SaveSystem.Instance.GetFloat(PrefKeys.Gravity, playerConfig.gravity);
         
         //triangle
         
-        playerConfig.triangleCountUpScore = SaveSystem.Instance.GetInt(PrefKeys.ScorePerTriangle);
-        playerConfig.numberOfTrianglesStart = SaveSystem.Instance.GetInt(PrefKeys.NumberOfStart);
-        playerConfig.numberOfTrianglesMax = SaveSystem.Instance.GetInt(PrefKeys.NumberOfMax);
+        playerConfig.triangleCountUpScore = SaveSystem.Instance.GetInt(PrefKeys.ScorePerTriangle, playerConfig.triangleCountUpScore);
+        playerConfig.numberOfTrianglesStart = SaveSystem.Instance.GetInt(PrefKeys.NumberOfStart, playerConfig.numberOfTrianglesStart);
+        playerConfig.numberOfTrianglesMax = SaveSystem.Instance.GetInt(PrefKeys.NumberOfMax, playerConfig.numberOfTrianglesMax);
         
         
         inGamePanel = UIManager.Instance.GetScreen<InGamePanel>();
