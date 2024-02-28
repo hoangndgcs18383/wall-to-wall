@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Hzeff.Events;
 using MEC;
 using Sirenix.OdinInspector;
 using Spine.Unity;
@@ -7,6 +9,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
+public struct MainMenuEvent : IEvent
+{
+    public Action OnCloseComplete;
+}
 
 public class MainMenu : BaseScreen
 {
@@ -75,6 +82,7 @@ public class MainMenu : BaseScreen
 
     private int _currentSkinIndex = 0;
     private bool _isTransitioning = false;
+    private EventBinding<NameDisplayChangedEvent> _nameDisplay;
     private CanvasGroup _allCanvasGroup;
 
     public override void Initialize()
@@ -112,8 +120,18 @@ public class MainMenu : BaseScreen
         rankButton.onClick.AddListener(ShowRankPanel);
         inventoryButton.onClick.AddListener(ShowInventoryPanel);
         removeAdsButton.onClick.AddListener(ShowRemoveAdsScreen);
-        
+
+        OnNameDisplayChanged(new NameDisplayChangedEvent
+            { DisplayName = SaveSystem.Instance.GetString(PrefKeys.UserName) });
+        EventDispatcher<NameDisplayChangedEvent>.Register(
+            new EventBinding<NameDisplayChangedEvent>(OnNameDisplayChanged));
+        EventDispatcher<MainMenuEvent>.Register(new EventBinding<MainMenuEvent>(OnUnlockAllSkinEvent));
         Transition();
+    }
+
+    private void OnNameDisplayChanged(NameDisplayChangedEvent obj)
+    {
+        currentSkinText.SetText(obj.DisplayName);
     }
 
     private void Transition()
@@ -146,21 +164,31 @@ public class MainMenu : BaseScreen
 
         Timing.CallDelayed(3f, () =>
         {
-            SkinManager.Instance.ClearCurrentSkinList();
-            for (int i = 0; i < playerConfig.skins.Count; i++)
-            {
-                SkinManager.Instance.CheckValidSkinUnlock(PlayerPrefs.GetInt("BestScore", 0), i);
-            }
-
-            if (SkinManager.Instance.GetCurrentSkinList() != null &&
-                SkinManager.Instance.GetCurrentSkinList().Count > 0)
-            {
-                UIManager.Instance.ShowUnlockSkinScreen(SkinManager.Instance.GetCurrentSkinList());
-            }
-
-            _allCanvasGroup.interactable = true;
-            _allCanvasGroup.blocksRaycasts = true;
+            CheckForUpdateSkin();
         });
+    }
+
+    private void OnUnlockAllSkinEvent(MainMenuEvent obj)
+    {
+        CheckForUpdateSkin(obj.OnCloseComplete);
+    }
+
+    private void CheckForUpdateSkin(Action onClose = null)
+    {
+        SkinManager.Instance.ClearCurrentSkinList();
+        for (int i = 0; i < playerConfig.skins.Count; i++)
+        {
+            SkinManager.Instance.CheckValidSkinUnlock(PlayerPrefs.GetInt("BestScore", 0), i);
+        }
+
+        if (SkinManager.Instance.GetCurrentSkinList() != null &&
+            SkinManager.Instance.GetCurrentSkinList().Count > 0)
+        {
+            UIManager.Instance.ShowUnlockSkinScreen(SkinManager.Instance.GetCurrentSkinList(), onClose);
+        }
+
+        _allCanvasGroup.interactable = true;
+        _allCanvasGroup.blocksRaycasts = true;
     }
 
     public override void Hide()
@@ -196,7 +224,7 @@ public class MainMenu : BaseScreen
         //skinSkeleton.initialSkinName = skinData.hash;
         skinSkeleton.skeletonDataAsset = skinData.skeletonDataAsset;
         skinSkeleton.Initialize(true);
-        currentSkinText.SetText(skinData.nameDisplay);
+        //currentSkinText.SetText(skinData.nameDisplay);
         //mainBackground.sprite = skinData.backgroundMainSprite;
         //background.sprite = playerConfig.skins[_currentSkinIndex].backgroundAllSprite;
         PlayerPrefs.SetInt("LastSkinIndex", _currentSkinIndex);
@@ -225,6 +253,7 @@ public class MainMenu : BaseScreen
     private void ShowInGamePanel()
     {
         SceneManager.LoadSceneAsync("InGame");
+        AdsManager.Instance.LoadAndShowInterstitial();
         //InGameManager.Instance.Reload();
         LoadingManager.Instance.Transition(TransitionType.Fade, background, () =>
         {
@@ -271,7 +300,7 @@ public class MainMenu : BaseScreen
     {
         UIManager.Instance.ShowInventoryScreen(OnLoadSkin);
     }
-    
+
     private void ShowRemoveAdsScreen()
     {
         UIManager.Instance.ShowAdsPopup();

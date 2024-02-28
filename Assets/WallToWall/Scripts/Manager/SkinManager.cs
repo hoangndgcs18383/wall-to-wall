@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Hzeff.Events;
 using UnityEngine;
 
 public class SkinManager
@@ -18,11 +19,13 @@ public class SkinManager
     private event Action<SkinData> OnSkinUnlocked;
 
     private string _currentSkinKey = PlayerPrefs.GetString("CurrentSkinKey", "Skin_0");
+    private PlayerConfig _playerConfig;
 
     public void Initialize(Dictionary<string, SkinData> sprites)
     {
         _skinList = sprites;
-        PlayerConfig playerConfig = Resources.Load<PlayerConfig>("PlayerConfig");
+        _playerConfig = Resources.Load<PlayerConfig>("PlayerConfig");
+        /*PlayerConfig playerConfig = Resources.Load<PlayerConfig>("PlayerConfig");
         for (int i = 0; i < playerConfig.skins.Count; i++)
         {
             string hash = playerConfig.skins[i].hash;
@@ -30,7 +33,7 @@ public class SkinManager
                 SaveSystem.Instance.GetString(string.Concat(hash, "_", PrefKeys.NameDisplay));
             playerConfig.skins[i].unlockPoint =
                 SaveSystem.Instance.GetInt(string.Concat(hash, "_", PrefKeys.UnlockPoint));
-        }
+        }*/
     }
 
     public void SetSkinSprite()
@@ -44,7 +47,14 @@ public class SkinManager
         if (_skinList.ContainsKey($"Skin_{index}"))
         {
             if (_skinList[$"Skin_{index}"].isUnlock) return false;
-            if (_skinList[$"Skin_{index}"].unlockPoint > point || IsSkinUnlocked(index)) return false;
+            if (!IAPManager.Instance.IsRemoveAdsPurchased())
+            {
+                if (_skinList[$"Skin_{index}"].unlockPoint > point || IsSkinUnlocked(index)) return false;
+            }
+            else
+            {
+                if (IsSkinUnlocked(index)) return false;
+            }
 
             UnlockSkin(index);
             AddCurrentSkinList(_skinList[$"Skin_{index}"]);
@@ -81,6 +91,13 @@ public class SkinManager
     public bool IsSkinUnlocked(int index)
     {
         return PlayerPrefs.GetInt($"SkinUnlocked_{index}", 0) == 1;
+    }
+
+    public void UnlockAllSkin(Action onUnlockComplete = null)
+    {
+        if (_skinList == null || _skinList.Count == 0) return;
+        //_playerConfig.skins.ForEach(skin => { skin.unlockPoint = 0; });
+        EventDispatcher<MainMenuEvent>.Dispatch(new MainMenuEvent { OnCloseComplete = onUnlockComplete });
     }
 
     public Sprite GetCurrentSkinSprite()

@@ -129,9 +129,17 @@ namespace GoogleSheetsToUnity
 
         public string StartCell()
         {
-            int start = valueRange.range.IndexOf("!") + 1;
-            int end = valueRange.range.IndexOf(":", start);
-            return valueRange.range.Substring(start, end - start);
+            try
+            {
+                int start = valueRange.range.IndexOf("!") + 1;
+                int end = valueRange.range.IndexOf(":", start);
+                return valueRange.range.Substring(start, end - start);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Error: " + e.Message);
+                return "";
+            }
         }
 
         public string EndCell()

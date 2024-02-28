@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using DG.Tweening;
+using MEC;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -35,6 +37,8 @@ public class GameOverPanel : BaseScreen
     [SerializeField] private GameObject newBestScore;
     [SerializeField] private TMP_Text newBestScoreText;
 
+    private bool hasTriggerToday;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -58,6 +62,18 @@ public class GameOverPanel : BaseScreen
                 newBestScore.SetActive(false);
             }
 
+            DateTime today = DateTime.Today;
+            string todayString = today.ToString("dd/MM/yyyy");
+            SaveSystem.Instance.SetString(PrefKeys.Today, todayString);
+            if (!SaveSystem.Instance.GetString(PrefKeys.Today).Equals(todayString))
+            {
+                SaveSystem.Instance.SetInt(PrefKeys.HasTriggeredRatingPopup, 0);
+            }
+
+            restartButton.transform.localScale = Vector3.zero;
+            homeButton.transform.localScale = Vector3.zero;
+            shareButton.transform.localScale = Vector3.zero;
+
             UpdateTotal(totalScoreUIData.CurrentScore.ToString(), totalScoreUIData.BestScore.ToString());
         }
     }
@@ -68,7 +84,25 @@ public class GameOverPanel : BaseScreen
         currentScoreText.SetText(string.Empty);
         bestScoreText.SetText(string.Empty);
         currentScoreText.DOText(current, delayCurrent, true, ScrambleMode.Numerals);
-        bestScoreText.DOText(best, delayBest, true, ScrambleMode.Numerals);
+        bestScoreText.DOText(best, delayBest, true, ScrambleMode.Numerals).SetDelay(delayCurrent).OnComplete(() =>
+        {
+            restartButton.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
+            homeButton.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
+            shareButton.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
+
+
+            if (SaveSystem.Instance.GetInt(PrefKeys.HasTriggeredRatingPopup, 0) == 0)
+            {
+                int showRatingCount = SaveSystem.Instance.GetInt(PrefKeys.ShowRatingCount, 0);
+                showRatingCount++;
+                SaveSystem.Instance.SetInt(PrefKeys.ShowRatingCount, showRatingCount);
+                if (showRatingCount >= 3)
+                {
+                    UIManager.Instance.ShowRateScreen();
+                    SaveSystem.Instance.SetInt(PrefKeys.HasTriggeredRatingPopup, 1);
+                }
+            }
+        });
     }
 
     private void OnHome()
@@ -110,6 +144,7 @@ public class GameOverPanel : BaseScreen
 
     private void OnRestart()
     {
+        AdsManager.Instance.LoadAndShowInterstitial();
         GameManager.Instance.Restart();
         Hide();
     }

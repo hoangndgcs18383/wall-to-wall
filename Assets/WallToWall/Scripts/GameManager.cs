@@ -46,15 +46,15 @@ public class GameManager : MonoBehaviour
 
         //load playerConfig
 
-        playerConfig.jumpSpeedX = SaveSystem.Instance.GetInt(PrefKeys.JumpSpeedX, playerConfig.jumpSpeedX);
+        /*playerConfig.jumpSpeedX = SaveSystem.Instance.GetInt(PrefKeys.JumpSpeedX, playerConfig.jumpSpeedX);
         playerConfig.jumpSpeedY = SaveSystem.Instance.GetInt(PrefKeys.JumpSpeedY, playerConfig.jumpSpeedY);
-        playerConfig.gravity = SaveSystem.Instance.GetFloat(PrefKeys.Gravity, playerConfig.gravity);
+        playerConfig.gravity = SaveSystem.Instance.GetFloat(PrefKeys.Gravity, playerConfig.gravity);*/
         
         //triangle
         
-        playerConfig.triangleCountUpScore = SaveSystem.Instance.GetInt(PrefKeys.ScorePerTriangle, playerConfig.triangleCountUpScore);
+        /*playerConfig.triangleCountUpScore = SaveSystem.Instance.GetInt(PrefKeys.ScorePerTriangle, playerConfig.triangleCountUpScore);
         playerConfig.numberOfTrianglesStart = SaveSystem.Instance.GetInt(PrefKeys.NumberOfStart, playerConfig.numberOfTrianglesStart);
-        playerConfig.numberOfTrianglesMax = SaveSystem.Instance.GetInt(PrefKeys.NumberOfMax, playerConfig.numberOfTrianglesMax);
+        playerConfig.numberOfTrianglesMax = SaveSystem.Instance.GetInt(PrefKeys.NumberOfMax, playerConfig.numberOfTrianglesMax);*/
         
         
         inGamePanel = UIManager.Instance.GetScreen<InGamePanel>();
@@ -168,14 +168,16 @@ public class GameManager : MonoBehaviour
         _player?.DisableAnimator();
         _player?.Dispose();
 
-        if (SaveSystem.Instance.GetInt(PrefKeys.DeathCount) >= GameConstant.AdsTriggerCount)
+        /*if (SaveSystem.Instance.GetInt(PrefKeys.DeathCount) >= GameConstant.AdsTriggerCount)
         {
             SaveSystem.Instance.SetInt(PrefKeys.DeathCount, 0);
 #if UNITY_ANDROID || UNITY_IOS
             AdsManager.Instance.LoadInterstitial();
 #endif
-        }
+        }*/
     }
+    
+    
 
     public void PauseGame()
     {

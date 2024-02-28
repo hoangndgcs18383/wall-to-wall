@@ -40,9 +40,26 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
         builder.AddProduct(RemoveAds, ProductType.Consumable);
-
-
         UnityPurchasing.Initialize(this, builder);
+        SetRemoveAdsNoPurchased();
+    }
+
+    private void SetRemoveAdsNoPurchased()
+    {
+#if UNITY_EDITOR
+        SaveSystem.Instance.SetInt(RemoveAds, 0);
+
+#endif
+    }
+
+    public void SetRemoveAdsPurchased()
+    {
+        SaveSystem.Instance.SetInt(RemoveAds, 1);
+    }
+
+    public bool IsRemoveAdsPurchased()
+    {
+        return SaveSystem.Instance.GetInt(RemoveAds, 0) == 1;
     }
 
     public void BuyProductID(string productId)

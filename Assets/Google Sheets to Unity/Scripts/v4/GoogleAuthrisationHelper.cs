@@ -16,7 +16,9 @@ namespace GoogleSheetsToUnity
         static string _authToken = "";
 
         static HttpListener _httpListener;
-        static string _htmlResponseContent = "<h1>Google Sheets and Unity are now linked, you may close this window</h1>"; //message shown after connection has been set up
+
+        static string _htmlResponseContent =
+            "<h1>Google Sheets and Unity are now linked, you may close this window</h1>"; //message shown after connection has been set up
 
         private static object _notifyAuthTokenLock = new object();
         private static bool _shouldNotifyAuthTokenReceived = false;
@@ -30,6 +32,7 @@ namespace GoogleSheetsToUnity
                 _httpListener.Abort();
                 _httpListener = null;
             }
+
             _onComplete = null;
 
             string serverUrl = string.Format("http://127.0.0.1:{0}", SpreadsheetManager.Config.PORT);
@@ -78,7 +81,8 @@ namespace GoogleSheetsToUnity
                 yield return request.SendWebRequest();
 
                 SpreadsheetManager.Config.gdr = JsonUtility.FromJson<GoogleDataResponse>(request.downloadHandler.text);
-                SpreadsheetManager.Config.gdr.nextRefreshTime = DateTime.Now.AddSeconds(SpreadsheetManager.Config.gdr.expires_in);
+                SpreadsheetManager.Config.gdr.nextRefreshTime =
+                    DateTime.Now.AddSeconds(SpreadsheetManager.Config.gdr.expires_in);
                 EditorUtility.SetDirty(SpreadsheetManager.Config);
                 AssetDatabase.SaveAssets();
             }
@@ -95,7 +99,8 @@ namespace GoogleSheetsToUnity
                     ProcessListenerContext(context);
 
                     context.Response.Close();
-                    _httpListener.BeginGetContext(ListenerCallback, _httpListener); // EndGetContext above ends the async listener, so we need to start it up again to continue listening.
+                    _httpListener.BeginGetContext(ListenerCallback,
+                        _httpListener); // EndGetContext above ends the async listener, so we need to start it up again to continue listening.
                 }
                 catch (ObjectDisposedException)
                 {
@@ -113,7 +118,8 @@ namespace GoogleSheetsToUnity
             // Attempt to pull out the URI fragment as a part of the query string.
             string uriFragment = context.Request.QueryString["code"];
             if (uriFragment != null)
-            { // If it worked, that means we're being passed the auth token from Instagram, so pull it out and notify that we received it.
+            {
+                // If it worked, that means we're being passed the auth token from Instagram, so pull it out and notify that we received it.
                 string authToken = uriFragment.Replace("access_token=", "");
                 NotifyAuthTokenReceived(authToken);
             }
@@ -132,7 +138,7 @@ namespace GoogleSheetsToUnity
                 _authToken = authToken;
                 _shouldNotifyAuthTokenReceived = true;
 
-                    EditorCoroutineRunner.StartCoroutine(CheckForTokenRecieve());
+                EditorCoroutineRunner.StartCoroutine(CheckForTokenRecieve());
             }
         }
 
@@ -149,6 +155,7 @@ namespace GoogleSheetsToUnity
                     {
                         _onComplete(_authToken);
                     }
+
                     _shouldNotifyAuthTokenReceived = false;
                 }
                 else
@@ -197,6 +204,10 @@ namespace GoogleSheetsToUnity
                     SpreadsheetManager.Config.gdr.access_token = newGdr.access_token;
                     SpreadsheetManager.Config.gdr.nextRefreshTime = DateTime.Now.AddSeconds(newGdr.expires_in);
 
+                    Debug.Log("New Token: " + SpreadsheetManager.Config.gdr.access_token);
+                    Debug.Log("New Refresh Time: " + SpreadsheetManager.Config.gdr.nextRefreshTime);
+                    
+                    yield return null;
 #if UNITY_EDITOR
                     EditorUtility.SetDirty(SpreadsheetManager.Config);
                     AssetDatabase.SaveAssets();

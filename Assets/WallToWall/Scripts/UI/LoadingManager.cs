@@ -73,7 +73,9 @@ public class LoadingManager : MonoBehaviour
         InitializeUnityServicesAsync();
 
         startButton.targetGraphic.raycastTarget = false;
-        if (Application.internetReachability == NetworkReachability.NotReachable)
+        _targetPercentage = 100;
+        _loadingCoroutine = Timing.RunCoroutine(IETextPercentage());
+        /*if (Application.internetReachability == NetworkReachability.NotReachable)
         {
             Debug.Log("Error. Check internet connection!");
             startButton.targetGraphic.raycastTarget = true;
@@ -81,15 +83,16 @@ public class LoadingManager : MonoBehaviour
         }
         else
         {
-            RemoteManager.Instance.InitializeAsync((percent) =>
+            /*RemoteManager.Instance.InitializeAsync((percent) =>
             {
                 _targetPercentage += percent;
                 Timing.KillCoroutines(_loadingCoroutine);
-                _loadingCoroutine = Timing.RunCoroutine(IETextPercentage());
-            });
+            });#1#
 
+            _targetPercentage = 100;
+            _loadingCoroutine = Timing.RunCoroutine(IETextPercentage());
             //SpreadsheetManager.Write(new GSTU_Search(animal.associatedSheet, animal.associatedWorksheet, "G10"), new ValueRange(list), null);
-        }
+        }*/
 
         /*AddressablesManager.TryLoadAssetSync(BackgroundAddress.GetAddress("BG_FIRST"), out Sprite backgroundSprite);
         background.sprite = backgroundSprite;*/

@@ -81,6 +81,15 @@ public class AudioManager : Singleton<AudioManager>
             sfxSource.PlayOneShot(_sfxClips[key]);
         }
     }
+    
+    public void PlaySfx(string key, float volume)
+    {
+        if (!_isSfxOn) return;
+        if (_sfxClips.ContainsKey(key))
+        {
+            sfxSource.PlayOneShot(_sfxClips[key], volume);
+        }
+    }
 
     public void SetOnOffSfx(bool isOn)
     {

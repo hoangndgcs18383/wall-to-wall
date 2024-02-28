@@ -15,6 +15,8 @@ public class TriangleManager : MonoBehaviour
     public SpriteRenderer background;
 
     private int NumberOfTriangles;
+    private Coroutine _createTriangles1;
+    private Coroutine _createTriangles2;
     //private Dictionary<int, Sprite> _backgroundSprites = new Dictionary<int, Sprite>();
 
     private void Awake()
@@ -50,8 +52,8 @@ public class TriangleManager : MonoBehaviour
 
         if (triangleConfig.inManualAtStart)
         {
-            StartCoroutine(CreateTrianglesStart("Left"));
-            StartCoroutine(CreateTrianglesStart("Right"));
+            _createTriangles1 = StartCoroutine(CreateTrianglesStart("Left"));
+            _createTriangles2 = StartCoroutine(CreateTrianglesStart("Right"));
         }
         else
         {
@@ -72,6 +74,17 @@ public class TriangleManager : MonoBehaviour
 
     public void StartGame()
     {
+        //_createTriangles1
+        if (_createTriangles1 != null)
+        {
+            StopCoroutine(_createTriangles1);
+        }
+
+        if (_createTriangles2 != null)
+        {
+            StopCoroutine(_createTriangles2);
+        }
+
         ClearAllTriangles();
         StartCoroutine(CreateTriangles("Left"));
         StartCoroutine(CreateTriangles("Right"));
@@ -165,7 +178,7 @@ public class TriangleManager : MonoBehaviour
                     PoolManager.Instance.ReturnPool(TriangleObj, child.gameObject);
                     continue;
                 }
-                
+
                 child.GetComponent<Triangle>().TurnOff();
             }
         }
@@ -178,9 +191,8 @@ public class TriangleManager : MonoBehaviour
                     PoolManager.Instance.ReturnPool(TriangleObj, child.gameObject);
                     continue;
                 }
-                
+
                 child.GetComponent<Triangle>().TurnOff();
-                
             }
             /*for (int i = 0; i < _triangleRList.Count; i++)
             {

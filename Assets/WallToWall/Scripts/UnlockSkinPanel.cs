@@ -44,6 +44,7 @@ public class UnlockSkinPanel : BaseScreen
     private int _currentSkinIndex;
     private Dictionary<string, SkinData> _skinDatas = null;
     private List<SkinTrailFX> _skinTrailFXs;
+    private Action _onClose;
 
     public override void Initialize()
     {
@@ -126,6 +127,8 @@ public class UnlockSkinPanel : BaseScreen
         else
         {
             base.Hide();
+            /*_onClose?.Invoke();
+            _onClose = null;*/
             Timing.RunCoroutine(IEPlayAnimComplete());
             AudioManager.Instance.SetBGMNormal();
         }
@@ -157,5 +160,10 @@ public class UnlockSkinPanel : BaseScreen
 
         yield return Timing.WaitForSeconds(0.5f);
         AudioManager.Instance.PlaySfx("ExplosionBrightSFX");
+    }
+
+    public void RegisterOnClose(Action onClose)
+    {
+        _onClose = onClose;
     }
 }

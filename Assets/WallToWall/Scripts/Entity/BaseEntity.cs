@@ -289,6 +289,7 @@ public class BaseEntity : MonoBehaviour, IEntity
     protected virtual void OnEnterTriangleCollision()
     {
         _isDead = true;
+        AudioManager.Instance.PlaySfx("DeadSFX", 0.5f);
         GameManager.Instance.GameOver();
         StartCoroutine(_cameraShake.Shake(0.2f, 0.3f));
         ResetPlayerDefault();

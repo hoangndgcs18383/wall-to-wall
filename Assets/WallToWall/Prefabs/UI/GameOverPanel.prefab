@@ -909,7 +909,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2885288965942630612}
   m_Father: {fileID: 2885288966366417818}
@@ -970,6 +970,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ec8d0f6c7e9944fb9befeea7f608c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlaySfx: 1
+  sfxKey: ClickSFX
+  isScale: 1
   isInteractable: 1
   targetGraphic: {fileID: 2885288966350507885}
   onClick:
@@ -1539,8 +1542,8 @@ MonoBehaviour:
   shareButton: {fileID: 569815784761404705}
   bestScoreText: {fileID: 2885288966301483254}
   currentScoreText: {fileID: 2885288966370123835}
-  delayBest: 0.2
-  delayCurrent: 0.4
+  delayBest: 1
+  delayCurrent: 1.2
   newBestScore: {fileID: 1692012692979401855}
   newBestScoreText: {fileID: 7037319996740592502}
 --- !u!1 &2885288966824119452
@@ -1746,7 +1749,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2885288965801897768}
   m_Father: {fileID: 2885288966366417818}
@@ -1807,6 +1810,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ec8d0f6c7e9944fb9befeea7f608c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlaySfx: 1
+  sfxKey: ClickSFX
+  isScale: 1
   isInteractable: 1
   targetGraphic: {fileID: 2885288967250105660}
   onClick:
@@ -2001,7 +2007,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4265249902893883474}
   m_Father: {fileID: 2885288966366417818}
@@ -2062,6 +2068,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ec8d0f6c7e9944fb9befeea7f608c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlaySfx: 1
+  sfxKey: ClickSFX
+  isScale: 1
   isInteractable: 1
   targetGraphic: {fileID: 4298328245743458926}
   onClick:

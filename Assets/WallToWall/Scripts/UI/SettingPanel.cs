@@ -1,7 +1,13 @@
 using System;
+using Hzeff.Events;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+
+public struct NameDisplayChangedEvent : IEvent
+{
+    public string DisplayName;
+}
 
 public class SettingPanel : BaseScreen
 {
@@ -57,6 +63,7 @@ public class SettingPanel : BaseScreen
         if (!string.IsNullOrWhiteSpace(displayName))
         {
             SaveSystem.Instance.SetString(PrefKeys.UserName, displayName);
+            EventDispatcher<NameDisplayChangedEvent>.Dispatch(new NameDisplayChangedEvent {DisplayName = displayName});
         }
     }
 

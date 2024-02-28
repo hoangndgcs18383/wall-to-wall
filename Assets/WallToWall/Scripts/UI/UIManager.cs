@@ -112,10 +112,14 @@ public class UIManager : Singleton<UIManager>
             panel => { panel.RegisterOnClose(onClose); }));
     }
 
-    public void ShowUnlockSkinScreen(Dictionary<string, SkinData> skinData)
+    public void ShowUnlockSkinScreen(Dictionary<string, SkinData> skinData, Action onClose = null)
     {
         Timing.RunCoroutine(ShowAndLoadScreen<UnlockSkinPanel>("UnlockSkinPanel", CanvasType.Main, null,
-            screen => { screen.SetData(skinData); }));
+            screen =>
+            {
+                screen.SetData(skinData);
+                screen.RegisterOnClose(onClose);
+            }));
     }
 
     public void ShowMainMenuScreen()

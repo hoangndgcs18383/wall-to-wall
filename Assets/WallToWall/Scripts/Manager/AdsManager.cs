@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using MEC;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
@@ -22,6 +25,7 @@ public class AdsManager : IUnityAdsInitializationListener, IUnityAdsLoadListener
 
     private string _gameId;
     private BannerPosition _bannerPosition = BannerPosition.BOTTOM_CENTER;
+    private int _currentShowAds = 0;
 
     public void Initialize()
     {
@@ -56,6 +60,7 @@ public class AdsManager : IUnityAdsInitializationListener, IUnityAdsLoadListener
     public void OnInitializationComplete()
     {
         Debug.Log("Unity Ads initialization complete.");
+        _currentShowAds = SaveSystem.Instance.GetInt(PrefKeys.ShowAdsCount, 0);
 
         if (_isShowBanner)
         {
@@ -63,7 +68,7 @@ public class AdsManager : IUnityAdsInitializationListener, IUnityAdsLoadListener
             Advertisement.Banner.SetPosition(_bannerPosition);
             LoadBanner();
         }
-        
+
         if (_isShowInterstitial)
         {
             Debug.Log("Unity Ads -- Show Interstitial");
@@ -132,11 +137,50 @@ public class AdsManager : IUnityAdsInitializationListener, IUnityAdsLoadListener
 
     #region Interstitial
 
-    public void LoadInterstitial()
+    public void LoadAndShowInterstitial()
+    {
+        if (SaveSystem.Instance.GetInt(PrefKeys.DeathCount) >= GameConstant.AdsTriggerCount &&
+            !IAPManager.Instance.IsRemoveAdsPurchased())
+        {
+            SaveSystem.Instance.SetInt(PrefKeys.DeathCount, 0);
+#if UNITY_ANDROID || UNITY_IOS
+            LoadInterstitial();
+            _checkNetworkReachabilityCoroutine = Timing.RunCoroutine(IECheckForNetworkReachability(() =>
+            {
+                Debug.LogWarning("Network Reachability Not Reachable");
+            }));
+#endif
+        }
+    }
+
+    private float _timeCheckNetworkReachability = 2f;
+    private float _timeToCheck;
+    private CoroutineHandle _checkNetworkReachabilityCoroutine;
+
+    private IEnumerator<float> IECheckForNetworkReachability(Action callback = null)
+    {
+        _timeToCheck = 0;
+        while (_timeToCheck < _timeCheckNetworkReachability)
+        {
+            if (Application.internetReachability == NetworkReachability.NotReachable)
+            {
+                callback?.Invoke();
+                yield break;
+            }
+
+            _timeToCheck += Time.time;
+            yield return Timing.WaitForOneFrame;
+        }
+
+        _timeToCheck = 0;
+        callback?.Invoke();
+    }
+
+    private void LoadInterstitial()
     {
         Advertisement.Load(_adUnitInterstitialId, this);
     }
-    
+
     public void ShowInterstitial()
     {
         if (Advertisement.isInitialized && Advertisement.isSupported)
@@ -144,38 +188,42 @@ public class AdsManager : IUnityAdsInitializationListener, IUnityAdsLoadListener
             Advertisement.Show(_adUnitInterstitialId, this);
         }
     }
-    
+
     public void OnUnityAdsAdLoaded(string placementId)
     {
+        Timing.KillCoroutines(_checkNetworkReachabilityCoroutine);
         ShowInterstitial();
     }
 
     public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
     {
-        
     }
 
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
     {
-        
     }
 
     public void OnUnityAdsShowStart(string placementId)
     {
-        
     }
 
     public void OnUnityAdsShowClick(string placementId)
     {
-        
     }
 
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
-        
+        Debug.Log("OnUnityAdsShowComplete " + placementId + " " + showCompletionState);
+        _currentShowAds++;
+        SaveSystem.Instance.SetInt(PrefKeys.ShowAdsCount, _currentShowAds);
+
+        if (SaveSystem.Instance.GetInt(PrefKeys.ShowAdsCount) >= 3 &&
+            SaveSystem.Instance.GetInt(PrefKeys.HasTriggeredAdsPopup, 0) == 0)
+        {
+            SaveSystem.Instance.SetInt(PrefKeys.HasTriggeredAdsPopup, 1);
+            UIManager.Instance.ShowAdsPopup();
+        }
     }
-    
 
     #endregion
-
 }

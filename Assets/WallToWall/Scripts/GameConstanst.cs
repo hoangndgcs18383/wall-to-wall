@@ -13,6 +13,12 @@ public static class PrefKeys
     public const string IsFirstTime = "IsFirstTime";
 
     public const string DeathCount = "DeathCount";
+    public const string HasTriggeredAdsPopup = "HasTriggeredAdsPopup";
+    public const string ShowAdsCount = "ShowAdsCount";
+    public const string HasTriggeredRatingPopup = "HasTriggeredRatingPopup";
+    public const string ShowRatingCount = "ShowRatingCount";
+    
+    public const string Today = "Today";
 
     public const string JumpSpeedX = "JumpSpeedX";
     public const string JumpSpeedY = "JumpSpeedY";
@@ -21,10 +27,10 @@ public static class PrefKeys
     public const string ScorePerTriangle = "ScorePerTriangle";
     public const string NumberOfStart = "NumberOfStart";
     public const string NumberOfMax = "NumberOfMax";
-    
+
     public const string NameDisplay = "NameDisplay";
     public const string UnlockPoint = "UnlockPoint";
-    
+
     public const string UserId = "UserId";
     public const string UserName = "UserName";
 }
