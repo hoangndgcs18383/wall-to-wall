@@ -31,6 +31,7 @@ public class PlayerConfig : ScriptableObject
     [BoxGroup("Player")] public int jumpSpeedX = 10;
     [BoxGroup("Player")] public int jumpSpeedY = 17;
     [BoxGroup("Player")] public float gravity = 3;
+    [BoxGroup("Player")] public float playerSpeed = 1;
 
     [BoxGroup("Triangle")] public int multipleScoreChangeBackgrounds = 20;
     [BoxGroup("Triangle")] public bool inManualAtStart = true;

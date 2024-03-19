@@ -23,7 +23,7 @@ public class BaseEntity : MonoBehaviour, IEntity
     /*[SerializeField] private GameObject wallBounceEffectPrefab;
     [SerializeField] private GameObject jumpEffectPrefab;
     [SerializeField] private GameObject touchEffectPrefab;*/
-    [SerializeField] private float speed = 1;
+    //[SerializeField] private float speed = 1;
 
     public event Action<PlayerState> OnPlayerChangeState;
 
@@ -281,10 +281,10 @@ public class BaseEntity : MonoBehaviour, IEntity
 
         if (collisionName.Equals("Left") || collisionName.Equals("Right"))
         {
-            if (GameManager.Instance.GetScore() == 30)
+            /*if (GameManager.Instance.GetScore() == 30)
             {
                 speed += 0.1f;
-            }
+            }*/
 
             GameManager.Instance.AddScore();
             TriangleManager.Instance.WallTouched(collisionName);
@@ -371,11 +371,11 @@ public class BaseEntity : MonoBehaviour, IEntity
 
             if (_rigidbody2D.velocity.x > 0)
             {
-                _rigidbody2D.velocity = new Vector2(_playerConfig.jumpSpeedX, _playerConfig.jumpSpeedY) * speed;
+                _rigidbody2D.velocity = new Vector2(_playerConfig.jumpSpeedX, _playerConfig.jumpSpeedY) * _playerConfig.playerSpeed;
             }
             else
             {
-                _rigidbody2D.velocity = new Vector2(-_playerConfig.jumpSpeedX, _playerConfig.jumpSpeedY) * speed;
+                _rigidbody2D.velocity = new Vector2(-_playerConfig.jumpSpeedX, _playerConfig.jumpSpeedY) * _playerConfig.playerSpeed;
             }
 
             return true;
