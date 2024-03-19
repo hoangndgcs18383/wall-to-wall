@@ -62,6 +62,13 @@ public class GameOverPanel : BaseScreen
                 newBestScore.SetActive(false);
             }
 
+            restartButton.transform.localScale = Vector3.zero;
+            homeButton.transform.localScale = Vector3.zero;
+            shareButton.transform.localScale = Vector3.zero;
+
+            UpdateTotal(totalScoreUIData.CurrentScore.ToString(), totalScoreUIData.BestScore.ToString());
+
+            if (SaveSystem.Instance.GetInt(PrefKeys.CanTriggeredRatingPopup, 0) == 1) return;
             DateTime today = DateTime.Today;
             string todayString = today.ToString("dd/MM/yyyy");
             SaveSystem.Instance.SetString(PrefKeys.Today, todayString);
@@ -69,12 +76,6 @@ public class GameOverPanel : BaseScreen
             {
                 SaveSystem.Instance.SetInt(PrefKeys.HasTriggeredRatingPopup, 0);
             }
-
-            restartButton.transform.localScale = Vector3.zero;
-            homeButton.transform.localScale = Vector3.zero;
-            shareButton.transform.localScale = Vector3.zero;
-
-            UpdateTotal(totalScoreUIData.CurrentScore.ToString(), totalScoreUIData.BestScore.ToString());
         }
     }
 
@@ -90,7 +91,7 @@ public class GameOverPanel : BaseScreen
             homeButton.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
             shareButton.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
 
-
+            if (SaveSystem.Instance.GetInt(PrefKeys.CanTriggeredRatingPopup, 0) == 1) return;
             if (SaveSystem.Instance.GetInt(PrefKeys.HasTriggeredRatingPopup, 0) == 0)
             {
                 int showRatingCount = SaveSystem.Instance.GetInt(PrefKeys.ShowRatingCount, 0);
@@ -98,7 +99,8 @@ public class GameOverPanel : BaseScreen
                 SaveSystem.Instance.SetInt(PrefKeys.ShowRatingCount, showRatingCount);
                 if (showRatingCount >= 3)
                 {
-                    UIManager.Instance.ShowRateScreen();
+                    UIManager.Instance.ShowRateScreen(() => { UIManager.Instance.GetScreen<InGamePanel>().Show(); });
+                    UIManager.Instance.GetScreen<InGamePanel>().Hide();
                     SaveSystem.Instance.SetInt(PrefKeys.HasTriggeredRatingPopup, 1);
                 }
             }

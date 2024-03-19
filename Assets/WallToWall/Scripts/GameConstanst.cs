@@ -16,6 +16,7 @@ public static class PrefKeys
     public const string HasTriggeredAdsPopup = "HasTriggeredAdsPopup";
     public const string ShowAdsCount = "ShowAdsCount";
     public const string HasTriggeredRatingPopup = "HasTriggeredRatingPopup";
+    public const string CanTriggeredRatingPopup = "CanTriggeredRatingPopup";
     public const string ShowRatingCount = "ShowRatingCount";
     
     public const string Today = "Today";

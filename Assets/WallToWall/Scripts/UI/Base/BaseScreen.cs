@@ -1,10 +1,14 @@
 using UnityEngine;
 
+public delegate void OnHideScreen();
+
 public class BaseScreen : MonoBehaviour, IBaseScreen
 {
     private bool isInitialized = false;
 
     private RectTransform _rectTransform;
+
+    public OnHideScreen OnHideScreen;
 
     public RectTransform RectTransform
     {
@@ -33,6 +37,8 @@ public class BaseScreen : MonoBehaviour, IBaseScreen
     public virtual void Hide()
     {
         gameObject.SetActive(false);
+        OnHideScreen?.Invoke();
+        OnHideScreen = null;
     }
 
     public virtual void BackToScreen()

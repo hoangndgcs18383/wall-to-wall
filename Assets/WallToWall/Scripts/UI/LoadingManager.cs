@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
+using AddressablesManagement;
 using DG.Tweening;
 using MEC;
 using Sirenix.OdinInspector;
@@ -10,6 +12,7 @@ using Unity.Services.Core;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
 using UnityEngine.UI;
+using Addressables = UnityEngine.AddressableAssets.Addressables;
 using Random = UnityEngine.Random;
 
 public enum TransitionType
@@ -103,7 +106,16 @@ public class LoadingManager : MonoBehaviour
         
         RemoteConfigService.Instance.FetchCompleted += ApplyRemoteSettings;
         RemoteConfigService.Instance.FetchConfigs(new userAttributes(), new appAttributes());*/
+
+        //LoadAssetsByLabel();
     }
+
+    async void LoadAssetsByLabel()
+    {
+        await AddressablesManager.Instance.LoadAssetsByLabel<GameObject>("Screens",
+            (result) => { Debug.Log(result.name); });
+    }
+
 
     public IEnumerator<float> IETextPercentage()
     {
@@ -134,6 +146,8 @@ public class LoadingManager : MonoBehaviour
         if (!AuthenticationService.Instance.IsSignedIn)
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Firebase.Analytics.FirebaseAnalytics
+                .LogEvent(Firebase.Analytics.FirebaseAnalytics.EventLogin);
 
             if (!SaveSystem.Instance.HasKey(PrefKeys.UserId))
             {

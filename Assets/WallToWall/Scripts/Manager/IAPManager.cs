@@ -47,8 +47,7 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     private void SetRemoveAdsNoPurchased()
     {
 #if UNITY_EDITOR
-        SaveSystem.Instance.SetInt(RemoveAds, 0);
-
+        //SaveSystem.Instance.SetInt(RemoveAds, 0);
 #endif
     }
 

@@ -193,7 +193,7 @@ public class NativeShare
 
 	public void Share()
 	{
-		if( files.Count == 0 && subject.Length == 0 && text.Length == 0 && url.Length == 0 )
+		if(files.Count == 0 && subject.Length == 0 && text.Length == 0 && url.Length == 0 )
 		{
 			Debug.LogWarning( "Share Error: attempting to share nothing!" );
 			return;

@@ -5,7 +5,6 @@ using System.Collections;
 using Google.Play.Review;
 using UnityEngine;
 #endif
-using System;
 
 public class AppRatingManager : Singleton<AppRatingManager>
 {
@@ -21,7 +20,7 @@ public class AppRatingManager : Singleton<AppRatingManager>
         _coroutine = StartCoroutine(InitReview());
 #endif
     }
-    
+
     public void RateAndReview()
     {
 #if UNITY_IOS
@@ -47,6 +46,12 @@ public class AppRatingManager : Singleton<AppRatingManager>
         _playReviewInfo = requestFlowOperation.GetResult();
     }
 
+    public bool IsReviewAvailable()
+    {
+        return _playReviewInfo != null;
+    }
+
+
     public IEnumerator LaunchReview()
     {
         if (_playReviewInfo == null)
@@ -58,6 +63,8 @@ public class AppRatingManager : Singleton<AppRatingManager>
         var launchFlowOperation = _reviewManager.LaunchReviewFlow(_playReviewInfo);
         yield return launchFlowOperation;
         _playReviewInfo = null;
+        SaveSystem.Instance.SetInt(PrefKeys.CanTriggeredRatingPopup, 1);
+
         if (launchFlowOperation.Error != ReviewErrorCode.NoError)
         {
             DirectlyOpen();

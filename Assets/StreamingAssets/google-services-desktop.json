@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "96485593152",
+    "project_id": "freakyball-32e0c",
+    "storage_bucket": "freakyball-32e0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:96485593152:android:9f0d27e2a3f6fd08348fa5",
+        "android_client_info": {
+          "package_name": "com.sage.freakyball"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0rDYjQVR4wuKHWePkaDMCRyuQTXwtZBU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

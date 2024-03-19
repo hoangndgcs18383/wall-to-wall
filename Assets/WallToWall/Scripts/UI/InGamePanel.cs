@@ -87,13 +87,14 @@ public class InGamePanel : BaseScreen
 
     public void StartGame()
     {
+        Debug.Log("StartGame");
         if (_isStartGame) return;
         _isStartGame = true;
         
         GameManager.Instance.GameStart();
         //btnPause.gameObject.SetActive(true);
         pointFrame.SetActive(true);
-        tapToStart.gameObject.SetActive(true);
+        tapToStart.gameObject.SetActive(false);
         tapToPlay.SetActive(false);
         AudioManager.Instance.PlayBGM("BGM_INGAME", volume: 0.3f);
     }

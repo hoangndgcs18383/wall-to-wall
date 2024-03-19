@@ -133,7 +133,7 @@ public class SaveSystem
         int keyIndex = PlayerPrefs.GetInt($"{key}_used_key", -1);
         if (keyIndex == -1)
         {
-            Debug.LogError("No key found");
+            Debug.LogWarning("No key found");
             return false;
         }
 

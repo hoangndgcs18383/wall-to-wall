@@ -47,12 +47,6 @@ public class AdsPopup : BaseScreen
         }
     }
 
-    public override void Hide()
-    {
-        base.Hide();
-        animator?.Dispose();
-    }
-
     private IEnumerator<float> IEShowTextAnimations()
     {
         animator = new DOTweenTMPAnimator(thankAdsText);

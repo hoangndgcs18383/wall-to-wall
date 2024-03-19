@@ -1,27 +1,43 @@
 <dependencies>
   <packages>
-    <package>androidx.core:core:1.7.0+</package>
+    <package>com.google.android.gms:play-services-ads:22.6.0</package>
     <package>com.google.android.gms:play-services-ads-identifier:17.0.0</package>
+    <package>com.google.android.gms:play-services-base:18.3.0</package>
     <package>com.google.android.gms:play-services-basement:17.2.1</package>
-    <package>com.google.android.play:review:2.0.1+</package>
+    <package>com.google.android.play:core-common:2.0.0</package>
+    <package>com.google.android.play:review:2.0.0</package>
+    <package>com.google.android.ump:user-messaging-platform:2.1.0</package>
+    <package>com.google.firebase:firebase-analytics:21.5.0</package>
+    <package>com.google.firebase:firebase-analytics-unity:11.7.0</package>
+    <package>com.google.firebase:firebase-app-unity:11.7.0</package>
+    <package>com.google.firebase:firebase-common:20.4.2</package>
+    <package>com.google.firebase:firebase-iid:21.1.0</package>
+    <package>com.google.firebase:firebase-messaging:23.4.0</package>
+    <package>com.google.firebase:firebase-messaging-unity:11.7.0</package>
+    <package>com.google.flatbuffers:flatbuffers-java:1.12.0</package>
     <package>com.ironsource.sdk:mediationsdk:7.2.5</package>
   </packages>
-  <files />
+  <files>
+    <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-analytics-unity/11.7.0/firebase-analytics-unity-11.7.0.aar</file>
+    <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-analytics-unity/11.7.0/firebase-analytics-unity-11.7.0.pom</file>
+    <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-app-unity/11.7.0/firebase-app-unity-11.7.0.aar</file>
+    <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-app-unity/11.7.0/firebase-app-unity-11.7.0.pom</file>
+    <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-messaging-unity/11.7.0/firebase-messaging-unity-11.7.0.aar</file>
+    <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-messaging-unity/11.7.0/firebase-messaging-unity-11.7.0.pom</file>
+  </files>
   <settings>
     <setting name="androidAbis" value="arm64-v8a,armeabi-v7a,x86,x86_64" />
-    <setting name="bundleId" value="com.DefaultCompany.Freakyball" />
+    <setting name="bundleId" value="com.Sage.Freakyball" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />
-    <setting name="gradlePropertiesTemplateEnabled" value="False" />
-    <setting name="gradleTemplateEnabled" value="False" />
+    <setting name="gradlePropertiesTemplateEnabled" value="True" />
+    <setting name="gradleTemplateEnabled" value="True" />
     <setting name="installAndroidPackages" value="True" />
     <setting name="localMavenRepoDir" value="Assets/GeneratedLocalRepo" />
     <setting name="packageDir" value="Assets/Plugins/Android" />
     <setting name="patchAndroidManifest" value="True" />
     <setting name="patchMainTemplateGradle" value="True" />
     <setting name="projectExportEnabled" value="False" />
-    <setting name="useFullCustomMavenRepoPathWhenExport" value="True" />
-    <setting name="useFullCustomMavenRepoPathWhenNotExport" value="False" />
     <setting name="useJetifier" value="True" />
   </settings>
 </dependencies>

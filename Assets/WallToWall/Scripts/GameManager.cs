@@ -137,6 +137,11 @@ public class GameManager : MonoBehaviour
 
         //SkinManager.Instance.SetSkinSprite(score);
     }
+    
+    public int GetScore()
+    {
+        return score;
+    }
 
 
     public void GameOver()

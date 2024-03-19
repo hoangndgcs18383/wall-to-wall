@@ -130,6 +130,7 @@ public class RankManager
 
     public void SortRank()
     {
+        //to do sort rank and compare if the rank is the same => merge
         GetRankList = GetRankList.OrderByDescending(r => r.Value).ToDictionary(r => r.Key, r => r.Value);
     }
 

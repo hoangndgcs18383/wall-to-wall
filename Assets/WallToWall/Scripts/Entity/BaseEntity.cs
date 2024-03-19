@@ -6,6 +6,7 @@ using Hzeff.Events;
 using MEC;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public enum PlayerState
@@ -22,6 +23,7 @@ public class BaseEntity : MonoBehaviour, IEntity
     /*[SerializeField] private GameObject wallBounceEffectPrefab;
     [SerializeField] private GameObject jumpEffectPrefab;
     [SerializeField] private GameObject touchEffectPrefab;*/
+    [SerializeField] private float speed = 1;
 
     public event Action<PlayerState> OnPlayerChangeState;
 
@@ -279,6 +281,11 @@ public class BaseEntity : MonoBehaviour, IEntity
 
         if (collisionName.Equals("Left") || collisionName.Equals("Right"))
         {
+            if (GameManager.Instance.GetScore() == 30)
+            {
+                speed += 0.1f;
+            }
+
             GameManager.Instance.AddScore();
             TriangleManager.Instance.WallTouched(collisionName);
         }
@@ -364,11 +371,11 @@ public class BaseEntity : MonoBehaviour, IEntity
 
             if (_rigidbody2D.velocity.x > 0)
             {
-                _rigidbody2D.velocity = new Vector2(_playerConfig.jumpSpeedX, _playerConfig.jumpSpeedY);
+                _rigidbody2D.velocity = new Vector2(_playerConfig.jumpSpeedX, _playerConfig.jumpSpeedY) * speed;
             }
             else
             {
-                _rigidbody2D.velocity = new Vector2(-_playerConfig.jumpSpeedX, _playerConfig.jumpSpeedY);
+                _rigidbody2D.velocity = new Vector2(-_playerConfig.jumpSpeedX, _playerConfig.jumpSpeedY) * speed;
             }
 
             return true;
@@ -400,7 +407,7 @@ public class BaseEntity : MonoBehaviour, IEntity
         _rigidbody2D.velocity = new Vector2(0, 0);
         _rigidbody2D.isKinematic = true;
         _rigidbody2D.freezeRotation = true;
-        _trailRenderer.time = 0f;
+        _trailRenderer.time = 1f;
     }
 
 

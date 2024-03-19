@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Screens
+  m_EditorClassIdentifier: 
+  m_GroupName: Screens
+  m_Data:
+    m_SerializedData: []
+  m_GUID: bdbb9e333bda2364ca3d66ecd55504cc
+  m_SerializeEntries:
+  - m_GUID: 70c0188229a67e541af932c815553930
+    m_Address: PausePanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Screens
+  - m_GUID: d3eef5009afa02e41a48e486897fc135
+    m_Address: InGamePanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Screens
+  - m_GUID: 0446bbecd6938174488f939c0f8764ed
+    m_Address: RatePanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Screens
+  - m_GUID: 3c6774b173a6c8d4f94f5c9f7cd6bc5c
+    m_Address: SettingPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Screens
+  - m_GUID: fa8cfa1caaecc834e8e56f2b487b12d4
+    m_Address: UnlockSkinPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Screens
+  - m_GUID: cc6d6b80e1ad0c34d840f49f6fd0b811
+    m_Address: MainMenu
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Screens
+  - m_GUID: c3d550d3fed78e04fb5e556d9d038298
+    m_Address: GameOverPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Screens
+  - m_GUID: 319e7bd03fa4a054fa19d07ec1d9d2db
+    m_Address: RankPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Screens
+  - m_GUID: 2f2973d84f3688347a1ddb14859c3fe6
+    m_Address: InventoryPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Screens
+  - m_GUID: a55f9f85268c75b4ab720bfbcfa11978
+    m_Address: TutorialPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Screens
+  - m_GUID: 875823697837d4341aa16a9834dff121
+    m_Address: AdsPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Screens
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 3e151b449164f10478fb72504ce7cde1, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 6f25ab1431ed17d43abd5492e512f617, type: 2}
+    - {fileID: 11400000, guid: 1e349ec24da3b2847a6bbb7def6c63ec, type: 2}

@@ -170,10 +170,10 @@ public class MainMenu : BaseScreen
 
     private void OnUnlockAllSkinEvent(MainMenuEvent obj)
     {
-        CheckForUpdateSkin(obj.OnCloseComplete);
+        CheckForUpdateSkin();
     }
 
-    private void CheckForUpdateSkin(Action onClose = null)
+    private void CheckForUpdateSkin()
     {
         SkinManager.Instance.ClearCurrentSkinList();
         for (int i = 0; i < playerConfig.skins.Count; i++)
@@ -184,7 +184,7 @@ public class MainMenu : BaseScreen
         if (SkinManager.Instance.GetCurrentSkinList() != null &&
             SkinManager.Instance.GetCurrentSkinList().Count > 0)
         {
-            UIManager.Instance.ShowUnlockSkinScreen(SkinManager.Instance.GetCurrentSkinList(), onClose);
+            UIManager.Instance.ShowUnlockSkinScreen(SkinManager.Instance.GetCurrentSkinList());
         }
 
         _allCanvasGroup.interactable = true;
