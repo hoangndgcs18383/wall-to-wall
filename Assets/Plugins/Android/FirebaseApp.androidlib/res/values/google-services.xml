@@ -5,5 +5,5 @@
   <string name="project_id" translatable="false">freakyball-32e0c</string>
   <string name="google_api_key" translatable="false">AIzaSyB0rDYjQVR4wuKHWePkaDMCRyuQTXwtZBU</string>
   <string name="google_crash_reporting_api_key" translatable="false">AIzaSyB0rDYjQVR4wuKHWePkaDMCRyuQTXwtZBU</string>
-  <string name="google_app_id" translatable="false">1:96485593152:android:9f0d27e2a3f6fd08348fa5</string>
+  <string name="google_app_id" translatable="false">1:96485593152:android:58af221833ad1fe9348fa5</string>
 </resources>

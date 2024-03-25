@@ -73,6 +73,7 @@ public class BaseEntity : MonoBehaviour, IEntity
         _skinData = skinData;
         _deadAnimator = GetComponentInChildren<Animator>(true);
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _rigidbody2D.interpolation = RigidbodyInterpolation2D.Interpolate;
         _trailRenderer = GetComponent<TrailRenderer>();
         _material = GetComponent<SpriteRenderer>().material;
         _material.EnableKeyword(new LocalKeyword(_material.shader, ShaderKeys.GHOST_ON));
@@ -234,10 +235,19 @@ public class BaseEntity : MonoBehaviour, IEntity
 
     private void Update()
     {
-        if (!_rigidbody2D.gravityScale.Equals(_playerConfig.gravity) && !_rigidbody2D)
+        if (!_rigidbody2D.gravityScale.Equals(_playerConfig.gravity) && _rigidbody2D)
         {
             _rigidbody2D.gravityScale = _playerConfig.gravity;
         }
+        
+        /*if(_rigidbody2D.velocity.y >= 0)
+        {
+            _rigidbody2D.gravityScale =  _playerConfig.gravity;
+        }
+        else if (_rigidbody2D.velocity.y < 0)
+        {
+            _rigidbody2D.gravityScale =  _playerConfig.fallingGravityScale;
+        }*/
 
         if (!GameManager.Instance.IsStarted) return;
 
@@ -371,11 +381,11 @@ public class BaseEntity : MonoBehaviour, IEntity
 
             if (_rigidbody2D.velocity.x > 0)
             {
-                _rigidbody2D.velocity = new Vector2(_playerConfig.jumpSpeedX, _playerConfig.jumpSpeedY) * _playerConfig.playerSpeed;
+                _rigidbody2D.velocity = new Vector2(_playerConfig.jumpSpeedX, _playerConfig.jumpSpeedY);
             }
             else
             {
-                _rigidbody2D.velocity = new Vector2(-_playerConfig.jumpSpeedX, _playerConfig.jumpSpeedY) * _playerConfig.playerSpeed;
+                _rigidbody2D.velocity = new Vector2(-_playerConfig.jumpSpeedX, _playerConfig.jumpSpeedY);
             }
 
             return true;

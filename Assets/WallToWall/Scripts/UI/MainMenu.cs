@@ -161,11 +161,9 @@ public class MainMenu : BaseScreen
         _allCanvasGroup.DOFade(1, 2f);
         ShowOrHideCanvasGroup(true);
         skeletonGraphic.allowMultipleCanvasRenderers = true;
+        GameStateManager.Instance.SetState(GameStateManager.GameState.MainMenu);
 
-        Timing.CallDelayed(3f, () =>
-        {
-            CheckForUpdateSkin();
-        });
+        Timing.CallDelayed(3f, CheckForUpdateSkin);
     }
 
     private void OnUnlockAllSkinEvent(MainMenuEvent obj)

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Text;
-using FreakyBall.Abilities;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
@@ -169,7 +166,7 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.ShowGameOverScreen(new TotalScoreUIData(score,
             PlayerPrefs.GetInt("BestScore", 0), _isMoreThanBestScore));
         inGamePanel.HideGameOverEffect();
-        //Time.timeScale = 1f;
+        Time.timeScale = 1f;
         _player?.DisableAnimator();
         _player?.Dispose();
 
@@ -191,7 +188,7 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = playerConfig.timeScale;
     }
 
     public void Restart()

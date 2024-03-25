@@ -22,6 +22,9 @@ MonoBehaviour:
   jumpSpeedX: 10
   jumpSpeedY: 17
   gravity: 3
+  fallingGravityScale: 4
+  playerSpeed: 10
+  timeScale: 2
   multipleScoreChangeBackgrounds: 5
   inManualAtStart: 1
   offsetAtStart: 6
